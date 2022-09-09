@@ -24,6 +24,8 @@ public class StudentController {
 		return "students";
 	}
 
+	// POST mapping
+
 	@GetMapping("/students/{id}")
 	public String getStudentById(@PathVariable Long id, Model model) {
 		model.addAttribute("student", studentService.getStudentById(id));

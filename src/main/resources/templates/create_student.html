@@ -38,8 +38,9 @@
 						<div class ="form-group">
 							<label> Student Full Name </label>
 							<input
-							type = "email"
+							type = "text"
 							name = "name"
+							th:maxlength="35"
 							th:field = "*{name}"
 							class = "form-control"
 							placeholder="Enter Student Full Name"
@@ -60,7 +61,7 @@
 						<div class ="form-group">
 							<label> Student Email </label>
 							<input
-									type = "text"
+									type = "email"
 									name = "email"
 									th:field = "*{email}"
 									class = "form-control"

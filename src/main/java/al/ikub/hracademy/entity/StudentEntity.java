@@ -5,11 +5,14 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
@@ -25,7 +28,8 @@ public class StudentEntity {
     private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
+    @Size(min=7, max = 10)
     private String name;
 
     @NotNull
@@ -68,6 +72,10 @@ public class StudentEntity {
     @NotNull
     @Column(name = "deleted")
     private Boolean deleted ;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_course")
+//    private CourseEntity course;
 
 
 
