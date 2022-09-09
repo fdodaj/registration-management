@@ -5,10 +5,10 @@ import al.ikub.hracademy.repository.StudentRepository;
 import al.ikub.hracademy.service.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -28,14 +28,14 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentEntity saveStudent(StudentEntity student) {
         student.setDateAdded(LocalDateTime.now());
-        student.setLast_modified(LocalDateTime.now());
+        student.setLast_modified(LocalDate.now());
         student.setDeleted(false);
         return studentRepository.save(student);
     }
 
     @Override
     public StudentEntity getStudentById(Long id) {
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Std not found"));
     }
 
     @Override
@@ -45,9 +45,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudentById(Long id) {
-        StudentEntity student = studentRepository.getById(id);
-        student.setDeleted(true);
-        studentRepository.save(student);
+      StudentEntity student = studentRepository.findById(id).orElseThrow(null);
+      student.setDeleted(true);
+      studentRepository.save(student);
     }
 
 }

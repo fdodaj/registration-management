@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Student Management System</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body style="background-color: #9fbab3">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Student Management System</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/students}">Student Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br>
+<br>
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h3 style="text-align: center">
+            <tr class = "text-center " th:action="@{/students/{id} (id=${student.id})}" th:object = "${student}" >
+                <td th:text="*{name}">1</td> details
+
+            </tr>
+            </h3>
+
+            <div class = "card-body">
+                <form th:action="@{/students/{id} (id=${student.id})}" th:object = "${student}" method="POST">
+                    <div class ="form-group">
+                        NAME: <td th:text="*{name}">1</td>
+
+                    </div>
+
+                    <div class ="form-group">
+                        PHONE NUMBER: <td th:text="*{phoneNumber}">1</td>
+                    </div>
+
+                    <div class ="form-group">
+                        EMAIL: <td th:text="*{email}">1</td>
+
+                    </div>
+                    <div class ="form-group">
+                        STATUS: <td th:text="*{status}">1</td>
+                    </div>
+
+                    <div class ="form-group">
+                        REFERENCE: <td th:text="*{reference}">1</td>
+                    </div>
+                    <div class ="form-group">
+                        PRICE REDUCTION: <td th:text="*{priceReduction}">1</td>
+                    </div>
+                    <div class ="form-group">
+                        PRICE PAID: <td th:text="*{pricePaid}">1</td>
+                    </div>
+                    <div class ="form-group">
+                        COMMENT: <td th:text="*{comment}">1</td>
+                    </div>
+                    <div class ="form-group">
+                        LAST MODIFIED: <td th:text="*{last_modified}">1</td>
+                    </div>
+
+                    <div class = "box-footer">
+                        <a th:href = "@{/students/edit/{id}(id=${student.id})}"
+                           class = "btn btn-primary">Update</a>
+
+                        <a th:href = "@{/students}"
+                           class = "btn btn-success">Back</a>
+
+                    </div>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

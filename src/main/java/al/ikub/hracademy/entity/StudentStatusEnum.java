@@ -3,7 +3,17 @@ package al.ikub.hracademy.entity;
 
 public enum StudentStatusEnum {
 
-    REGISTERED,
-    INTERESTED,
-    PAID
+    REGISTERED("Registered"),
+    INTERESTED("Interested"),
+    PAID("Paid");
+
+    private final String displayValue;
+
+    private StudentStatusEnum(String displayValue){
+        this.displayValue = displayValue;
+    }
+
+    public String getDisplayValue(){
+        return displayValue;
+     }
 }
