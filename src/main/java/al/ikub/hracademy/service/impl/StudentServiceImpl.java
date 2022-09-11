@@ -1,18 +1,26 @@
 package al.ikub.hracademy.service.impl;
 
+import al.ikub.hracademy.converter.StudentConverter;
+import al.ikub.hracademy.dto.StudentDto;
+import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.StudentEntity;
 import al.ikub.hracademy.repository.StudentRepository;
 import al.ikub.hracademy.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepository studentRepository;
+
+
+    @Autowired
+    private StudentConverter converter;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         super();
@@ -26,11 +34,13 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public StudentEntity saveStudent(StudentEntity student) {
-        student.setDateAdded(LocalDateTime.now());
-        student.setLast_modified(LocalDate.now());
-        student.setDeleted(false);
-        return studentRepository.save(student);
+    public boolean saveStudent(StudentDto student) {
+        student.setDateAdded(LocalDate.now());
+        student.setLastModified(LocalDate.now());
+        student.setDeleted(Boolean.FALSE);
+        StudentEntity studentEntity = converter.toEntity(student);
+        studentRepository.save(studentEntity);
+        return true;
     }
 
     @Override
@@ -39,8 +49,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentEntity updateStudent(StudentEntity student) {
-        return studentRepository.save(student);
+    public StudentEntity updateStudent(UpdateStudentDto student) {
+        StudentEntity currentStudent = getStudentById(student.getId());
+        student.setLastModified(LocalDate.now());;
+        student.setDeleted(currentStudent.getDeleted());
+        StudentEntity studentEntity = converter.toUpdateStudentEntity(student);
+        studentEntity.setReference(currentStudent.getReference());
+        studentEntity.setDateAdded(currentStudent.getDateAdded());
+        studentEntity.setPriceReduction(currentStudent.getPriceReduction());
+        return studentRepository.save(studentEntity);
     }
 
     @Override

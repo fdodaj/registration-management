@@ -11,9 +11,6 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -28,9 +25,13 @@ public class StudentEntity {
     private Long id;
 
     @NotNull
-    @Column(name = "name")
+    @Column(name = "first_name")
     @Size(min=7, max = 10)
-    private String name;
+    private String firstName;
+
+    @NotNull
+    @Column(name = "Last_name")
+    private String lastName;
 
     @NotNull
     @Column(name = "phone_number")
@@ -63,11 +64,11 @@ public class StudentEntity {
 
     @NotNull
     @Column(name = "date_added")
-    private LocalDateTime dateAdded;
+    private LocalDate dateAdded;
 
     @NotNull
     @Column(name = "last_modified")
-    private LocalDate last_modified;
+    private LocalDate lastModified;
 
     @NotNull
     @Column(name = "deleted")

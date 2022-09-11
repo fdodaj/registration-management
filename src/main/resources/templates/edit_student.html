@@ -36,11 +36,21 @@
 				<div class = "card-body">
 					<form th:action="@{/students/{id} (id=${student.id})}" th:object = "${student}" method="POST">
 						<div class ="form-group">
-							<label> Student Full Name </label>
+							<label> Student first Name </label>
 							<input
 									type = "text"
 									name = "name"
-									th:field = "*{name}"
+									th:field = "*{firstName}"
+									class = "form-control"
+									placeholder="Enter Student Full Name"
+							/>
+						</div>
+						<div class ="form-group">
+							<label> Student last Name </label>
+							<input
+									type = "text"
+									name = "name"
+									th:field = "*{lastName}"
 									class = "form-control"
 									placeholder="Enter Student Full Name"
 							/>
@@ -67,41 +77,39 @@
 									placeholder="Enter Student email"
 							/>
 						</div>
-						<div class ="form-group">
-							<label> Student Status </label>
-							<input
-									type = "text"
-									name = "status"
-									th:field = "*{status}"
-									class = "form-control"
-									placeholder="Enter Student Current Status (interested, paid or registered)"
-							/>
+						<div class ="form-group ">
+							<div><label> Student Status </label></div>
+							<select name="status" style="text-align: center" >
+								<option th:each="statusOpt : ${T(al.ikub.hracademy.entity.StudentStatusEnum).values()}"
+										th:value="${statusOpt}" th:text="${statusOpt.getDisplayValue()}"></option>
+							</select>
+
 						</div>
 
-						<div class ="form-group">
-							<label> Student reference </label>
-							<input
-									type = "text"
-									name = "reference"
-									th:field = "*{reference}"
-									class = "form-control"
-									placeholder="Enter Student reference (leave empty for none)"
-							/>
-						</div>
-						<div class ="form-group">
-							<label> Price Reduction </label>
-							<input
-									type = "text"
-									name = "priceReduction"
-									th:field = "*{priceReduction}"
-									class = "form-control"
-									placeholder="Enter Student price reduction"
-							/>
-						</div>
+<!--						<div class ="form-group">-->
+<!--							<label> Student reference </label>-->
+<!--							<input-->
+<!--									type = "text"-->
+<!--									name = "reference"-->
+<!--									th:field = "*{}"-->
+<!--									class = "form-control"-->
+<!--									placeholder="Enter Student reference (leave empty for none)"-->
+<!--							/>-->
+<!--						</div>-->
+<!--						<div class ="form-group">-->
+<!--							<label> Price Reduction </label>-->
+<!--							<input-->
+<!--									type = "number"-->
+<!--									name = "priceReduction"-->
+<!--									th:field = "*{priceReduction}"-->
+<!--									class = "form-control"-->
+<!--									placeholder="Enter Student price reduction"-->
+<!--							/>-->
+<!--						</div>-->
 						<div class ="form-group">
 							<label> Student price already Paid </label>
 							<input
-									type = "text"
+									type = "number"
 									name = "pricePaid"
 									th:field = "*{pricePaid}"
 									class = "form-control"

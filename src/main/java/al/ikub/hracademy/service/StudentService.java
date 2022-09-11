@@ -1,18 +1,20 @@
 package al.ikub.hracademy.service;
 
+import al.ikub.hracademy.dto.StudentDto;
+import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.StudentEntity;
+import org.hibernate.sql.Update;
 
 import java.util.List;
 
 public interface StudentService {
     List<StudentEntity> getAllStudents();
 
-    StudentEntity saveStudent(StudentEntity student);
+    boolean saveStudent(StudentDto student);
 
     StudentEntity getStudentById(Long id);
 
-    StudentEntity updateStudent(StudentEntity student);
-
+    StudentEntity updateStudent(UpdateStudentDto student);
 
 
     void deleteStudentById(Long id);

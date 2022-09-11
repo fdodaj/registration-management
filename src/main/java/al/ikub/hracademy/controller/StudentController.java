@@ -1,84 +1,91 @@
 package al.ikub.hracademy.controller;
 
+import al.ikub.hracademy.converter.StudentConverter;
+import al.ikub.hracademy.dto.StudentDto;
+import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.StudentEntity;
 import al.ikub.hracademy.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.MonthDay;
 
 @Controller
 public class StudentController {
-	
-	private final StudentService studentService;
 
-	public StudentController(StudentService studentService) {
-		super();
-		this.studentService = studentService;
-	}
-	
+	@Autowired
+	private StudentConverter converter;
+
+	private static final String ADD_NEW_STUDENT_URL = "create_student.html";
+	private static final  String REDIRECT_TO_HOMEPAGE_URL = "redirect:/students";
+	private static final  String EDIT_STUDENT_URL = "edit_student.html";
+	private static final String STUDENT_DETAILS_URL = "student_details";
+
+	private static final String STUDENT_LIST_URL = "students";
+
+
+	@Autowired
+	private  StudentService studentService;
+
+
 	@GetMapping("/students")
-	public String listStudents(Model model) {
-		model.addAttribute("students", studentService.getAllStudents());
-		return "students";
+	public ModelAndView listStudents() {
+		ModelAndView mv = new ModelAndView(STUDENT_LIST_URL);
+		mv.addObject("students", studentService.getAllStudents());
+		return mv;
 	}
 
-	// POST mapping
 
 	@GetMapping("/students/{id}")
-	public String getStudentById(@PathVariable Long id, Model model) {
-		model.addAttribute("student", studentService.getStudentById(id));
-		return "student_details";
+	public ModelAndView getStudentById(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView(STUDENT_DETAILS_URL);
+		mv.addObject("student", studentService.getStudentById(id));
+		return mv;
 	}
 
 
 	@GetMapping("/students/new")
-	public String createStudentForm(Model model) {
-		StudentEntity student = new StudentEntity();
-		model.addAttribute("student", student);
-		return "create_student";
-		
+	public ModelAndView goToAddStudentPage(StudentEntity student) {
+		ModelAndView mv = new ModelAndView(ADD_NEW_STUDENT_URL);
+		mv.addObject("student", student);
+		return mv;
 	}
 
 	@PostMapping("/students")
-	public String saveStudent(@ModelAttribute("student") StudentEntity student) {
+	public ModelAndView saveStudent(@ModelAttribute("student") StudentDto student) {
 		studentService.saveStudent(student);
-		return "redirect:/students";
+		return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
 	}
-	
+
+
 	@GetMapping("/students/edit/{id}")
-	public String editStudentForm(@PathVariable Long id, Model model) {
-		model.addAttribute("student", studentService.getStudentById(id));
-		return "edit_student";
+	public ModelAndView goToEditStudentPage(@PathVariable("id") Long id) {
+	UpdateStudentDto studentDto = converter.toUpdateStudentDto(studentService.getStudentById(id));
+	ModelAndView mv = new ModelAndView(EDIT_STUDENT_URL);
+	mv.addObject("student", studentDto);
+	return mv;
 	}
 
 
 
 	@PostMapping("/students/{id}")
-	public String updateStudent(@PathVariable Long id,
-								@ModelAttribute("student") StudentEntity student) {
-
-		StudentEntity existingStudent = studentService.getStudentById(id);
-		existingStudent.setName(student.getName());
-		existingStudent.setPhoneNumber(student.getPhoneNumber());
-		existingStudent.setEmail(student.getEmail());
-		existingStudent.setStatus(student.getStatus());
-		existingStudent.setReference(student.getReference());
-		existingStudent.setPriceReduction(student.getPriceReduction());
-		existingStudent.setPricePaid(student.getPricePaid());
-		existingStudent.setComment(student.getComment());
-		existingStudent.setLast_modified(LocalDate.now());
-
-		studentService.updateStudent(existingStudent);
-		return "redirect:/students";
+	public ModelAndView updateStudent(@PathVariable Long id, @ModelAttribute("student") StudentEntity student) {
+		studentService.updateStudent(converter.toUpdateStudentDto(student));
+		return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
 	}
 
 	
 	@GetMapping("/students/delete/{id}")
-	public String deleteStudent(@PathVariable Long id) {
+	public ModelAndView deleteStudent(@PathVariable Long id) {
 		studentService.deleteStudentById(id);
-		return "redirect:/students";
+		return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
 	}
 	
 }

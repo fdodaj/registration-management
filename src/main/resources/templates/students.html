@@ -44,30 +44,22 @@
 		<table class = "table table-striped table-bordered" style="background-color: white" >
 			<thead class = "table-dark">
 				<tr>
-					<th style="text-align: center">Name</th>
+					<th style="text-align: center">First Name</th>
+					<th style="text-align: center">Last Name</th>
 					<th style="text-align: center">Phone Number</th>
 					<th style="text-align: center">Email</th>
 					<th style="text-align: center">Status</th>
-<!--					<th>Reference</th>-->
-<!--					<th>Price Reduction</th>-->
-<!--					<th>Price Paid</th>-->
-<!--					<th>Comment</th>-->
-<!--					<th>Last Modified</th>-->
 					<th style="text-align: center">Actions</th>
 				</tr>
 			</thead>
 			
 			<tbody>
 				<tr th:each = "student: ${students}">
-					<td th:text = "${student.name}"></td>
+					<td th:text = "${student.firstName}"></td>
+					<td th:text = "${student.lastName}"></td>
 					<td th:text = "${student.phoneNumber}"></td>
 					<td th:text = "${student.email}"></td>
 					<td th:text = "${student.status}"></td>
-<!--					<td th:text = "${student.reference}"></td>-->
-<!--					<td th:text = "${student.priceReduction}"></td>-->
-<!--					<td th:text = "${student.pricePaid}"></td>-->
-<!--					<td th:text = "${student.comment}"></td>-->
-<!--					<td th:text = "${student.last_modified}"></td>-->
 
 					<td style="text-align: center">
 						<a th:href = "@{/students/{id}(id=${student.id})}"
