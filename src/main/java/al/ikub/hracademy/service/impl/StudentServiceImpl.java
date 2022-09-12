@@ -4,6 +4,7 @@ import al.ikub.hracademy.converter.StudentConverter;
 import al.ikub.hracademy.dto.StudentDto;
 import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.StudentEntity;
+import al.ikub.hracademy.repository.CourseRepository;
 import al.ikub.hracademy.repository.StudentRepository;
 import al.ikub.hracademy.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private CourseRepository courseRepository;
+
     public StudentServiceImpl(StudentRepository studentRepository) {
         super();
         this.studentRepository = studentRepository;
@@ -39,6 +43,7 @@ public class StudentServiceImpl implements StudentService {
         student.setLastModified(LocalDate.now());
         student.setDeleted(Boolean.FALSE);
         StudentEntity studentEntity = converter.toEntity(student);
+        studentEntity.setCourse(courseRepository.findById(student.getCourse()).get());
         studentRepository.save(studentEntity);
         return true;
     }

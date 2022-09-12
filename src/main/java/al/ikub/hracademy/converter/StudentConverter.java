@@ -3,12 +3,22 @@ package al.ikub.hracademy.converter;
 import al.ikub.hracademy.dto.StudentDto;
 import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.StudentEntity;
+import al.ikub.hracademy.repository.CourseRepository;
+import al.ikub.hracademy.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
 public class StudentConverter implements BidirectionalConverter<StudentDto, StudentEntity> {
+
+    @Autowired
+    private CourseRepository repository;
+
+    @Autowired
+    private CourseConverter converter;
+
 
     @Override
     public StudentDto toDto(StudentEntity entity) {
@@ -27,6 +37,7 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
         dto.setLastModified(entity.getLastModified());
         dto.setDateAdded(entity.getDateAdded());
         dto.setDeleted(entity.getDeleted());
+        dto.setCourse(repository.findById(dto.getCourse()).get().getId());
         return dto;
     }
 
@@ -46,6 +57,7 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
         entity.setLastModified(dto.getLastModified());
         entity.setDateAdded(dto.getDateAdded());
         entity.setDeleted(dto.getDeleted());
+        entity.setCourse(repository.findById(dto.getCourse()).get());
         return entity;
     }
 

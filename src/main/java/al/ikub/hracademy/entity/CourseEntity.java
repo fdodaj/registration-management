@@ -1,18 +1,25 @@
 package al.ikub.hracademy.entity;
 
+import al.ikub.hracademy.dto.StudentDto;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor @Table(name = "courses")
+@NoArgsConstructor
+@Table(name = "courses")
 public class CourseEntity {
 
     @Id
@@ -26,32 +33,34 @@ public class CourseEntity {
 
 
     @NotNull
-    @Column(name = "active")
-    private Boolean active;
+    @Column(name = "status")
+    private CourseProgressStatus status;
 
     @NotNull
     @Column(name = "start_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @NotNull
+
     @Column(name = "end_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
-    @NotNull
+
     @Column(name = "date_added")
-    private LocalDateTime dateAdded;
+    private LocalDate dateAdded;
 
     @NotNull
     @Column(name = "last_modified")
     private LocalDate last_modified;
 
-    @NotNull
+    @Nullable
     @Column(name = "deleted")
-    private Boolean deleted ;
+    private Boolean deleted;
 
-//    @OneToMany(mappedBy = "course")
-//    private List<StudentEntity> users = new ArrayList<>();
-
-
+    @OneToMany(mappedBy = "course")
+    private List<StudentEntity> students = new ArrayList<>();
 
 }
+
+

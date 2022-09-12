@@ -21,4 +21,5 @@ public class StudentDto {
     private LocalDate lastModified;
     private LocalDate dateAdded;
     private Boolean deleted;
+    private Long course;
 }

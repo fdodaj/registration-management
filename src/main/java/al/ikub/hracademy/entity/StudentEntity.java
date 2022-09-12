@@ -5,7 +5,6 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -74,9 +73,11 @@ public class StudentEntity {
     @Column(name = "deleted")
     private Boolean deleted ;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_course")
-//    private CourseEntity course;
+    @ManyToOne
+    @JoinColumn(name = "user_course")
+    private CourseEntity course;
+
+
 
 
 
