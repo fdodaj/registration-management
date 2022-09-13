@@ -47,6 +47,14 @@ public class StudentController {
 		return mv;
 	}
 
+	@GetMapping("/students/course/{id}")
+	public List<ModelAndView> getStudentsByCourseId(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView(STUDENT_DETAILS_URL);
+		mv.addObject("student", studentService.getStudentsByCourseId(id));
+		return (List<ModelAndView>) mv;
+	}
+
+
 
 	@GetMapping("/students/new")
 	public ModelAndView goToAddStudentPage(StudentEntity student) {

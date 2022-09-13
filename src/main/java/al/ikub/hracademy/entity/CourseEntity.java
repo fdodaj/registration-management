@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Where(clause = "deleted = false")
 @Table(name = "courses")
 public class CourseEntity {
 
@@ -52,7 +54,7 @@ public class CourseEntity {
 
     @NotNull
     @Column(name = "last_modified")
-    private LocalDate last_modified;
+    private LocalDate lastModified;
 
     @Nullable
     @Column(name = "deleted")

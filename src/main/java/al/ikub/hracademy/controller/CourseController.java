@@ -1,7 +1,11 @@
 package al.ikub.hracademy.controller;
 
+import al.ikub.hracademy.converter.CourseConverter;
 import al.ikub.hracademy.dto.CourseDto;
+import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.CourseEntity;
+import al.ikub.hracademy.entity.CourseProgressStatus;
+import al.ikub.hracademy.entity.StudentEntity;
 import al.ikub.hracademy.repository.StudentRepository;
 import al.ikub.hracademy.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,9 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private CourseConverter converter;
 
     @Autowired
     private StudentRepository repository;
@@ -54,5 +61,28 @@ public class CourseController {
         return mv;
     }
 
+
+    @GetMapping("/courses/edit/{id}")
+    public ModelAndView goToEditCoursePage(@PathVariable("id") Long id) {
+        CourseDto courseDto = converter.toDto(courseService.getCourseById(id));
+        ModelAndView mv = new ModelAndView("edit_course");
+        mv.addObject("course", courseDto);
+        return mv;
+    }
+
+
+
+    @PostMapping("/course/{id}")
+    public ModelAndView updateCourse(@PathVariable Long id, @ModelAttribute("course") CourseEntity course) {
+        courseService.updateCourse(converter.toDto(course));
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
+
+
+    @GetMapping("/courses/delete/{id}")
+    public ModelAndView deleteCourse(@PathVariable Long id) {
+        courseService.deleteCourseById(id);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
 
 }

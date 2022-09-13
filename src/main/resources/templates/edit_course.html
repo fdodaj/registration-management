@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/students}">Student Management</a>
+                <a class="nav-link" th:href="@{/courses}">Student Management</a>
             </li>
         </ul>
     </div>
@@ -32,7 +32,7 @@
 <div class = "container">
     <div class = "row">
         <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class = "text-center"> Create New Course </h1>
+            <h1 class = "text-center"> Update course </h1>
             <div class = "card-body">
                 <form th:action="@{/courses}" th:object = "${course}" method="POST">
                     <div class ="form-group">
@@ -60,7 +60,7 @@
                         <label> course start date  </label>
                         <input
                                 type="text"
-                                th:field="*{dateAdded}"
+                                th:field="*{startDate}"
                                 name = "startDate"
                                 class = "form-control"
                                 placeholder="yyyy-MM-dd"

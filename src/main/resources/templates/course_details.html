@@ -60,11 +60,9 @@
 
                     </div>
                     <div class ="form-group">
-                        LAST MODIFIED: <td th:text="*{last_modified}">1</td>
+                        LAST MODIFIED: <td th:text="*{lastModified}">1</td>
                     </div>
-                    <div class ="form-group">
-                      STUDENTS: <td th:text="*{students}">1</td>
-                    </div>
+
 
                     <div class = "box-footer">
                         <a th:href = "@{/course/edit/{id}(id=${course.id})}"

@@ -2,6 +2,7 @@ package al.ikub.hracademy.service;
 
 import al.ikub.hracademy.dto.StudentDto;
 import al.ikub.hracademy.dto.UpdateStudentDto;
+import al.ikub.hracademy.entity.CourseEntity;
 import al.ikub.hracademy.entity.StudentEntity;
 import org.hibernate.sql.Update;
 
@@ -16,6 +17,7 @@ public interface StudentService {
 
     StudentEntity updateStudent(UpdateStudentDto student);
 
+    List<StudentEntity> getStudentsByCourseId(Long id);
 
     void deleteStudentById(Long id);
 }

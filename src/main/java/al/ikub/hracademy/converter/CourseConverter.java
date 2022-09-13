@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 
 public class CourseConverter implements BidirectionalConverter<CourseDto, CourseEntity> {
 
-    @Autowired
-    private StudentRepository repository;
 
     @Override
     public CourseDto toDto(CourseEntity entity) {
@@ -24,7 +22,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setStartDate(entity.getStartDate());
         dto.setEndDate(entity.getEndDate());
         dto.setDateAdded(entity.getEndDate());
-        dto.setLastModified(entity.getLast_modified());
+        dto.setLastModified(entity.getLastModified());
         dto.setDeleted(entity.getDeleted());
         dto.setStudents(entity.getStudents());
         return dto;
@@ -39,7 +37,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         entity.setStartDate(dto.getStartDate());
         entity.setEndDate(dto.getEndDate());
         entity.setDateAdded(dto.getDateAdded());
-        entity.setLast_modified(dto.getLastModified());
+        entity.setLastModified(dto.getLastModified());
         entity.setDeleted(entity.getDeleted());
         entity.setStudents(entity.getStudents());
         return entity;
