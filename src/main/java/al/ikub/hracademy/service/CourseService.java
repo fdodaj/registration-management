@@ -11,7 +11,8 @@ public interface CourseService {
 
     boolean saveCourse(CourseDto course);
 
-    List<CourseEntity> getAllCourses();
+    List<CourseDto> getAllCourses();
+
 
     CourseEntity updateCourse(CourseDto courseDtoC);
 

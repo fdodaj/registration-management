@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -42,9 +43,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseEntity> getAllCourses() {
-        return courseRepository.findAll();
+    public List<CourseDto> getAllCourses() {
+        return courseRepository.findAll()
+                .stream()
+                .map(converter::toDto)
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public CourseEntity updateCourse(CourseDto courseDto) {

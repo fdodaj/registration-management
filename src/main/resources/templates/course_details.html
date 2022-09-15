@@ -63,6 +63,11 @@
                         LAST MODIFIED: <td th:text="*{lastModified}">1</td>
                     </div>
 
+                    <div class ="form-group">
+<!--                        return a list of users that are in this course-->
+                       STUDENTS:
+                    </div>
+
 
                     <div class = "box-footer">
                         <a th:href = "@{/course/edit/{id}(id=${course.id})}"

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class CourseDto {
-    private long id;
+    private Long id;
     private String name;
     private CourseProgressStatus status;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -20,5 +20,5 @@ public class CourseDto {
     private LocalDate dateAdded;
     private LocalDate lastModified;
     private Boolean deleted;
-    private List<StudentEntity> students;
+//    private List<StudentEntity> students;
 }

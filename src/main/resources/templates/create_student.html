@@ -34,7 +34,8 @@
 			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
 				<h1 class = "text-center"> Create New Student </h1>
 				<div class = "card-body">
-					<form th:action="@{/students}" th:object = "${student}" method="POST">
+<!--					<form th:action="@{/students}" th:object="${studentDto}" method="POST">-->
+					<form th:action="@{/students}" th:object = "${student}"  method="POST">
 						<div class ="form-group">
 							<label> Student Full Name </label>
 							<input
@@ -129,16 +130,13 @@
 									placeholder="Enter Student comment"
 							/>
 						</div>
-						<div class ="form-group">
-							<label> Student interested course  </label>
-							<input
-									type = "number"
-									name = "course"
-									th:field = "*{course}"
-									class = "form-control"
-									placeholder="Enter Student comment"
-							/>
-						</div>
+<!--
+	replace this with a dropdown that shows all course-->
+						<select th:field="*{course}"class="form-control">
+							<option th:each="course : ${courses}"
+									th:value="${course.id}" th:text="${course.name}">
+
+						</select>
 
 						
 						<div class = "box-footer">

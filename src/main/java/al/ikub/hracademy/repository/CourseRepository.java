@@ -1,5 +1,6 @@
 package al.ikub.hracademy.repository;
 
+import al.ikub.hracademy.dto.CourseDto;
 import al.ikub.hracademy.entity.CourseEntity;
 import al.ikub.hracademy.entity.StudentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
+
 
 
 }

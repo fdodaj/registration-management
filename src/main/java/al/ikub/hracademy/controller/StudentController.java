@@ -1,9 +1,12 @@
 package al.ikub.hracademy.controller;
 
+import al.ikub.hracademy.converter.CourseConverter;
 import al.ikub.hracademy.converter.StudentConverter;
+import al.ikub.hracademy.dto.CourseDto;
 import al.ikub.hracademy.dto.StudentDto;
 import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.StudentEntity;
+import al.ikub.hracademy.service.CourseService;
 import al.ikub.hracademy.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +16,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class StudentController {
 
 	@Autowired
 	private StudentConverter converter;
+
+	@Autowired
+	private CourseConverter courseConverter;
 
 	private static final String ADD_NEW_STUDENT_URL = "create_student.html";
 	private static final  String REDIRECT_TO_HOMEPAGE_URL = "redirect:/students";
@@ -32,9 +39,12 @@ public class StudentController {
 	private  StudentService studentService;
 
 
+	@Autowired
+	private CourseService courseService;
+
 	@GetMapping("/students")
 	public ModelAndView listStudents() {
-		ModelAndView mv = new ModelAndView(STUDENT_LIST_URL);
+		ModelAndView mv = new ModelAndView("students");
 		mv.addObject("students", studentService.getAllStudents());
 		return mv;
 	}
@@ -42,23 +52,17 @@ public class StudentController {
 
 	@GetMapping("/students/{id}")
 	public ModelAndView getStudentById(@PathVariable Long id) {
-		ModelAndView mv = new ModelAndView(STUDENT_DETAILS_URL);
+		ModelAndView mv = new ModelAndView("student_details");
 		mv.addObject("student", studentService.getStudentById(id));
 		return mv;
 	}
 
-	@GetMapping("/students/course/{id}")
-	public List<ModelAndView> getStudentsByCourseId(@PathVariable Long id) {
-		ModelAndView mv = new ModelAndView(STUDENT_DETAILS_URL);
-		mv.addObject("student", studentService.getStudentsByCourseId(id));
-		return (List<ModelAndView>) mv;
-	}
-
-
 
 	@GetMapping("/students/new")
-	public ModelAndView goToAddStudentPage(StudentEntity student) {
-		ModelAndView mv = new ModelAndView(ADD_NEW_STUDENT_URL);
+	public ModelAndView goToAddStudentPage(StudentDto student) {
+		ModelAndView mv = new ModelAndView("create_student");
+		List<CourseDto> courseDto = courseService.getAllCourses();
+		mv.addObject("courses" ,courseDto );
 		mv.addObject("student", student);
 		return mv;
 	}
@@ -73,7 +77,7 @@ public class StudentController {
 	@GetMapping("/students/edit/{id}")
 	public ModelAndView goToEditStudentPage(@PathVariable("id") Long id) {
 	UpdateStudentDto studentDto = converter.toUpdateStudentDto(studentService.getStudentById(id));
-	ModelAndView mv = new ModelAndView(EDIT_STUDENT_URL);
+	ModelAndView mv = new ModelAndView("edit_student.html");
 	mv.addObject("student", studentDto);
 	return mv;
 	}

@@ -1,12 +1,11 @@
 package al.ikub.hracademy.converter;
 
 import al.ikub.hracademy.dto.CourseDto;
-import al.ikub.hracademy.dto.StudentDto;
 import al.ikub.hracademy.entity.CourseEntity;
-import al.ikub.hracademy.repository.CourseRepository;
-import al.ikub.hracademy.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 
@@ -24,8 +23,23 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setDateAdded(entity.getEndDate());
         dto.setLastModified(entity.getLastModified());
         dto.setDeleted(entity.getDeleted());
-        dto.setStudents(entity.getStudents());
+//        dto.setStudents(entity.getStudents());
         return dto;
+    }
+
+    public List<CourseDto> toDtoList(CourseEntity entity) {
+        List<CourseDto> dtoList =new ArrayList<>();
+        CourseDto dto = new CourseDto();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setStatus(entity.getStatus());
+        dto.setStartDate(entity.getStartDate());
+        dto.setEndDate(entity.getEndDate());
+        dto.setDateAdded(entity.getEndDate());
+        dto.setLastModified(entity.getLastModified());
+        dto.setDeleted(entity.getDeleted());
+        dtoList.add(dto);
+        return dtoList;
     }
 
     @Override
@@ -39,7 +53,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         entity.setDateAdded(dto.getDateAdded());
         entity.setLastModified(dto.getLastModified());
         entity.setDeleted(entity.getDeleted());
-        entity.setStudents(entity.getStudents());
+//        entity.setStudents(entity.getStudents());
         return entity;
     }
 }

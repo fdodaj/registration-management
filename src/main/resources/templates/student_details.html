@@ -79,6 +79,10 @@
                         LAST MODIFIED: <td th:text="*{lastModified}">1</td>
                     </div>
 
+                    <div class ="form-group">
+                        COURSE: <td th:text="*{course.getName()}">1</td>
+                    </div>
+
                     <div class = "box-footer">
                         <a th:href = "@{/students/edit/{id}(id=${student.id})}"
                            class = "btn btn-primary">Update</a>
