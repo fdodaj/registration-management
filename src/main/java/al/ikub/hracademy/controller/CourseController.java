@@ -2,10 +2,7 @@ package al.ikub.hracademy.controller;
 
 import al.ikub.hracademy.converter.CourseConverter;
 import al.ikub.hracademy.dto.CourseDto;
-import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.CourseEntity;
-import al.ikub.hracademy.entity.CourseProgressStatus;
-import al.ikub.hracademy.entity.StudentEntity;
 import al.ikub.hracademy.repository.StudentRepository;
 import al.ikub.hracademy.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 public class CourseController {

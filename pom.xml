@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>al.ikub</groupId>
-	<artifactId>hr-academy</artifactId>
+	<artifactId>registration-course-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hr-academy</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Registration management</name>
+	<description>Registration management</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

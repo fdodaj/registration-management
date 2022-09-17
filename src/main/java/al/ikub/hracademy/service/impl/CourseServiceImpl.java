@@ -3,7 +3,6 @@ package al.ikub.hracademy.service.impl;
 import al.ikub.hracademy.converter.CourseConverter;
 import al.ikub.hracademy.dto.CourseDto;
 import al.ikub.hracademy.entity.CourseEntity;
-import al.ikub.hracademy.entity.StudentEntity;
 import al.ikub.hracademy.repository.CourseRepository;
 import al.ikub.hracademy.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;

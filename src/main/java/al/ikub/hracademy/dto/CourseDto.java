@@ -1,12 +1,10 @@
 package al.ikub.hracademy.dto;
 
 import al.ikub.hracademy.entity.CourseProgressStatus;
-import al.ikub.hracademy.entity.StudentEntity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 public class CourseDto {

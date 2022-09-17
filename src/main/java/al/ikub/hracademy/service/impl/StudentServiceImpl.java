@@ -3,7 +3,6 @@ package al.ikub.hracademy.service.impl;
 import al.ikub.hracademy.converter.StudentConverter;
 import al.ikub.hracademy.dto.StudentDto;
 import al.ikub.hracademy.dto.UpdateStudentDto;
-import al.ikub.hracademy.entity.CourseEntity;
 import al.ikub.hracademy.entity.StudentEntity;
 import al.ikub.hracademy.repository.CourseRepository;
 import al.ikub.hracademy.repository.StudentRepository;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {

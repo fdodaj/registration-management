@@ -4,11 +4,8 @@ import al.ikub.hracademy.dto.StudentDto;
 import al.ikub.hracademy.dto.UpdateStudentDto;
 import al.ikub.hracademy.entity.StudentEntity;
 import al.ikub.hracademy.repository.CourseRepository;
-import al.ikub.hracademy.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class StudentConverter implements BidirectionalConverter<StudentDto, StudentEntity> {
