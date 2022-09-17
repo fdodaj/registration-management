@@ -1,4 +1,4 @@
-package al.ikub.hracademy.entity;
+package al.ikubinfo.registrationmanagement.entity;
 
 public enum CourseProgressStatus {
 

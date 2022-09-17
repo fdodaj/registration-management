@@ -1,6 +1,6 @@
-package al.ikub.hracademy.dto;
+package al.ikubinfo.registrationmanagement.dto;
 
-import al.ikub.hracademy.entity.StudentStatusEnum;
+import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
 import lombok.Data;
 
 import java.time.LocalDate;

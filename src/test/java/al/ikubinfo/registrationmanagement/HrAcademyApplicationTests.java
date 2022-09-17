@@ -1,4 +1,4 @@
-package al.ikub.hracademy;
+package al.ikubinfo.registrationmanagement;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

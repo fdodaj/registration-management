@@ -1,12 +1,12 @@
-package al.ikub.hracademy.service.impl;
+package al.ikubinfo.registrationmanagement.service.impl;
 
-import al.ikub.hracademy.converter.StudentConverter;
-import al.ikub.hracademy.dto.StudentDto;
-import al.ikub.hracademy.dto.UpdateStudentDto;
-import al.ikub.hracademy.entity.StudentEntity;
-import al.ikub.hracademy.repository.CourseRepository;
-import al.ikub.hracademy.repository.StudentRepository;
-import al.ikub.hracademy.service.StudentService;
+import al.ikubinfo.registrationmanagement.converter.StudentConverter;
+import al.ikubinfo.registrationmanagement.dto.StudentDto;
+import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
+import al.ikubinfo.registrationmanagement.entity.StudentEntity;
+import al.ikubinfo.registrationmanagement.repository.CourseRepository;
+import al.ikubinfo.registrationmanagement.repository.StudentRepository;
+import al.ikubinfo.registrationmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

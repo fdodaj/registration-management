@@ -1,13 +1,13 @@
-package al.ikub.hracademy.controller;
+package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikub.hracademy.converter.CourseConverter;
-import al.ikub.hracademy.converter.StudentConverter;
-import al.ikub.hracademy.dto.CourseDto;
-import al.ikub.hracademy.dto.StudentDto;
-import al.ikub.hracademy.dto.UpdateStudentDto;
-import al.ikub.hracademy.entity.StudentEntity;
-import al.ikub.hracademy.service.CourseService;
-import al.ikub.hracademy.service.StudentService;
+import al.ikubinfo.registrationmanagement.converter.StudentConverter;
+import al.ikubinfo.registrationmanagement.converter.CourseConverter;
+import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.StudentDto;
+import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
+import al.ikubinfo.registrationmanagement.entity.StudentEntity;
+import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,8 +1,8 @@
-package al.ikub.hracademy.service;
+package al.ikubinfo.registrationmanagement.service;
 
-import al.ikub.hracademy.dto.StudentDto;
-import al.ikub.hracademy.dto.UpdateStudentDto;
-import al.ikub.hracademy.entity.StudentEntity;
+import al.ikubinfo.registrationmanagement.entity.StudentEntity;
+import al.ikubinfo.registrationmanagement.dto.StudentDto;
+import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 
 import java.util.List;
 

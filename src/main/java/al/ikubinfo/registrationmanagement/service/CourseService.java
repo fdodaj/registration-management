@@ -1,7 +1,7 @@
-package al.ikub.hracademy.service;
+package al.ikubinfo.registrationmanagement.service;
 
-import al.ikub.hracademy.dto.CourseDto;
-import al.ikub.hracademy.entity.CourseEntity;
+import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 
 import java.util.List;
 

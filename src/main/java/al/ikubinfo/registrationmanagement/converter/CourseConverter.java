@@ -1,7 +1,7 @@
-package al.ikub.hracademy.converter;
+package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikub.hracademy.dto.CourseDto;
-import al.ikub.hracademy.entity.CourseEntity;
+import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

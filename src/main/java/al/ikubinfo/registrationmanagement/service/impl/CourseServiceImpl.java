@@ -1,10 +1,10 @@
-package al.ikub.hracademy.service.impl;
+package al.ikubinfo.registrationmanagement.service.impl;
 
-import al.ikub.hracademy.converter.CourseConverter;
-import al.ikub.hracademy.dto.CourseDto;
-import al.ikub.hracademy.entity.CourseEntity;
-import al.ikub.hracademy.repository.CourseRepository;
-import al.ikub.hracademy.service.CourseService;
+import al.ikubinfo.registrationmanagement.converter.CourseConverter;
+import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.entity.CourseEntity;
+import al.ikubinfo.registrationmanagement.repository.CourseRepository;
+import al.ikubinfo.registrationmanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

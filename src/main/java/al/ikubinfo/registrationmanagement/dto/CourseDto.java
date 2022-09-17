@@ -1,6 +1,6 @@
-package al.ikub.hracademy.dto;
+package al.ikubinfo.registrationmanagement.dto;
 
-import al.ikub.hracademy.entity.CourseProgressStatus;
+import al.ikubinfo.registrationmanagement.entity.CourseProgressStatus;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

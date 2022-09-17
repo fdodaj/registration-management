@@ -1,6 +1,6 @@
-package al.ikub.hracademy.repository;
+package al.ikubinfo.registrationmanagement.repository;
 
-import al.ikub.hracademy.entity.CourseEntity;
+import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
