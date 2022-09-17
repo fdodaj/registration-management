@@ -9,11 +9,11 @@ public enum StudentStatusEnum {
 
     private final String displayValue;
 
-    private StudentStatusEnum(String displayValue){
+    StudentStatusEnum(String displayValue) {
         this.displayValue = displayValue;
     }
 
-    public String getDisplayValue(){
+    public String getDisplayValue() {
         return displayValue;
-     }
+    }
 }

@@ -10,6 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class StudentEntity {
 
     @NotNull
     @Column(name = "first_name")
-    @Size(min=7, max = 10)
+    @Size(min = 7, max = 10)
     private String firstName;
 
     @NotNull
@@ -71,14 +72,11 @@ public class StudentEntity {
 
     @NotNull
     @Column(name = "deleted")
-    private Boolean deleted ;
+    private Boolean deleted;
 
     @ManyToOne
     @JoinColumn(name = "user_course")
     private CourseEntity course;
-
-
-
 
 
 }

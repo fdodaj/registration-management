@@ -8,12 +8,12 @@ public enum CourseProgressStatus {
 
     private final String displayValue;
 
-    private CourseProgressStatus(String displayValue){
+    CourseProgressStatus(String displayValue) {
         this.displayValue = displayValue;
     }
 
-    public String getDisplayValue(){
+    public String getDisplayValue() {
         return displayValue;
     }
-    }
+}
 

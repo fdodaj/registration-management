@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CourseController {
     private static final String ADD_NEW_COURSE_URL = "create_course.html";
-    private static final  String REDIRECT_TO_HOMEPAGE_URL = "redirect:/students";
+    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/students";
 
     @Autowired
     private CourseService courseService;
@@ -35,14 +35,12 @@ public class CourseController {
     }
 
 
-
     @GetMapping("/course/new")
     public ModelAndView goToAddCoursePage(CourseEntity course) {
         ModelAndView mv = new ModelAndView("create_course");
         mv.addObject("course", course);
         return mv;
     }
-
 
 
     @PostMapping("/courses")
@@ -66,7 +64,6 @@ public class CourseController {
         mv.addObject("course", courseDto);
         return mv;
     }
-
 
 
     @PostMapping("/course/{id}")

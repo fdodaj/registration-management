@@ -1,8 +1,8 @@
 package al.ikubinfo.registrationmanagement.service;
 
-import al.ikubinfo.registrationmanagement.entity.StudentEntity;
 import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
+import al.ikubinfo.registrationmanagement.entity.StudentEntity;
 
 import java.util.List;
 

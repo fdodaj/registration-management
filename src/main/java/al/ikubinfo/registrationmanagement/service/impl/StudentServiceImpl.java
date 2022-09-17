@@ -57,7 +57,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentEntity updateStudent(UpdateStudentDto student) {
         StudentEntity currentStudent = getStudentById(student.getId());
-        student.setLastModified(LocalDate.now());;
+        student.setLastModified(LocalDate.now());
         student.setDeleted(currentStudent.getDeleted());
         StudentEntity studentEntity = converter.toUpdateStudentEntity(student);
         studentEntity.setReference(currentStudent.getReference());
@@ -74,9 +74,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudentById(Long id) {
-      StudentEntity student = studentRepository.findById(id).orElseThrow(null);
-      student.setDeleted(true);
-      studentRepository.save(student);
+        StudentEntity student = studentRepository.findById(id).orElseThrow(null);
+        student.setDeleted(true);
+        studentRepository.save(student);
     }
 
 }

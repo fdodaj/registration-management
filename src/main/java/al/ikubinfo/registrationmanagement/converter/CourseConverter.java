@@ -28,7 +28,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
     }
 
     public List<CourseDto> toDtoList(CourseEntity entity) {
-        List<CourseDto> dtoList =new ArrayList<>();
+        List<CourseDto> dtoList = new ArrayList<>();
         CourseDto dto = new CourseDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());

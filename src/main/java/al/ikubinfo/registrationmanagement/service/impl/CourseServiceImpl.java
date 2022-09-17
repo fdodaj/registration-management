@@ -53,7 +53,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseEntity updateCourse(CourseDto courseDto) {
         CourseEntity currentCourse = getCourseById(courseDto.getId());
-        courseDto.setLastModified(LocalDate.now());;
+        courseDto.setLastModified(LocalDate.now());
         courseDto.setDeleted(currentCourse.getDeleted());
         CourseEntity studentEntity = converter.toEntity(courseDto);
         courseDto.setDateAdded(currentCourse.getDateAdded());

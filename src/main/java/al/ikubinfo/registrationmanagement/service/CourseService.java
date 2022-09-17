@@ -19,6 +19,4 @@ public interface CourseService {
     void deleteCourseById(Long id);
 
 
-
-
 }
