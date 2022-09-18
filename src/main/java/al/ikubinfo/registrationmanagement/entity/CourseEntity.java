@@ -13,13 +13,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Where(clause = "deleted = false")
 @Table(name = "courses")
-public class CourseEntity {
+public class CourseEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

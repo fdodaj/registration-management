@@ -6,14 +6,16 @@ import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
+import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
+import al.ikubinfo.registrationmanagement.repository.criteria.StudentCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -44,6 +46,13 @@ public class StudentController {
         return mv;
     }
 
+
+
+    @PostMapping("/filter/students")
+    public ResponseEntity<Page<StudentDto>> listStudents(@RequestBody StudentCriteria dto) {
+        return new ResponseEntity<>(studentService.filterStudents(dto), HttpStatus.OK);
+
+    }
 
     @GetMapping("/students/{id}")
     public ModelAndView getStudentById(@PathVariable Long id) {

@@ -5,8 +5,16 @@ import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
+import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +26,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseConverter converter;
+
+    @Autowired
+    CourseSpecification specification;
 
     @Autowired
     private CourseRepository courseRepository;
@@ -49,6 +60,15 @@ public class CourseServiceImpl implements CourseService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Page<CourseDto> filterCourses(@RequestBody CourseCriteria criteria) {
+        Pageable pageable = PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(),
+                Sort.Direction.valueOf(criteria.getSortDirection()), criteria.getOrderBy());
+        Specification<CourseEntity> spec = specification.filter(criteria);
+
+
+        return courseRepository.findAll(spec, pageable).map(converter::toDto);
+    }
 
     @Override
     public CourseEntity updateCourse(CourseDto courseDto) {

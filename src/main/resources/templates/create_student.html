@@ -84,7 +84,7 @@
 						<div class ="form-group ">
 							<div><label> Student Status </label></div>
 							<select name="status" style="text-align: center" >
-								<option th:each="statusOpt : ${T(al.ikub.hracademy.entity.StudentStatusEnum).values()}"
+								<option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.StudentStatusEnum).values()}"
 										th:value="${statusOpt}" th:text="${statusOpt.getDisplayValue()}"></option>
 							</select>
 

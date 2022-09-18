@@ -1,14 +1,24 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.StudentConverter;
+import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
+import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.StudentRepository;
+import al.ikubinfo.registrationmanagement.repository.criteria.StudentCriteria;
+import al.ikubinfo.registrationmanagement.repository.specification.StudentSpecification;
 import al.ikubinfo.registrationmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,6 +32,9 @@ public class StudentServiceImpl implements StudentService {
     private StudentConverter converter;
 
     @Autowired
+    private StudentSpecification specification;
+
+    @Autowired
     private StudentRepository studentRepository;
 
     @Autowired
@@ -31,6 +44,7 @@ public class StudentServiceImpl implements StudentService {
         super();
         this.studentRepository = studentRepository;
     }
+
 
 
     @Override
@@ -48,6 +62,17 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(studentEntity);
         return true;
     }
+
+    @Override
+    public Page<StudentDto> filterStudents(@RequestBody StudentCriteria criteria) {
+        Pageable pageable = PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(),
+                Sort.Direction.valueOf(criteria.getSortDirection()), criteria.getOrderBy());
+        Specification<StudentEntity> spec = specification.filter(criteria);
+
+
+        return studentRepository.findAll(spec, pageable).map(converter::toDto);
+    }
+
 
     @Override
     public StudentEntity getStudentById(Long id) {

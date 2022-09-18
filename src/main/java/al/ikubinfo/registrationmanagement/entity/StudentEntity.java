@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Where(clause = "deleted = false")
 @NoArgsConstructor
 @Table(name = "students")
-public class StudentEntity {
+public class StudentEntity extends  BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,14 +3,14 @@ package al.ikubinfo.registrationmanagement.controller;
 import al.ikubinfo.registrationmanagement.converter.CourseConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
-import al.ikubinfo.registrationmanagement.repository.StudentRepository;
+import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -24,14 +24,18 @@ public class CourseController {
     @Autowired
     private CourseConverter converter;
 
-    @Autowired
-    private StudentRepository repository;
 
     @GetMapping("/courses")
     public ModelAndView listCourses() {
         ModelAndView mv = new ModelAndView("courses");
         mv.addObject("courses", courseService.getAllCourses());
         return mv;
+    }
+
+    @PostMapping("/filter/courses")
+    public ResponseEntity<Page<CourseDto>> listCourses(@RequestBody CourseCriteria dto) {
+        return new ResponseEntity<>(courseService.filterCourses(dto), HttpStatus.OK);
+
     }
 
 
