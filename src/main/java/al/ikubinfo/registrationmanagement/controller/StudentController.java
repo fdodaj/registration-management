@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,20 +40,21 @@ public class StudentController {
     @Autowired
     private CourseService courseService;
 
+
     @GetMapping("/students")
-    public ModelAndView listStudents() {
+    public ModelAndView listStudents(StudentCriteria criteria) {
+        Page<StudentDto> studentDtos = studentService.filterStudents(criteria);
         ModelAndView mv = new ModelAndView("students");
-        mv.addObject("students", studentService.getAllStudents());
+        mv.addObject("students", studentDtos);
         return mv;
     }
 
 
-
-    @PostMapping("/filter/students")
-    public ResponseEntity<Page<StudentDto>> listStudents(@RequestBody StudentCriteria dto) {
-        return new ResponseEntity<>(studentService.filterStudents(dto), HttpStatus.OK);
-
-    }
+//    @PostMapping("/filter/students")
+//    public ResponseEntity<Page<StudentDto>> listStudents(@RequestBody StudentCriteria dto) {
+//        return new ResponseEntity<>(studentService.filterStudents(dto), HttpStatus.OK);
+//
+//    }
 
     @GetMapping("/students/{id}")
     public ModelAndView getStudentById(@PathVariable Long id) {

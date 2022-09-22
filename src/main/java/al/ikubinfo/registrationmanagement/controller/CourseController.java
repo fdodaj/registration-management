@@ -3,8 +3,10 @@ package al.ikubinfo.registrationmanagement.controller;
 import al.ikubinfo.registrationmanagement.converter.CourseConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
+import al.ikubinfo.registrationmanagement.repository.criteria.BaseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -26,17 +28,18 @@ public class CourseController {
 
 
     @GetMapping("/courses")
-    public ModelAndView listCourses() {
+    public ModelAndView listCourses(CourseCriteria criteria) {
+        Page<CourseDto> courseDtos = courseService.filterCourses(criteria);
         ModelAndView mv = new ModelAndView("courses");
-        mv.addObject("courses", courseService.getAllCourses());
+        mv.addObject("courses", courseDtos);
         return mv;
     }
 
-    @PostMapping("/filter/courses")
-    public ResponseEntity<Page<CourseDto>> listCourses(@RequestBody CourseCriteria dto) {
-        return new ResponseEntity<>(courseService.filterCourses(dto), HttpStatus.OK);
-
-    }
+//    @PostMapping("/filter/courses")
+//    public ResponseEntity<Page<CourseDto>> listCourses(@RequestBody CourseCriteria dto) {
+//        return new ResponseEntity<>(courseService.filterCourses(dto), HttpStatus.OK);
+//
+//    }
 
 
     @GetMapping("/course/new")
@@ -47,11 +50,11 @@ public class CourseController {
     }
 
 
-    @PostMapping("/courses")
-    public ModelAndView saveCourse(@ModelAttribute("course") CourseDto course) {
-        courseService.saveCourse(course);
-        return new ModelAndView("redirect:/courses");
-    }
+//    @PostMapping("/courses")
+//    public ModelAndView saveCourse(@ModelAttribute("course") CourseDto course) {
+//        courseService.saveCourse(course);
+//        return new ModelAndView("redirect:/courses");
+//    }
 
     @GetMapping("/course/{id}")
     public ModelAndView getCourseById(@PathVariable Long id) {
