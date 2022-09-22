@@ -7,7 +7,7 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:h2:file:~/DATA1
+    url: jdbc:h2:file:~/DATA2
     username: sa
     password:
     driver-class-name: org.h2.Driver

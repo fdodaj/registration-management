@@ -74,10 +74,12 @@ public class CourseServiceImpl implements CourseService {
     public CourseEntity updateCourse(CourseDto courseDto) {
         CourseEntity currentCourse = getCourseById(courseDto.getId());
         courseDto.setLastModified(LocalDate.now());
-        courseDto.setDeleted(currentCourse.getDeleted());
-        CourseEntity studentEntity = converter.toEntity(courseDto);
+
+        CourseEntity courseEntity = converter.toEntity(courseDto);
+        courseEntity.setDeleted(currentCourse.getDeleted());
+
         courseDto.setDateAdded(currentCourse.getDateAdded());
-        return courseRepository.save(studentEntity);
+        return courseRepository.save(courseEntity);
     }
 
     @Override

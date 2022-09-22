@@ -27,20 +27,6 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         return dto;
     }
 
-    public List<CourseDto> toDtoList(CourseEntity entity) {
-        List<CourseDto> dtoList = new ArrayList<>();
-        CourseDto dto = new CourseDto();
-        dto.setId(entity.getId());
-        dto.setName(entity.getName());
-        dto.setStatus(entity.getStatus());
-        dto.setStartDate(entity.getStartDate());
-        dto.setEndDate(entity.getEndDate());
-        dto.setDateAdded(entity.getEndDate());
-        dto.setLastModified(entity.getLastModified());
-        dto.setDeleted(entity.getDeleted());
-        dtoList.add(dto);
-        return dtoList;
-    }
 
     @Override
     public CourseEntity toEntity(CourseDto dto) {

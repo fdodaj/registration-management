@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Data
 public class UpdateStudentDto {
-    public long id;
+    public Long id;
     public String firstName;
     public String lastName;
     public String phoneNumber;
@@ -18,4 +18,6 @@ public class UpdateStudentDto {
     public String comment;
     public LocalDate lastModified;
     public Boolean deleted;
+    private CourseDto course;
+
 }

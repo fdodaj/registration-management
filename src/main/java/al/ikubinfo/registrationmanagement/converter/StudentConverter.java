@@ -34,7 +34,7 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
         dto.setLastModified(entity.getLastModified());
         dto.setDateAdded(entity.getDateAdded());
         dto.setDeleted(entity.getDeleted());
-        dto.setCourse(entity.getCourse().getId());
+        dto.setCourse(repository.findById(1L).get().getId());
         return dto;
     }
 
@@ -54,7 +54,7 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
         entity.setLastModified(dto.getLastModified());
         entity.setDateAdded(dto.getDateAdded());
         entity.setDeleted(dto.getDeleted());
-        entity.setCourse(repository.findById(dto.getCourse()).get());
+//        entity.setCourse(repository.findById(dto.getCourse()).get());
         return entity;
     }
 
