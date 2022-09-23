@@ -4,6 +4,8 @@ import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
+import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,10 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
 
     @Autowired
     private CourseRepository repository;
+
+    @Autowired
+    private CourseConverter converter;
+
 
 
     @Override

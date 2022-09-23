@@ -1,4 +1,4 @@
-package al.ikubinfo.registrationmanagement.service.impl;
+package al.ikubinfo.registrationmanagement.converter.impl;
 
 import al.ikubinfo.registrationmanagement.converter.CourseConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;

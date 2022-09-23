@@ -1,4 +1,4 @@
-package al.ikubinfo.registrationmanagement.service.impl;
+package al.ikubinfo.registrationmanagement.converter.impl;
 
 import al.ikubinfo.registrationmanagement.converter.StudentConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
@@ -6,6 +6,7 @@ import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
+import al.ikubinfo.registrationmanagement.exception.CourseDeletedException;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.StudentRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.StudentCriteria;
@@ -76,7 +77,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentEntity getStudentById(Long id) {
-        return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Std not found"));
+
+               return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Std not found"));
     }
 
     @Override
