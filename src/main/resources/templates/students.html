@@ -78,7 +78,50 @@
 			</tbody>
 		
 		</table>
-		
+		<div class="input-group">
+
+			<div class="form-outline">
+				<input name="firstName" type="search" id="form1" class="form-control"  placeholder="Search by First Name"/>
+			</div>
+			<div class="form-outline">
+				<input  type="search" id="form2" class="form-control"  placeholder="Search by last Name"/>
+			</div>
+			<button id="sendButton" type="button" class="btn btn-primary" onsubmit="return validateForm()" >
+				<!--            <i class="fas fa-search"></i>-->
+				Search
+			</button>
+
+		</div>
+
 	</div>
+<script>
+	let sendBtn = document.getElementById('sendButton');
+	const final = 'http://localhost:8080/students'
+
+
+	sendBtn.addEventListener("click", () => {
+				let nameValueSearch = document.getElementById('form1').value;
+				let surnameValueSearch = document.getElementById('form2').value;
+				if (nameValueSearch === "" && surnameValueSearch === ""){
+					alert("Please enter a name or surname")
+				}
+				else if (nameValueSearch !== "" && surnameValueSearch !== null){
+					window.location.replace(`${final}?firstName=${nameValueSearch}&lastName=${surnameValueSearch}`)
+
+				}
+				 if (nameValueSearch !== ""){
+					window.location.replace(`${final}?firstName=${nameValueSearch}`)
+
+				}
+				if (surnameValueSearch !== ""){
+					window.location.replace(`${final}?lastName=${surnameValueSearch}`)
+
+				}
+
+		}
+	)
+
+
+</script>
 </body>
 </html>

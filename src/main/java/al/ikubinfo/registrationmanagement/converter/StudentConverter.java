@@ -13,9 +13,6 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
     @Autowired
     private CourseRepository repository;
 
-    @Autowired
-    private CourseConverter converter;
-
 
     @Override
     public StudentDto toDto(StudentEntity entity) {

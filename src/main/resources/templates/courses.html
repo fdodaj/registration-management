@@ -41,6 +41,7 @@
             <a th:href = "@{/course/new}" class = "btn btn-primary btn-sm mb-1"> Add course</a>
         </div>
     </div>
+
     <table class = "table table-striped table-bordered" style="background-color: white" >
         <thead class = "table-dark">
         <tr>
@@ -76,6 +77,29 @@
         </tbody>
 
     </table>
+
+    <div class="input-group">
+        <div class="form-outline">
+            <input type="search" id="form1" class="form-control"  placeholder="Search by course Name"/>
+
+        <button id="sendButton" type="button" class="btn btn-primary" style="margin-right: 10px">
+
+            Search
+        </button>
+        <a th:href = "@{/courses}"
+           class = "btn btn-success">all</a>
+
+
+    <script>
+        let sendBtn = document.getElementById('sendButton');
+        const final = 'http://localhost:8080/courses'
+        sendBtn.addEventListener("click", () => {
+            let nameValueSearch = document.getElementById('form1').value;
+            window.location.replace(`${final}?name=${nameValueSearch}`)
+
+        })
+
+    </script>
 
 </div>
 </body>
