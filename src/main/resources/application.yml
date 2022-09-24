@@ -1,24 +1,24 @@
+server:
+  port: 8080
 
 spring:
-  flyway:
-    locations:
-      - classpath:/db
-    baseline-on-migrate: true
-    table: SCHEMA_HISTORY
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+  application:
+    name: Registration Management
+
   jpa:
     hibernate:
       ddl-auto: none
-  datasource:
-    url: jdbc:h2:file:~/DB
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-  h2:
-    console:
-      path: /h2
-      enabled: true
+    properties:
+      hibernate:
+        format_sql: false
+        use_sql_comments: false
+        show_sql: false
+
+    table: SCHEMA_HISTORY
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 
 
