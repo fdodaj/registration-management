@@ -59,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
         student.setLastModified(LocalDate.now());
         student.setDeleted(Boolean.FALSE);
         StudentEntity studentEntity = converter.toEntity(student);
-        studentEntity.setCourse(courseRepository.findById(student.getCourse()).get());
+//        studentEntity.setCourse(courseRepository.findById(student.getCourse()).get());
         studentRepository.save(studentEntity);
         return true;
     }
@@ -93,11 +93,11 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.save(studentEntity);
     }
 
-    @Override
-    public List<StudentEntity> getStudentsByCourseId(Long id) {
-        return new ArrayList<>(studentRepository
-                .getAllByCourseId(id));
-    }
+//    @Override
+//    public List<StudentEntity> getStudentsByCourseId(Long id) {
+//        return studentRepository.getAll();
+//
+//    }
 
     @Override
     public void deleteStudentById(Long id) {

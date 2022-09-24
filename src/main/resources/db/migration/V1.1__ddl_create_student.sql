@@ -11,6 +11,5 @@ CREATE TABLE IF NOT EXISTS student (
    comment    VARCHAR(100),
    date_added timestamp not null ,
    last_modified    timestamp not null ,
-   deleted    BOOLEAN not null ,
-   student_course integer not null
+   deleted    BOOLEAN not null
 );

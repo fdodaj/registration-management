@@ -21,7 +21,7 @@ public interface StudentService {
 
     StudentEntity updateStudent(UpdateStudentDto student);
 
-    List<StudentEntity> getStudentsByCourseId(Long id);
+//    List<StudentEntity> getStudentsByCourseId(Long id);
 
     void deleteStudentById(Long id);
 }

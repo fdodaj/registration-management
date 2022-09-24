@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Long>, JpaSpecificationExecutor<StudentEntity> {
 
-    List<StudentEntity> getAllByCourseId(Long id);
+//    List<StudentEntity> getAllByCourseId(Long id);
 }

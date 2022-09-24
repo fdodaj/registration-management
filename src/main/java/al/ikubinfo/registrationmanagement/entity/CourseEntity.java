@@ -57,8 +57,10 @@ public class CourseEntity extends BaseEntity{
     @Column(name = "deleted")
     private Boolean deleted;
 
-    @OneToMany(mappedBy = "course")
-    private List<StudentEntity> students = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "course_students", joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<StudentEntity> courseStudents = new ArrayList<>();
 
 }
 

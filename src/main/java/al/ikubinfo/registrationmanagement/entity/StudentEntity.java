@@ -10,6 +10,8 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -73,9 +75,9 @@ public class StudentEntity extends  BaseEntity{
     @Column(name = "deleted")
     private Boolean deleted;
 
-    @ManyToOne
-    @JoinColumn(name = "student_course")
-    private CourseEntity course;
+    @ManyToMany(mappedBy = "courseStudents")
+    private List<CourseEntity> courses = new ArrayList<>();
+
 
 
 
