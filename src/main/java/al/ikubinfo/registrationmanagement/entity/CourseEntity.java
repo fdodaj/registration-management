@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Where(clause = "deleted = false")
-@Table(name = "courses")
+@Table(name = "course")
 public class CourseEntity extends BaseEntity{
 
     @Id
@@ -54,7 +54,6 @@ public class CourseEntity extends BaseEntity{
     @Column(name = "last_modified")
     private LocalDate lastModified;
 
-    @Nullable
     @Column(name = "deleted")
     private Boolean deleted;
 

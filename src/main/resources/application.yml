@@ -1,13 +1,18 @@
 
 spring:
+  flyway:
+    locations:
+      - classpath:/db
+    baseline-on-migrate: true
+    table: SCHEMA_HISTORY
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   datasource:
-    url: jdbc:h2:file:~/DATA2
+    url: jdbc:h2:file:~/DB
     username: sa
     password:
     driver-class-name: org.h2.Driver

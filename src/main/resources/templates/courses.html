@@ -39,6 +39,7 @@
     <div class = "row">
         <div class = "col-lg-3">
             <a th:href = "@{/course/new}" class = "btn btn-primary btn-sm mb-1"> Add course</a>
+            <a th:href="@{/courses}" class="btn btn-success btn-sm mb-1">Home</a>
         </div>
     </div>
 
@@ -78,17 +79,16 @@
 
     </table>
 
-    <div class="input-group">
+    <div class="input-group row ">
         <div class="form-outline">
-            <input type="search" id="form1" class="form-control"  placeholder="Search by course Name"/>
+            <input type="search" id="form1" class="form-control" placeholder="Search by course Name"/>
 
-        <button id="sendButton" type="button" class="btn btn-primary" style="margin-right: 10px">
+            <button id="sendButton" type="button" class="btn btn-primary" style="margin-right: 10px">
 
-            Search
-        </button>
-        <a th:href = "@{/courses}"
-           class = "btn btn-success">all</a>
-
+                Search
+            </button>
+        </div>
+    </div>
 
     <script>
         let sendBtn = document.getElementById('sendButton');

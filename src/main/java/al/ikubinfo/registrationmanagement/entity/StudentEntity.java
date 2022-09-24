@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Where(clause = "deleted = false")
 @NoArgsConstructor
-@Table(name = "students")
+@Table(name = "student")
 public class StudentEntity extends  BaseEntity{
 
     @Id
@@ -40,8 +40,7 @@ public class StudentEntity extends  BaseEntity{
     @NotNull
     @Column(name = "email")
     private String email;
-
-    @NotNull
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StudentStatusEnum status;
@@ -75,8 +74,10 @@ public class StudentEntity extends  BaseEntity{
     private Boolean deleted;
 
     @ManyToOne
-    @JoinColumn(name = "user_course")
+    @JoinColumn(name = "student_course")
     private CourseEntity course;
+
+
 
 
 }
