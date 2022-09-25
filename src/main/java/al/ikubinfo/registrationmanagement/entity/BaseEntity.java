@@ -31,7 +31,7 @@ public abstract class BaseEntity {
 
     @NotNull
     @Column(name = "deleted")
-    private Boolean deleted;
+    private boolean deleted;
 
 
 }

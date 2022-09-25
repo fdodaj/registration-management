@@ -1,7 +1,9 @@
 package al.ikubinfo.registrationmanagement.converter;
 
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
+import al.ikubinfo.registrationmanagement.entity.StudentEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -20,6 +22,8 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setStatus(entity.getStatus());
         dto.setStartDate(entity.getStartDate());
         dto.setEndDate(entity.getEndDate());
+        dto.setCreatedDate(entity.getCreatedDate());
+        dto.setModifiedDate(entity.getModifiedDate());
         return dto;
     }
 
@@ -27,6 +31,16 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
     @Override
     public CourseEntity toEntity(CourseDto dto) {
         CourseEntity entity = new CourseEntity();
+        entity.setId(dto.getId());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        entity.setStartDate(LocalDate.parse(dto.getStartDate().toString(), formatter));
+        entity.setEndDate(LocalDate.parse(dto.getEndDate().toString(), formatter));
+        entity.setName(dto.getName());
+        entity.setStatus(dto.getStatus());
+        return entity;
+    }
+
+    public CourseEntity toUpdateStudentEntity(CourseDto dto, CourseEntity entity) {
         entity.setId(dto.getId());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         entity.setStartDate(LocalDate.parse(dto.getStartDate().toString(), formatter));

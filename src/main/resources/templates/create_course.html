@@ -36,11 +36,11 @@
             <div class="card-body">
                 <form method="POST" th:action="@{/courses}" th:object="${course}">
                     <div class="form-group">
-                        <label> course Name </label>
+                        <label>Course name </label>
                         <input
-                                1 class="form-control"
+                                class="form-control"
                                 name="name"
-                                placeholder="Enter course  Name"
+                                th:required="required"
                                 th:field="*{name}"
                                 th:maxlength="35"
                                 type="text"
@@ -61,9 +61,9 @@
                         <input
                                 class="form-control"
                                 name="startDate"
-                                placeholder="yyyy-MM-dd"
+                                th:required="required"
+                                type="date"
                                 th:field="*{startDate}"
-                                type="text"
                         />
                     </div>
 
@@ -72,9 +72,9 @@
                         <input
                                 class="form-control"
                                 name="endDate"
-                                placeholder="yyyy-MM-dd"
+                                th:required="required"
                                 th:field="*{endDate}"
-                                type="text"
+                                type="date"
                         />
                     </div>
 

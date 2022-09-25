@@ -52,7 +52,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseDto updateCourse(CourseDto courseDto) {
-        CourseEntity entity = converter.toEntity(courseDto);
+        CourseEntity currentEntity = getCourseEntity(courseDto.getId());
+        CourseEntity entity = converter.toUpdateStudentEntity(courseDto, currentEntity);
         return converter.toDto(courseRepository.save(entity));
     }
 

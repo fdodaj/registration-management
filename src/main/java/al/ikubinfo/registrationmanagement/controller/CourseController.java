@@ -91,7 +91,7 @@ public class CourseController {
      * @param courseDto courseDto
      * @return ModelAndView
      */
-    @PutMapping("/course/{id}")
+    @PostMapping("/course/{id}")
     public ModelAndView updateCourse(@PathVariable Long id, @ModelAttribute("course") CourseDto courseDto) {
         courseService.updateCourse(courseDto);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
