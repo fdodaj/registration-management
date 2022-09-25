@@ -36,22 +36,20 @@
 			<h2> All Students </h2>
 		</div>
 		
-<!--		<div class = "row">-->
 
-<!--		</div>-->
 		<div class="input-group d-flex justify-content-end mb-2">
-			<div class = "col-lg-3">
+			<div class = "col-lg-6">
 				<a th:href = "@{/students/new}" class = "btn btn-primary btn-sm mb-1"> Add Student</a>
 				<a th:href = "@{/students}" class = "btn btn-success btn-sm mb-1">Home</a>
 			</div>
 
 			<div class="form-outline">
-				<input name="firstName" type="search" id="form1" class="form-control"  placeholder="Search by First Name"/>
+				<input name="firstName" type="search" id="first_name" class="form-control"  placeholder="First Name"/>
 			</div>
 			<div class="form-outline mx-2">
-				<input  type="search" id="form2" class="form-control"  placeholder="Search by last Name"/>
+				<input  type="search" id="last_name" class="form-control"  placeholder="Last Name"/>
 			</div>
-			<button id="sendButton" type="button" class="btn btn-primary" onsubmit="return validateForm()">
+			<button id="sendButton" type="button" class="btn btn-primary">
 				<!--            <i class="fas fa-search"></i>-->
 				Search
 			</button>
@@ -98,30 +96,24 @@
 	</div>
 <script>
 	let sendBtn = document.getElementById('sendButton');
-	const final = 'http://localhost:8080/students'
+	let studentPage = 'http://localhost:8080/students'
 
 
 	sendBtn.addEventListener("click", () => {
-				let nameValueSearch = document.getElementById('form1').value;
-				let surnameValueSearch = document.getElementById('form2').value;
-				if (nameValueSearch === "" && surnameValueSearch === ""){
-					alert("Please enter a name or surname")
-				}
-				else if (nameValueSearch !== "" && surnameValueSearch !== null){
-					window.location.replace(`${final}?firstName=${nameValueSearch}&lastName=${surnameValueSearch}`)
+		studentPage = document.getElementById('first_name').value !== ""
+				? studentPage + `?firstName=` + document.getElementById('first_name').value
+				: studentPage + `?`;
 
-				}
-				 if (nameValueSearch !== ""){
-					window.location.replace(`${final}?firstName=${nameValueSearch}`)
+		studentPage = document.getElementById('last_name').value !== ""
+				? studentPage + `&lastName=` + document.getElementById('last_name').value
+				: studentPage;
 
-				}
-				if (surnameValueSearch !== ""){
-					window.location.replace(`${final}?lastName=${surnameValueSearch}`)
-
-				}
+		window.location.replace(studentPage)
 
 		}
 	)
+
+
 
 
 </script>

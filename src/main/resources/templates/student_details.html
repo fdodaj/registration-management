@@ -34,7 +34,7 @@
         <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h3 style="text-align: center">
             <tr class = "text-center " th:action="@{/students/{id} (id=${student.id})}" th:object = "${student}" >
-                <td th:text="*{firstName}">1</td>'s details
+                <td th:text="*{firstName + ' ' + lastName}">1</td>
 
             </tr>
             </h3>
@@ -47,7 +47,7 @@
 
                     </div>
                     <div class ="form-group">
-                        NAME: <td th:text="*{lastName}">1</td>
+                        Last name: <td th:text="*{lastName}">1</td>
 
                     </div>
 
@@ -79,9 +79,6 @@
                         LAST MODIFIED: <td th:text="*{lastModified}">1</td>
                     </div>
 
-                    <div class ="form-group">
-                        COURSE: <td th:text="*{course}">1</td>
-                    </div>
 
                     <div class = "box-footer">
                         <a th:href = "@{/students/edit/{id}(id=${student.id})}"

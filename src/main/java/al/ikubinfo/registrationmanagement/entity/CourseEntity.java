@@ -1,5 +1,6 @@
 package al.ikubinfo.registrationmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ import java.util.List;
 public class CourseEntity extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", unique = true, updatable = false)
     private Long id;
 
@@ -57,8 +58,9 @@ public class CourseEntity extends BaseEntity{
     @Column(name = "deleted")
     private Boolean deleted;
 
+    @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "course_students", joinColumns = @JoinColumn(name = "course_id"),
+    @JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<StudentEntity> courseStudents = new ArrayList<>();
 

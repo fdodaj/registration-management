@@ -35,11 +35,11 @@ public class CourseController {
         return mv;
     }
 
-//    @PostMapping("/filter/courses")
-//    public ResponseEntity<Page<CourseDto>> listCourses(@RequestBody CourseCriteria dto) {
-//        return new ResponseEntity<>(courseService.filterCourses(dto), HttpStatus.OK);
-//
-//    }
+    @PostMapping("/filter/courses")
+    public ResponseEntity<Page<CourseDto>> listCoursess(@RequestBody CourseCriteria dto) {
+        return new ResponseEntity<>(courseService.filterCourses(dto), HttpStatus.OK);
+
+    }
 
 
     @GetMapping("/course/new")

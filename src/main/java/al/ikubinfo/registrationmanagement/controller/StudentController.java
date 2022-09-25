@@ -28,34 +28,36 @@ public class StudentController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/students";
     private static final String EDIT_STUDENT_URL = "edit_student.html";
     private static final String STUDENT_DETAILS_URL = "student_details";
-    private static final String STUDENT_LIST_URL = "students";
+    private static final String STUDENTS = "students";
     @Autowired
     private StudentConverter converter;
     @Autowired
-    private CourseConverter courseConverter;
-    @Autowired
     private StudentService studentService;
-
 
     @Autowired
     private CourseService courseService;
 
 
+    /**
+     * Get all students. if criteria is applied, students are filter accordingly
+     *
+     * @param criteria filter object
+     * @return ModelAndView -> students filtered list
+     */
     @GetMapping("/students")
     public ModelAndView listStudents(StudentCriteria criteria) {
-        Page<StudentDto> studentDtos = studentService.filterStudents(criteria);
-        ModelAndView mv = new ModelAndView("students");
-        mv.addObject("students", studentDtos);
+        Page<StudentDto> students = studentService.filterStudents(criteria);
+        ModelAndView mv = new ModelAndView(STUDENTS);
+        mv.addObject(STUDENTS, students);
         return mv;
     }
 
-
-//    @PostMapping("/filter/students")
-//    public ResponseEntity<Page<StudentDto>> listStudents(@RequestBody StudentCriteria dto) {
-//        return new ResponseEntity<>(studentService.filterStudents(dto), HttpStatus.OK);
-//
-//    }
-
+    /**
+     * Retrieve student details
+     *
+     * @param id student id
+     * @return ModelAndView with student details
+     */
     @GetMapping("/students/{id}")
     public ModelAndView getStudentById(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("student_details");
@@ -64,15 +66,25 @@ public class StudentController {
     }
 
 
+    /**
+     * Retrieve form of student creation
+     * @param student student dto
+     * @return ModelAndView
+     */
     @GetMapping("/students/new")
-    public ModelAndView goToAddStudentPage(StudentDto student) {
+    public ModelAndView retrieveNewStudentView(StudentDto student) {
         ModelAndView mv = new ModelAndView("create_student");
-        List<CourseDto> courseDto = courseService.getAllCourses();
-        mv.addObject("courses", courseDto);
+//        List<CourseDto> courseDto = courseService.getAllCourses();
+//        mv.addObject("courses", courseDto);
         mv.addObject("student", student);
         return mv;
     }
 
+    /**
+     * Save student
+     * @param student student dto
+     * @return ModelAndView
+     */
     @PostMapping("/students")
     public ModelAndView saveStudent(@ModelAttribute("student") StudentDto student) {
         studentService.saveStudent(student);
@@ -80,8 +92,13 @@ public class StudentController {
     }
 
 
+    /**
+     * Retrive student edition view
+     * @param id student id
+     * @return ModelAndView
+     */
     @GetMapping("/students/edit/{id}")
-    public ModelAndView goToEditStudentPage(@PathVariable("id") Long id) {
+    public ModelAndView updateStudentView(@PathVariable("id") Long id) {
         UpdateStudentDto studentDto = converter.toUpdateStudentDto(studentService.getStudentById(id));
         ModelAndView mv = new ModelAndView("edit_student.html");
         mv.addObject("student", studentDto);
@@ -89,13 +106,23 @@ public class StudentController {
     }
 
 
+    /**
+     * Update student
+     * @param id student id
+     * @param student Student updated dto
+     * @return
+     */
     @PostMapping("/students/{id}")
     public ModelAndView updateStudent(@PathVariable Long id, @ModelAttribute("student") StudentEntity student) {
         studentService.updateStudent(converter.toUpdateStudentDto(student));
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
-
+    /**
+     * Delete student by id
+     * @param id student id
+     * @return ModelAndView homepage
+     */
     @GetMapping("/students/delete/{id}")
     public ModelAndView deleteStudent(@PathVariable Long id) {
         studentService.deleteStudentById(id);

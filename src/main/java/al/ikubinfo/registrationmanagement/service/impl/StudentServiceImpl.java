@@ -1,4 +1,4 @@
-package al.ikubinfo.registrationmanagement.converter.impl;
+package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.StudentConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
@@ -59,7 +59,6 @@ public class StudentServiceImpl implements StudentService {
         student.setLastModified(LocalDate.now());
         student.setDeleted(Boolean.FALSE);
         StudentEntity studentEntity = converter.toEntity(student);
-//        studentEntity.setCourse(courseRepository.findById(student.getCourse()).get());
         studentRepository.save(studentEntity);
         return true;
     }
@@ -98,6 +97,8 @@ public class StudentServiceImpl implements StudentService {
 //        return studentRepository.getAll();
 //
 //    }
+
+
 
     @Override
     public void deleteStudentById(Long id) {

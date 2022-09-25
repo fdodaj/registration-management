@@ -1,9 +1,11 @@
 package al.ikubinfo.registrationmanagement.dto;
 
+import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class StudentDto {
@@ -21,5 +23,5 @@ public class StudentDto {
     private LocalDate lastModified;
     private LocalDate dateAdded;
     private Boolean deleted;
-    private Long course;
+    private List<CourseEntity> course;
 }

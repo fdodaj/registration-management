@@ -12,13 +12,13 @@ public class StudentSpecification extends SpecificationBuilder<StudentEntity, St
     public Specification<StudentEntity> filter(StudentCriteria criteria) {
         Specification<StudentEntity> specification = Specification.where(null);
 
-        if (criteria.getFirstName() != null){
+        if (criteria.getFirstName() != null && !criteria.getFirstName().isEmpty()){
             specification = specification.and(equalsSpecification("firstName", criteria.getFirstName()));
         }
-        if (criteria.getLastName() != null){
+        if (criteria.getLastName() != null && !criteria.getLastName().isEmpty()){
             specification = specification.and(equalsSpecification("lastName", criteria.getLastName()));
         }
-        if (criteria.getStatus() != null){
+        if (criteria.getStatus() != null && !criteria.getStatus().getDisplayValue().isEmpty()){
             specification = specification.and(equalsSpecification("status", criteria.getStatus()));
         }
         if (criteria.getCourse() != null){

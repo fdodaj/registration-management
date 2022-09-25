@@ -1,6 +1,6 @@
 
-CREATE TABLE IF NOT EXISTS course (
-    id             INTEGER  PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS  course  (
+    id              SERIAL  PRIMARY KEY,
     name           VARCHAR(50) NOT NULL,
     status         VARCHAR(50),
     start_date     timestamp not null ,
