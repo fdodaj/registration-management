@@ -5,6 +5,9 @@ import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class StudentConverter implements BidirectionalConverter<StudentDto, StudentEntity> {
 
@@ -55,4 +58,9 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
         entity.setComment(dto.getComment());
         return entity;
     }
+
+    public List<StudentDto> toStudentDtoList(List<StudentEntity> entities) {
+        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
 }

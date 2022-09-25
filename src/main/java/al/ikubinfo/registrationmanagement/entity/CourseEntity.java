@@ -40,11 +40,10 @@ public class CourseEntity extends BaseEntity {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private List<StudentEntity> courseStudents = new ArrayList<>();
+    private List<StudentEntity> courseStudents;
 
 }
 

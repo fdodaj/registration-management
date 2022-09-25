@@ -5,6 +5,8 @@ import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -107,5 +109,11 @@ public class CourseController {
     public ModelAndView deleteCourse(@PathVariable Long id) {
         courseService.deleteCourseById(id);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
+
+    @PutMapping("addd/{courseId}/{studentId}")
+    ResponseEntity<Void> addStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+        courseService.addStudentToCourse(studentId, courseId);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

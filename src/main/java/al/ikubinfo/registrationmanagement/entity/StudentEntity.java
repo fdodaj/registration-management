@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,8 @@ public class StudentEntity extends BaseEntity {
     private String phoneNumber;
 
     @NotNull
+    @Email
+    @Size(min = 10, max = 100)
     @Column(name = "email")
     private String email;
 
@@ -59,7 +62,7 @@ public class StudentEntity extends BaseEntity {
 
 
     @ManyToMany(mappedBy = "courseStudents", fetch = FetchType.LAZY)
-    private List<CourseEntity> courses = new ArrayList<>();
+    private List<CourseEntity> courses;
 
 
 }

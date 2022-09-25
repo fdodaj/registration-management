@@ -4,6 +4,7 @@ import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -13,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 
 public class CourseConverter implements BidirectionalConverter<CourseDto, CourseEntity> {
 
+    @Autowired
+    private StudentConverter studentConverter;
 
     @Override
     public CourseDto toDto(CourseEntity entity) {
@@ -24,6 +27,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setEndDate(entity.getEndDate());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setModifiedDate(entity.getModifiedDate());
+        dto.setStudents(studentConverter.toStudentDtoList(entity.getCourseStudents()));
         return dto;
     }
 

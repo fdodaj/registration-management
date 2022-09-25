@@ -65,7 +65,7 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(student);
     }
 
-    private StudentEntity getStudentEntity(Long id) {
+    public StudentEntity getStudentEntity(Long id) {
         return studentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
     }
