@@ -3,7 +3,6 @@ package al.ikubinfo.registrationmanagement.exception;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +18,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(CourseDeletedException.class)
     @ResponseBody
-    public ErrorResponse handleCourseDeleted(final Throwable ex){
+    public ErrorResponse handleCourseDeleted(final Throwable ex) {
         log.error(COURSE_DELETED, ex);
         return new ErrorResponse(COURSE_DELETED, "This course has been deleted");
     }
@@ -27,7 +26,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(StudentDeletedException.class)
     @ResponseBody
-    public ErrorResponse handleStudentDeleted(final Throwable ex){
+    public ErrorResponse handleStudentDeleted(final Throwable ex) {
         log.error(STUDENT_DELETED, ex);
         return new ErrorResponse(STUDENT_DELETED, "This student has been deleted");
     }

@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Where(clause = "deleted = false")
 @Table(name = "course")
-public class CourseEntity extends BaseEntity{
+public class CourseEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

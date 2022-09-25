@@ -1,12 +1,9 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.StudentConverter;
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
-import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
-import al.ikubinfo.registrationmanagement.exception.CourseDeletedException;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.StudentRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.StudentCriteria;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,7 +41,6 @@ public class StudentServiceImpl implements StudentService {
         super();
         this.studentRepository = studentRepository;
     }
-
 
 
     @Override
@@ -77,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentEntity getStudentById(Long id) {
 
-               return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Std not found"));
+        return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Std not found"));
     }
 
     @Override
@@ -97,7 +92,6 @@ public class StudentServiceImpl implements StudentService {
 //        return studentRepository.getAll();
 //
 //    }
-
 
 
     @Override

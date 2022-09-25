@@ -4,9 +4,6 @@ import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 
 public class CourseConverter implements BidirectionalConverter<CourseDto, CourseEntity> {

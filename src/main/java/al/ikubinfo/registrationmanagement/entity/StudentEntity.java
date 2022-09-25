@@ -1,7 +1,6 @@
 package al.ikubinfo.registrationmanagement.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +19,7 @@ import java.util.List;
 @Where(clause = "deleted = false")
 @NoArgsConstructor
 @Table(name = "student")
-public class StudentEntity extends  BaseEntity{
+public class StudentEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -43,7 +42,7 @@ public class StudentEntity extends  BaseEntity{
     @NotNull
     @Column(name = "email")
     private String email;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StudentStatusEnum status;
@@ -78,9 +77,6 @@ public class StudentEntity extends  BaseEntity{
 
     @ManyToMany(mappedBy = "courseStudents", fetch = FetchType.LAZY)
     private List<CourseEntity> courses = new ArrayList<>();
-
-
-
 
 
 }

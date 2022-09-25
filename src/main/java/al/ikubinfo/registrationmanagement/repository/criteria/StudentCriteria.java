@@ -1,6 +1,5 @@
 package al.ikubinfo.registrationmanagement.repository.criteria;
 
-import al.ikubinfo.registrationmanagement.entity.BaseEntity;
 import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
 import lombok.Getter;
 import lombok.Setter;

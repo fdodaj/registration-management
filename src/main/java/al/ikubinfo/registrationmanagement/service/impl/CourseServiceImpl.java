@@ -4,9 +4,9 @@ import al.ikubinfo.registrationmanagement.converter.CourseConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
-import al.ikubinfo.registrationmanagement.service.CourseService;
-import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
+import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
+import al.ikubinfo.registrationmanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,11 +25,9 @@ import java.util.stream.Collectors;
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
-    private CourseConverter converter;
-
-    @Autowired
     CourseSpecification specification;
-
+    @Autowired
+    private CourseConverter converter;
     @Autowired
     private CourseRepository courseRepository;
 

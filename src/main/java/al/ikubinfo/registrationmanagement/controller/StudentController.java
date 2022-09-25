@@ -1,25 +1,20 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.converter.CourseConverter;
 import al.ikubinfo.registrationmanagement.converter.StudentConverter;
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
-import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.StudentCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 public class StudentController {
@@ -68,6 +63,7 @@ public class StudentController {
 
     /**
      * Retrieve form of student creation
+     *
      * @param student student dto
      * @return ModelAndView
      */
@@ -82,6 +78,7 @@ public class StudentController {
 
     /**
      * Save student
+     *
      * @param student student dto
      * @return ModelAndView
      */
@@ -94,6 +91,7 @@ public class StudentController {
 
     /**
      * Retrive student edition view
+     *
      * @param id student id
      * @return ModelAndView
      */
@@ -108,7 +106,8 @@ public class StudentController {
 
     /**
      * Update student
-     * @param id student id
+     *
+     * @param id      student id
      * @param student Student updated dto
      * @return
      */
@@ -120,6 +119,7 @@ public class StudentController {
 
     /**
      * Delete student by id
+     *
      * @param id student id
      * @return ModelAndView homepage
      */
