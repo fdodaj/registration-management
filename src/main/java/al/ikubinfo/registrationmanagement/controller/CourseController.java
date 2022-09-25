@@ -87,7 +87,7 @@ public class CourseController {
     /**
      * Update course
      *
-     * @param id course id
+     * @param id        course id
      * @param courseDto courseDto
      * @return ModelAndView
      */

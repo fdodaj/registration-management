@@ -3,7 +3,6 @@ package al.ikubinfo.registrationmanagement.converter;
 import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.StudentEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -45,7 +44,7 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
         return dto;
     }
 
-    public StudentEntity toUpdateStudentEntity(UpdateStudentDto dto, StudentEntity entity){
+    public StudentEntity toUpdateStudentEntity(UpdateStudentDto dto, StudentEntity entity) {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());

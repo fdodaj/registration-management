@@ -1,117 +1,117 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Student Management System</title>
-	<link crossorigin="anonymous"
-		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-		  rel="stylesheet">
+    <meta charset="ISO-8859-1">
+    <title>Student Management System</title>
+    <link crossorigin="anonymous"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet">
 </head>
 <body style="background-color: #9fbab3">
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-	<!-- Brand -->
-	<a class="navbar-brand" href="#">Student Management System</a>
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Student Management System</a>
 
-	<!-- Toggler/collapsibe Button -->
-	<button class="navbar-toggler" data-target="#collapsibleNavbar" data-toggle="collapse" type="button">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" data-target="#collapsibleNavbar" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-	<!-- Navbar links -->
-	<div class="collapse navbar-collapse" id="collapsibleNavbar">
-		<ul class="navbar-nav">
-			<li class="nav-item">
-				<a class="nav-link" th:href="@{/students}">Student Management</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" th:href="@{/courses}">Course Management</a>
-			</li>
-		</ul>
-	</div>
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/students}">Student Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/courses}">Course Management</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
-	<div style="text-align: center">
-		<h2> All Students </h2>
-	</div>
+    <div style="text-align: center">
+        <h2> All Students </h2>
+    </div>
 
 
-	<div class="input-group d-flex justify-content-end mb-2">
-		<div class="col-lg-6">
-			<a class="btn btn-primary btn-sm mb-1" th:href="@{/students/new}"> Add Student</a>
-			<a class="btn btn-success btn-sm mb-1" th:href="@{/students}">Home</a>
-		</div>
+    <div class="input-group d-flex justify-content-end mb-2">
+        <div class="col-lg-6">
+            <a class="btn btn-primary btn-sm mb-1" th:href="@{/students/new}"> Add Student</a>
+            <a class="btn btn-success btn-sm mb-1" th:href="@{/students}">Home</a>
+        </div>
 
-		<div class="form-outline">
-			<input class="form-control" id="first_name" name="firstName" placeholder="First Name" type="search"/>
-		</div>
-		<div class="form-outline mx-2">
-			<input class="form-control" id="last_name" placeholder="Last Name" type="search"/>
-		</div>
-		<button class="btn btn-primary" id="sendButton" type="button">
-			<!--            <i class="fas fa-search"></i>-->
-			Search
-		</button>
-	</div>
+        <div class="form-outline">
+            <input class="form-control" id="first_name" name="firstName" placeholder="First Name" type="search"/>
+        </div>
+        <div class="form-outline mx-2">
+            <input class="form-control" id="last_name" placeholder="Last Name" type="search"/>
+        </div>
+        <button class="btn btn-primary" id="sendButton" type="button">
+            <!--            <i class="fas fa-search"></i>-->
+            Search
+        </button>
+    </div>
 
-	<table class="table table-striped table-bordered" style="background-color: white">
-		<thead class="table-dark">
-		<tr>
-			<th style="text-align: center">First Name</th>
-			<th style="text-align: center">Last Name</th>
-			<th style="text-align: center">Phone Number</th>
-			<th style="text-align: center">Email</th>
-			<th style="text-align: center">Status</th>
-			<th style="text-align: center">Actions</th>
-		</tr>
-		</thead>
+    <table class="table table-striped table-bordered" style="background-color: white">
+        <thead class="table-dark">
+        <tr>
+            <th style="text-align: center">First Name</th>
+            <th style="text-align: center">Last Name</th>
+            <th style="text-align: center">Phone Number</th>
+            <th style="text-align: center">Email</th>
+            <th style="text-align: center">Status</th>
+            <th style="text-align: center">Actions</th>
+        </tr>
+        </thead>
 
-		<tbody>
-		<tr th:each="student: ${students}">
-			<td th:text="${student.firstName}"></td>
-			<td th:text="${student.lastName}"></td>
-			<td th:text="${student.phoneNumber}"></td>
-			<td th:text="${student.email}"></td>
-			<td th:text="${student.status}"></td>
+        <tbody>
+        <tr th:each="student: ${students}">
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.phoneNumber}"></td>
+            <td th:text="${student.email}"></td>
+            <td th:text="${student.status}"></td>
 
-			<td style="text-align: center">
-				<a class="btn btn-dark"
-				   th:href="@{/students/{id}(id=${student.id})}">View</a>
+            <td style="text-align: center">
+                <a class="btn btn-dark"
+                   th:href="@{/students/{id}(id=${student.id})}">View</a>
 
-				<a class="btn btn-primary"
-				   th:href="@{/students/edit/{id}(id=${student.id})}">Update</a>
+                <a class="btn btn-primary"
+                   th:href="@{/students/edit/{id}(id=${student.id})}">Update</a>
 
-				<a class="btn btn-danger"
-				   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
-				   th:data-confirm-delete="|Are you sure you want to delete this user |"
-				   th:href="@{/students/delete/{id}(id=${student.id})} ">
-					Delete</a>
-			</td>
-		</tr>
-		</tbody>
+                <a class="btn btn-danger"
+                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+                   th:data-confirm-delete="|Are you sure you want to delete this user |"
+                   th:href="@{/students/delete/{id}(id=${student.id})} ">
+                    Delete</a>
+            </td>
+        </tr>
+        </tbody>
 
-	</table>
+    </table>
 
 </div>
 <script>
-	let sendBtn = document.getElementById('sendButton');
-	let studentPage = 'http://localhost:8080/students'
+    let sendBtn = document.getElementById('sendButton');
+    let studentPage = 'http://localhost:8080/students'
 
 
-	sendBtn.addEventListener("click", () => {
-				studentPage = document.getElementById('first_name').value !== ""
-						? studentPage + `?firstName=` + document.getElementById('first_name').value
-						: studentPage + `?`;
+    sendBtn.addEventListener("click", () => {
+            studentPage = document.getElementById('first_name').value !== ""
+                ? studentPage + `?firstName=` + document.getElementById('first_name').value
+                : studentPage + `?`;
 
-				studentPage = document.getElementById('last_name').value !== ""
-						? studentPage + `&lastName=` + document.getElementById('last_name').value
-						: studentPage;
+            studentPage = document.getElementById('last_name').value !== ""
+                ? studentPage + `&lastName=` + document.getElementById('last_name').value
+                : studentPage;
 
-				window.location.replace(studentPage)
+            window.location.replace(studentPage)
 
-			}
-	)
+        }
+    )
 
 
 </script>

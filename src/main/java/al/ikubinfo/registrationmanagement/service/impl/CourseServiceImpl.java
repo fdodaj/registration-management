@@ -27,7 +27,6 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
 
 
-
     @Override
     public Page<CourseDto> filterCourses(@RequestBody CourseCriteria criteria) {
         Pageable pageable = PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(),

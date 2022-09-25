@@ -18,7 +18,6 @@ public class StudentController {
     private StudentService studentService;
 
 
-
     /**
      * Get all students. if criteria is applied, students are filter accordingly
      *
