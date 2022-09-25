@@ -9,7 +9,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "student")
 public class StudentEntity extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
-    private Long id;
 
     @NotNull
     @Column(name = "first_name")
@@ -63,17 +57,6 @@ public class StudentEntity extends BaseEntity {
     @Column(name = "comment")
     private String comment;
 
-    @NotNull
-    @Column(name = "date_added")
-    private LocalDate dateAdded;
-
-    @NotNull
-    @Column(name = "last_modified")
-    private LocalDate lastModified;
-
-    @NotNull
-    @Column(name = "deleted")
-    private Boolean deleted;
 
     @ManyToMany(mappedBy = "courseStudents", fetch = FetchType.LAZY)
     private List<CourseEntity> courses = new ArrayList<>();

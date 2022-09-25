@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS  course  (
     status         VARCHAR(50),
     start_date     timestamp not null ,
     end_date       timestamp not null ,
-    date_added     timestamp not null ,
-    last_modified  timestamp not null ,
+    created_date     timestamp not null ,
+    modified_date  timestamp not null ,
     deleted        BOOLEAN not null
 );

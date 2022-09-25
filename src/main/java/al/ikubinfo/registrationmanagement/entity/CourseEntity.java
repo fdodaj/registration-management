@@ -22,15 +22,9 @@ import java.util.List;
 @Table(name = "course")
 public class CourseEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", unique = true, updatable = false)
-    private Long id;
-
     @NotNull
     @Column(name = "name")
     private String name;
-
 
     @NotNull
     @Column(name = "status")
@@ -45,17 +39,6 @@ public class CourseEntity extends BaseEntity {
     @Column(name = "end_date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
-
-
-    @Column(name = "date_added")
-    private LocalDate dateAdded;
-
-    @NotNull
-    @Column(name = "last_modified")
-    private LocalDate lastModified;
-
-    @Column(name = "deleted")
-    private Boolean deleted;
 
     @JsonIgnore
     @ManyToMany

@@ -16,11 +16,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class CourseServiceImpl implements CourseService {
 
@@ -31,58 +26,35 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
-        super();
-        this.courseRepository = courseRepository;
-    }
 
-
-    @Override
-    public boolean saveCourse(CourseDto course) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        course.setDateAdded(LocalDate.now());
-        course.setLastModified(LocalDate.now());
-        course.setStartDate(LocalDate.parse(course.getStartDate().toString(), formatter));
-        course.setEndDate(LocalDate.parse(course.getEndDate().toString(), formatter));
-        CourseEntity courseEntity = converter.toEntity(course);
-        courseEntity.setDeleted(false);
-        courseRepository.save(courseEntity);
-        return true;
-    }
-
-    @Override
-    public List<CourseDto> getAllCourses() {
-        return courseRepository.findAll()
-                .stream()
-                .map(converter::toDto)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public Page<CourseDto> filterCourses(@RequestBody CourseCriteria criteria) {
         Pageable pageable = PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(),
                 Sort.Direction.valueOf(criteria.getSortDirection()), criteria.getOrderBy());
         Specification<CourseEntity> spec = specification.filter(criteria);
-
-
         return courseRepository.findAll(spec, pageable).map(converter::toDto);
     }
 
     @Override
-    public CourseEntity updateCourse(CourseDto courseDto) {
-        CourseEntity currentCourse = getCourseById(courseDto.getId());
-        courseDto.setLastModified(LocalDate.now());
+    public CourseDto getCourseById(Long id) {
 
-        CourseEntity courseEntity = converter.toEntity(courseDto);
-        courseEntity.setDeleted(currentCourse.getDeleted());
+        return courseRepository.findById(id)
+                .map(converter::toDto)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+    }
 
-        courseDto.setDateAdded(currentCourse.getDateAdded());
-        return courseRepository.save(courseEntity);
+
+    @Override
+    public void saveCourse(CourseDto courseDto) {
+        CourseEntity entity = converter.toEntity(courseDto);
+        courseRepository.save(entity);
     }
 
     @Override
-    public CourseEntity getCourseById(Long id) {
-        return courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found"));
+    public CourseDto updateCourse(CourseDto courseDto) {
+        CourseEntity entity = converter.toEntity(courseDto);
+        return converter.toDto(courseRepository.save(entity));
     }
 
     @Override
@@ -91,5 +63,11 @@ public class CourseServiceImpl implements CourseService {
         course.setDeleted(true);
         courseRepository.save(course);
     }
+
+    private CourseEntity getCourseEntity(Long id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+    }
+
 
 }

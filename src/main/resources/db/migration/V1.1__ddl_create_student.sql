@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS student (
    price_reduction  numeric,
    price_paid numeric,
    comment    VARCHAR(100),
-   date_added timestamp not null ,
-   last_modified    timestamp not null ,
+   created_date timestamp not null ,
+   modified_date    timestamp not null ,
    deleted    BOOLEAN not null
 );

@@ -1,7 +1,6 @@
 package al.ikubinfo.registrationmanagement.service;
 
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import org.springframework.data.domain.Page;
 
@@ -9,16 +8,13 @@ import java.util.List;
 
 public interface CourseService {
 
-    boolean saveCourse(CourseDto course);
-
-    List<CourseDto> getAllCourses();
-
     Page<CourseDto> filterCourses(CourseCriteria criteria);
 
+    CourseDto getCourseById(Long id);
 
-    CourseEntity updateCourse(CourseDto courseDtoC);
+    void saveCourse(CourseDto course);
 
-    CourseEntity getCourseById(Long id);
+    CourseDto updateCourse(CourseDto courseDto);
 
     void deleteCourseById(Long id);
 
