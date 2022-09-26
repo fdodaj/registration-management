@@ -22,15 +22,15 @@ import java.util.List;
 @Table(name = "course")
 public class CourseEntity extends BaseEntity {
 
-    @NotNull
+
     @Column(name = "name")
     private String name;
 
-    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private CourseProgressStatus status;
 
-    @NotNull
+
     @Column(name = "start_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;

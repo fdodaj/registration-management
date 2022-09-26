@@ -21,22 +21,16 @@ import java.util.List;
 @Table(name = "student")
 public class StudentEntity extends BaseEntity {
 
-    @NotNull
+
     @Column(name = "first_name")
-    @Size(min = 7, max = 10)
     private String firstName;
 
-    @NotNull
     @Column(name = "Last_name")
     private String lastName;
 
-    @NotNull
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @NotNull
-    @Email
-    @Size(min = 10, max = 100)
     @Column(name = "email")
     private String email;
 
@@ -45,24 +39,20 @@ public class StudentEntity extends BaseEntity {
     private StudentStatusEnum status;
 
 
+
     @Column(name = "reference")
     private String reference;
-
 
     @Column(name = "price_reduction")
     private double priceReduction;
 
-    @NotNull
     @Column(name = "price_paid")
     private double pricePaid;
-
 
     @Column(name = "comment")
     private String comment;
 
-
     @ManyToMany(mappedBy = "courseStudents", fetch = FetchType.LAZY)
     private List<CourseEntity> courses;
-
 
 }

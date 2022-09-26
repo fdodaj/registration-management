@@ -19,17 +19,17 @@ public abstract class BaseEntity {
     @Column(name = "id", unique = true, updatable = false)
     private Long id;
 
-    @NotNull
+
     @CreationTimestamp
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    @NotNull
+
     @UpdateTimestamp
     @Column(name = "modified_date")
     private LocalDate modifiedDate;
 
-    @NotNull
+
     @Column(name = "deleted")
     private boolean deleted;
 

@@ -9,21 +9,29 @@ import java.util.List;
 
 @Data
 public class CourseDto {
+
+    @NullConstraint
     private Long id;
 
+    @NullConstraint
     private String name;
 
+    @NullConstraint
     private CourseProgressStatus status;
 
+    @NullConstraint
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
+    @NullConstraint
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
+    @NullConstraint
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdDate;
 
+    @NullConstraint
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate modifiedDate;
 
