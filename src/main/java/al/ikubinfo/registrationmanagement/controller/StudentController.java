@@ -2,14 +2,20 @@ package al.ikubinfo.registrationmanagement.controller;
 
 import al.ikubinfo.registrationmanagement.dto.StudentDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
+import al.ikubinfo.registrationmanagement.exception.CourseDeletedException;
 import al.ikubinfo.registrationmanagement.repository.criteria.StudentCriteria;
 import al.ikubinfo.registrationmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
+@Validated
 @Controller
 public class StudentController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/students";
@@ -25,7 +31,7 @@ public class StudentController {
      * @return ModelAndView -> students filtered list
      */
     @GetMapping("/students")
-    public ModelAndView listStudents(StudentCriteria criteria) {
+    public ModelAndView listStudents(@Valid StudentCriteria criteria) {
         Page<StudentDto> students = studentService.filterStudents(criteria);
         ModelAndView mv = new ModelAndView(STUDENTS);
         mv.addObject(STUDENTS, students);
@@ -39,7 +45,7 @@ public class StudentController {
      * @return ModelAndView with student details
      */
     @GetMapping("/students/{id}")
-    public ModelAndView getStudentById(@PathVariable Long id) {
+    public ModelAndView getStudentById(@Valid @PathVariable Long id) {
         ModelAndView mv = new ModelAndView("student_details");
         mv.addObject("student", studentService.getStudentById(id));
         return mv;
@@ -53,7 +59,7 @@ public class StudentController {
      * @return ModelAndView
      */
     @GetMapping("/students/new")
-    public ModelAndView retrieveNewStudentView(StudentDto student) {
+    public ModelAndView retrieveNewStudentView( @Valid StudentDto student) {
         ModelAndView mv = new ModelAndView("create_student");
         mv.addObject("student", student);
         return mv;
@@ -66,8 +72,7 @@ public class StudentController {
      * @return ModelAndView
      */
     @PostMapping("/students")
-    public ModelAndView saveStudent(@ModelAttribute("student") StudentDto student) {
-        studentService.saveStudent(student);
+    public ModelAndView saveStudent(@Valid @ModelAttribute("student") StudentDto student, BindingResult result) {
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 

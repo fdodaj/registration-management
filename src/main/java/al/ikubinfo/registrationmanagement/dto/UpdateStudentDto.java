@@ -2,8 +2,13 @@ package al.ikubinfo.registrationmanagement.dto;
 
 import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 
 @Data
+@Valid
+@Validated
 public class UpdateStudentDto {
     private Long id;
     private String firstName;

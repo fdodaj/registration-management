@@ -9,6 +9,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,6 @@ public class StudentEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StudentStatusEnum status;
-
-
 
     @Column(name = "reference")
     private String reference;

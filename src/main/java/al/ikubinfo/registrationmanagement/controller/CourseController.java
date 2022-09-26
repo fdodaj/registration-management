@@ -8,12 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
 @Controller
+@Validated
 public class CourseController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
 
@@ -28,7 +30,7 @@ public class CourseController {
      * @return ModelAndView -> courses filtered list
      */
     @GetMapping("/courses")
-    public ModelAndView listCourses(CourseCriteria criteria) {
+    public ModelAndView listCourses(@Valid CourseCriteria criteria) {
         Page<CourseDto> courseDtos = courseService.filterCourses(criteria);
         ModelAndView mv = new ModelAndView("courses");
         mv.addObject("courses", courseDtos);
@@ -42,7 +44,7 @@ public class CourseController {
      * @return ModelAndView with course details
      */
     @GetMapping("/course/{id}")
-    public ModelAndView getCourseById(@PathVariable Long id) {
+    public ModelAndView getCourseById(@Valid @PathVariable Long id) {
         ModelAndView mv = new ModelAndView("course_details");
         mv.addObject("course", courseService.getCourseById(id));
         return mv;
@@ -55,7 +57,7 @@ public class CourseController {
      * @return ModelAndView
      */
     @GetMapping("/course/new")
-    public ModelAndView retrieveNewCourseView(CourseDto course) {
+    public ModelAndView retrieveNewCourseView(@Valid CourseDto course) {
         ModelAndView mv = new ModelAndView("create_course");
         mv.addObject("course", course);
         return mv;
@@ -82,7 +84,7 @@ public class CourseController {
      * @return ModelAndView
      */
     @GetMapping("/courses/edit/{id}")
-    public ModelAndView updateCourseView(@PathVariable("id") Long id) {
+    public ModelAndView updateCourseView(@Valid @PathVariable("id") Long id) {
         CourseDto courseDto = courseService.getCourseById(id);
         ModelAndView mv = new ModelAndView("edit_course");
         mv.addObject("course", courseDto);
@@ -97,7 +99,7 @@ public class CourseController {
      * @return ModelAndView
      */
     @PostMapping("/course/{id}")
-    public ModelAndView updateCourse(@PathVariable Long id, @ModelAttribute("course") CourseDto courseDto) {
+    public ModelAndView updateCourse(@PathVariable Long id, @ModelAttribute("course")  @Valid CourseDto courseDto) {
         courseService.updateCourse(courseDto);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }

@@ -3,11 +3,15 @@ package al.ikubinfo.registrationmanagement.dto;
 import al.ikubinfo.registrationmanagement.entity.CourseProgressStatus;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@Valid
+@Validated
 public class CourseDto {
 
     @NullConstraint

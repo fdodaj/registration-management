@@ -2,7 +2,9 @@ package al.ikubinfo.registrationmanagement.dto;
 
 import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@Valid
+@Validated
 public class StudentDto {
 
     @NullConstraint
@@ -23,13 +27,12 @@ public class StudentDto {
     @Size(min = 10, max = 50)
     private String lastName;
 
-    @Pattern(regexp = "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$\n")
-    @NullConstraint
+    @Pattern(regexp =  "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}")
     private String phoneNumber;
 
-    @Email
     @Size(min = 10, max = 100)
     @NullConstraint
+    @Email
     private String email;
 
     @NullConstraint
@@ -45,7 +48,7 @@ public class StudentDto {
     @NullConstraint
     private double pricePaid;
 
-    @Size(min = 10, max = 500)
+    @Size(max = 500)
     private String comment;
 
     @NullConstraint
