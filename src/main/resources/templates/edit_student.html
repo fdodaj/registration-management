@@ -36,52 +36,54 @@
             <div class="card-body">
                 <form method="POST" th:action="@{/students/{id} (id=${student.id})}" th:object="${student}">
                     <div class="form-group">
-                        <label> Student first Name </label>
+                        <label> Firstname </label>
                         <input
-                                class="form-control"
+                                1 class="form-control"
                                 name="name"
-                                placeholder="Enter Student Full Name"
+                                th:required="required"
                                 th:field="*{firstName}"
+                                th:maxlength="35"
                                 type="text"
                         />
                     </div>
                     <div class="form-group">
-                        <label> Student last Name </label>
+                        <label>Lastname </label>
                         <input
                                 class="form-control"
-                                name="name"
-                                placeholder="Enter Student Full Name"
+                                name="surname"
+                                th:required="required"
                                 th:field="*{lastName}"
+                                th:maxlength="35"
                                 type="text"
                         />
                     </div>
 
                     <div class="form-group">
-                        <label> Student Phone Number </label>
+                        <label>Phone number </label>
                         <input
                                 class="form-control"
+                                th:required="required"
                                 name="phoneNumber"
-                                placeholder="Enter Student phone number"
                                 th:field="*{phoneNumber}"
                                 type="text"
                         />
                     </div>
 
                     <div class="form-group">
-                        <label> Student Email </label>
+                        <label> Email </label>
                         <input
                                 class="form-control"
                                 name="email"
-                                placeholder="Enter Student email"
+                                th:required="required"
                                 th:field="*{email}"
                                 type="email"
                         />
                     </div>
                     <div class="form-group ">
-                        <div><label> Student Status </label></div>
+                        <div><label> Status </label></div>
                         <select name="status" style="text-align: center">
                             <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.StudentStatusEnum).values()}"
-                                    th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
+                                    th:text="${statusOpt.getDisplayValue()}" th:required="required" th:value="${statusOpt}"></option>
                         </select>
 
                     </div>
@@ -107,21 +109,21 @@
                     <!--							/>-->
                     <!--						</div>-->
                     <div class="form-group">
-                        <label> Student price already Paid </label>
+                        <label>  Price paid </label>
                         <input
                                 class="form-control"
                                 name="pricePaid"
-                                placeholder="Enter Student already paid value"
                                 th:field="*{pricePaid}"
+                                th:required="required"
                                 type="number"
                         />
                     </div>
                     <div class="form-group">
-                        <label> Student comment </label>
+                        <label>  Comment </label>
                         <input
                                 class="form-control"
                                 name="comment"
-                                placeholder="Enter Student comment"
+                                th:required="required"
                                 th:field="*{comment}"
                                 type="text"
                         />

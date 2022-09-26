@@ -18,6 +18,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Objects;
+
 @Service
 public class CourseServiceImpl implements CourseService {
 
@@ -63,7 +65,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourseById(Long id) {
-        CourseEntity course = courseRepository.findById(id).orElseThrow(null);
+        CourseEntity course = courseRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Course does not exist"));
         course.setDeleted(true);
         courseRepository.save(course);
     }
@@ -81,6 +84,15 @@ public class CourseServiceImpl implements CourseService {
         course.getCourseStudents().add(studentEntity);
         courseRepository.save(course);
 
+    }
+
+    @Override
+    public void deleteStudentFromCourse(Long studentId, Long courseId) {
+
+        CourseEntity course = getCourseEntity(courseId);
+        StudentEntity studentEntity = studentService.getStudentEntity(studentId);
+        course.getCourseStudents().removeIf(s -> s.getId().equals(studentEntity.getId()));
+        courseRepository.save(course);
 
     }
 }

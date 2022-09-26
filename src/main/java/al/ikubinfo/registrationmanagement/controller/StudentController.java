@@ -94,7 +94,7 @@ public class StudentController {
      * @param student Student updated dto
      * @return
      */
-    @PutMapping("/students/{id}")
+    @PostMapping("/students/{id}")
     public ModelAndView updateStudent(@PathVariable Long id, @ModelAttribute("student") UpdateStudentDto student) {
         StudentDto dto = studentService.updateStudent(student);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);

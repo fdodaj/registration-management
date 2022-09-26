@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
 @Controller
 public class CourseController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
@@ -67,7 +69,8 @@ public class CourseController {
      * @return ModelAndView
      */
     @PostMapping("/courses")
-    public ModelAndView saveCourse(@ModelAttribute("course") CourseDto course) {
+    public ModelAndView saveCourse(@ModelAttribute("course") @Valid CourseDto course) {
+        courseService.saveCourse(course);
         courseService.saveCourse(course);
         return new ModelAndView("redirect:/courses");
     }
@@ -114,6 +117,12 @@ public class CourseController {
     @PutMapping("addd/{courseId}/{studentId}")
     ResponseEntity<Void> addStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
         courseService.addStudentToCourse(studentId, courseId);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("delete/{courseId}/{studentId}")
+    ResponseEntity<Void> deleteStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+        courseService.deleteStudentFromCourse(studentId, courseId);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
