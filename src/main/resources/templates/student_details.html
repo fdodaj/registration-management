@@ -42,50 +42,50 @@
             <div class="card-body">
                 <form method="POST" th:action="@{/students/{id} (id=${student.id})}" th:object="${student}">
                     <div class="form-group">
-                        NAME:
+                        <strong>NAME:</strong>
                         <td th:text="*{firstName}">1</td>
 
 
                     </div>
                     <div class="form-group">
-                        Last name:
+                       <strong> Last name:</strong>
                         <td th:text="*{lastName}">1</td>
 
                     </div>
 
                     <div class="form-group">
-                        PHONE NUMBER:
+                        <strong>PHONE NUMBER:</strong>
                         <td th:text="*{phoneNumber}">1</td>
                     </div>
 
                     <div class="form-group">
-                        EMAIL:
+                        <strong> EMAIL:</strong>
                         <td th:text="*{email}">1</td>
 
                     </div>
                     <div class="form-group">
-                        STATUS:
+                        <strong>STATUS:</strong>
                         <td th:text="*{status}">1</td>
                     </div>
 
                     <div class="form-group">
-                        REFERENCE:
+                        <strong>REFERENCE:</strong>
                         <td th:text="*{reference}">1</td>
                     </div>
                     <div class="form-group">
-                        PRICE REDUCTION:
+                        <strong>PRICE REDUCTION:</strong>
                         <td th:text="*{priceReduction}">1</td>
                     </div>
                     <div class="form-group">
-                        PRICE PAID:
+                        <strong>PRICE PAID:</strong>
                         <td th:text="*{pricePaid}">1</td>
                     </div>
                     <div class="form-group">
-                        COMMENT:
+                        <strong>COMMENT:</strong>
                         <td th:text="*{comment}">1</td>
                     </div>
                     <div class="form-group">
-                        LAST MODIFIED:
+                        <strong>LAST MODIFIED:</strong>
                         <td th:text="*{modifiedDate}">1</td>
                     </div>
 

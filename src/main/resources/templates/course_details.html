@@ -43,35 +43,35 @@
             <div class="card-body">
                 <form method="POST" th:action="@{/course/{id} (id=${course.id})}" th:object="${course}">
                     <div class="form-group">
-                        NAME:
+                        <strong>NAME:</strong>
                         <td th:text="*{name}">1</td>
 
 
                     </div>
                     <div class="form-group">
-                        status:
+                        <strong>status:</strong>
                         <td th:text="*{status}">1</td>
 
                     </div>
 
                     <div class="form-group">
-                        START DATE:
+                        <strong>START DATE:</strong>
                         <td th:text="*{startDate}">1</td>
                     </div>
 
                     <div class="form-group">
-                        END DATE:
+                        <strong>END DATE:</strong>
                         <td th:text="*{endDate}">1</td>
 
                     </div>
                     <div class="form-group">
-                        LAST MODIFIED:
+                        <strong>LAST MODIFIED:</strong>
                         <td th:text="*{modifiedDate}">1</td>
                     </div>
 
                     <div class="form-group">
                         <!--                        return a list of users that are in this course-->
-                        STUDENTS:
+                        <strong>STUDENTS:</strong>
                         <td th:text="${course.getStudents()}">1</td>
 
                     </div>
