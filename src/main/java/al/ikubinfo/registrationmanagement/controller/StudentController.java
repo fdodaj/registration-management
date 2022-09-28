@@ -73,6 +73,7 @@ public class StudentController {
      */
     @PostMapping("/students")
     public ModelAndView saveStudent(@Valid @ModelAttribute("student") StudentDto student, BindingResult result) {
+        studentService.saveStudent(student);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 

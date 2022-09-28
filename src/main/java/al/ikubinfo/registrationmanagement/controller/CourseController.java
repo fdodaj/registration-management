@@ -73,7 +73,6 @@ public class CourseController {
     @PostMapping("/courses")
     public ModelAndView saveCourse(@ModelAttribute("course") @Valid CourseDto course) {
         courseService.saveCourse(course);
-        courseService.saveCourse(course);
         return new ModelAndView("redirect:/courses");
     }
 
