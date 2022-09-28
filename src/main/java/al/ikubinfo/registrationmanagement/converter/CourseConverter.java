@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Component
-
 public class CourseConverter implements BidirectionalConverter<CourseDto, CourseEntity> {
 
     @Autowired
