@@ -1,11 +1,15 @@
 package al.ikubinfo.registrationmanagement.controller;
 
+import al.ikubinfo.registrationmanagement.converter.UserConverter;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
+import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Validated
 @Controller
@@ -21,6 +26,12 @@ public class UserController {
     private static final String USERS = "users";
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserConverter userConverter;
+
+    @Autowired
+    private UserEntityManagerRepository userEntityManagerRepository;
 
 
     /**
@@ -35,6 +46,12 @@ public class UserController {
         ModelAndView mv = new ModelAndView(USERS);
         mv.addObject(USERS, users);
         return mv;
+    }
+
+    @GetMapping("/entity-manager/students")
+    public ResponseEntity<List<UserDto>> listStudentsUsingEntityManager() {
+        return new ResponseEntity<>(userConverter.toStudentDtoList(userEntityManagerRepository.getAllStudentsWithPaidCurses()),
+                     HttpStatus.OK);
     }
 
     /**
