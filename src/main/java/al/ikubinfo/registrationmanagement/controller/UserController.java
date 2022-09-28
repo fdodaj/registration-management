@@ -6,12 +6,14 @@ import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.UserService;
+import al.ikubinfo.registrationmanagement.service.impl.UserValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +28,9 @@ public class UserController {
     private static final String USERS = "users";
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserValidationService userValidationService;
 
     @Autowired
     private UserConverter userConverter;
@@ -48,11 +53,6 @@ public class UserController {
         return mv;
     }
 
-    @GetMapping("/entity-manager/students")
-    public ResponseEntity<List<UserDto>> listStudentsUsingEntityManager() {
-        return new ResponseEntity<>(userConverter.toStudentDtoList(userEntityManagerRepository.getAllStudentsWithPaidCurses()),
-                     HttpStatus.OK);
-    }
 
     /**
      * Retrieve student details
@@ -89,6 +89,12 @@ public class UserController {
      */
     @PostMapping("/students")
     public ModelAndView saveStudent(@Valid @ModelAttribute("student") UserDto student, BindingResult result) {
+    String err = userValidationService.validatePhoneNumber(student);
+    if (!err.isEmpty()){
+        ObjectError error = new ObjectError("Global error", err);
+        result.addError(error);
+        return new ModelAndView("create_student");
+    }
         userService.saveStudent(student);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
@@ -132,6 +138,17 @@ public class UserController {
     public ModelAndView deleteStudent(@PathVariable Long id) {
         userService.deleteStudentById(id);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
+
+    /**
+     * Get student with PAID courses using EntityManager
+     *
+     * @return ResponseEntity<List<UserDto>>
+     */
+    @GetMapping("/entity-manager/students")
+    public ResponseEntity<List<UserDto>> listStudentsUsingEntityManager() {
+        return new ResponseEntity<>(userConverter.toStudentDtoList(userEntityManagerRepository.getAllStudentsWithPaidCurses()),
+                HttpStatus.OK);
     }
 
 }

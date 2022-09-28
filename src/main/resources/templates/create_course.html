@@ -77,6 +77,10 @@
                                 type="date"
                         />
                     </div>
+                    <div th:if="${#fields.hasErrors('global')}">
+                        <h5>Global errors:</h5>
+                        <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
+                    </div>
 
 
                     <div class="box-footer">

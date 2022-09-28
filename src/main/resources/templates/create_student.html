@@ -134,6 +134,10 @@
                         />
                     </div>
 
+                    <div th:if="${#fields.hasErrors('global')}"  style="color: red">
+                        <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
+                    </div>
+
                     <div class="box-footer">
                         <button class="btn btn-primary" type="submit">
                             Submit

@@ -3,11 +3,14 @@ package al.ikubinfo.registrationmanagement.controller;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.impl.CourseValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +24,10 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private CourseValidationService courseValidationService;
+
 
 
     /**
@@ -71,7 +78,13 @@ public class CourseController {
      * @return ModelAndView
      */
     @PostMapping("/courses")
-    public ModelAndView saveCourse(@ModelAttribute("course") @Valid CourseDto course) {
+    public ModelAndView saveCourse(@ModelAttribute("course") @Valid CourseDto course , BindingResult result) {
+        String err = courseValidationService.validateCourse(course);
+        if (!err.isEmpty()){
+            ObjectError error = new ObjectError("Global error", err);
+            result.addError(error);
+            return new ModelAndView("create_course");
+        }
         courseService.saveCourse(course);
         return new ModelAndView("redirect:/courses");
     }
