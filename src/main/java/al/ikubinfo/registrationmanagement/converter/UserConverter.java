@@ -3,6 +3,7 @@ package al.ikubinfo.registrationmanagement.converter;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.stream.Collectors;
 @Component
 public class UserConverter implements BidirectionalConverter<UserDto, UserEntity> {
 
+    @Autowired
+    private RoleConverter roleConverter;
     @Override
     public UserEntity toEntity(UserDto dto) {
         UserEntity entity = new UserEntity();
@@ -24,7 +27,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setPriceReduction(dto.getPriceReduction());
         entity.setPricePaid(dto.getPricePaid());
         entity.setComment(dto.getComment());
-//        entity.setCourse(repository.findById(dto.getCourse()).get());
+        entity.setRole(roleConverter.toEntity(dto.getRole()));
         return entity;
     }
 

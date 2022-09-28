@@ -4,6 +4,7 @@ import al.ikubinfo.registrationmanagement.converter.UserConverter;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
+import al.ikubinfo.registrationmanagement.repository.RoleRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.UserSpecification;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Override
     public Page<UserDto> filterUsers(@RequestBody UserCriteria criteria) {
         Pageable pageable = PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(),
@@ -47,6 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveStudent(UserDto dto) {
         UserEntity userEntity = userConverter.toEntity(dto);
+        userEntity.setRole(roleRepository.findByName("STUDENT"));
         userRepository.save(userEntity);
     }
 

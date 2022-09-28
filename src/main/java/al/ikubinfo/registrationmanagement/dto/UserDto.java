@@ -57,5 +57,7 @@ public class UserDto {
     @NullConstraint
     private LocalDate createdDate;
 
+    private RoleDto role;
+
     private List<CourseDto> courses;
 }

@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,5 +49,10 @@ public class UserEntity extends BaseEntity {
 
     @ManyToMany(mappedBy = "courseStudents", fetch = FetchType.LAZY)
     private List<CourseEntity> courses;
+
+    @ManyToOne
+    @JoinColumn(name = "user_role")
+    @JsonIgnore
+    private RoleEntity role;
 
 }
