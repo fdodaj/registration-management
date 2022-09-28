@@ -3,12 +3,11 @@ package al.ikubinfo.registrationmanagement.service.impl;
 import al.ikubinfo.registrationmanagement.converter.CourseConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
-import al.ikubinfo.registrationmanagement.entity.StudentEntity;
+import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
 import al.ikubinfo.registrationmanagement.service.CourseService;
-import al.ikubinfo.registrationmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,13 +17,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.Objects;
-
 @Service
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
-    private StudentServiceImpl studentService;
+    private UserServiceImpl studentService;
     @Autowired
     CourseSpecification specification;
     @Autowired
@@ -79,9 +76,9 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void addStudentToCourse(Long studentId, Long courseId) {
         CourseEntity course = getCourseEntity(courseId);
-        StudentEntity studentEntity = studentService.getStudentEntity(studentId);
+        UserEntity userEntity = studentService.getStudentEntity(studentId);
 
-        course.getCourseStudents().add(studentEntity);
+        course.getCourseStudents().add(userEntity);
         courseRepository.save(course);
 
     }
@@ -90,8 +87,8 @@ public class CourseServiceImpl implements CourseService {
     public void deleteStudentFromCourse(Long studentId, Long courseId) {
 
         CourseEntity course = getCourseEntity(courseId);
-        StudentEntity studentEntity = studentService.getStudentEntity(studentId);
-        course.getCourseStudents().removeIf(s -> s.getId().equals(studentEntity.getId()));
+        UserEntity userEntity = studentService.getStudentEntity(studentId);
+        course.getCourseStudents().removeIf(s -> s.getId().equals(userEntity.getId()));
         courseRepository.save(course);
 
     }

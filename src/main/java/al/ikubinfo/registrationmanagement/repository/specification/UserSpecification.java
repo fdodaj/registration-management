@@ -1,16 +1,16 @@
 package al.ikubinfo.registrationmanagement.repository.specification;
 
 
-import al.ikubinfo.registrationmanagement.entity.StudentEntity;
-import al.ikubinfo.registrationmanagement.repository.criteria.StudentCriteria;
+import al.ikubinfo.registrationmanagement.entity.UserEntity;
+import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StudentSpecification extends SpecificationBuilder<StudentEntity, StudentCriteria> {
+public class UserSpecification extends SpecificationBuilder<UserEntity, UserCriteria> {
     @Override
-    public Specification<StudentEntity> filter(StudentCriteria criteria) {
-        Specification<StudentEntity> specification = Specification.where(null);
+    public Specification<UserEntity> filter(UserCriteria criteria) {
+        Specification<UserEntity> specification = Specification.where(null);
 
         if (criteria.getFirstName() != null && !criteria.getFirstName().isEmpty()) {
             specification = specification.and(equalsSpecification("firstName", criteria.getFirstName()));

@@ -1,19 +1,19 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.StudentDto;
+import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
-import al.ikubinfo.registrationmanagement.entity.StudentEntity;
+import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class StudentConverter implements BidirectionalConverter<StudentDto, StudentEntity> {
+public class UserConverter implements BidirectionalConverter<UserDto, UserEntity> {
 
     @Override
-    public StudentEntity toEntity(StudentDto dto) {
-        StudentEntity entity = new StudentEntity();
+    public UserEntity toEntity(UserDto dto) {
+        UserEntity entity = new UserEntity();
 
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
@@ -30,8 +30,8 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
 
 
     @Override
-    public StudentDto toDto(StudentEntity entity) {
-        StudentDto dto = new StudentDto();
+    public UserDto toDto(UserEntity entity) {
+        UserDto dto = new UserDto();
         dto.setId(entity.getId());
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
@@ -47,7 +47,7 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
         return dto;
     }
 
-    public StudentEntity toUpdateStudentEntity(UpdateStudentDto dto, StudentEntity entity) {
+    public UserEntity toUpdateStudentEntity(UpdateStudentDto dto, UserEntity entity) {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
@@ -59,7 +59,7 @@ public class StudentConverter implements BidirectionalConverter<StudentDto, Stud
         return entity;
     }
 
-    public List<StudentDto> toStudentDtoList(List<StudentEntity> entities) {
+    public List<UserDto> toStudentDtoList(List<UserEntity> entities) {
         return entities.stream().map(this::toDto).collect(Collectors.toList());
     }
 

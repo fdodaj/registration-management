@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @Valid
 @Validated
-public class StudentDto {
+public class UserDto {
 
     @NullConstraint
     private Long id;

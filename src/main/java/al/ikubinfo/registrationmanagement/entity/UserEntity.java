@@ -1,17 +1,12 @@
 package al.ikubinfo.registrationmanagement.entity;
 
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,8 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @Where(clause = "deleted = false")
 @NoArgsConstructor
-@Table(name = "student")
-public class StudentEntity extends BaseEntity {
+@Table(name = "users")
+public class UserEntity extends BaseEntity {
 
 
     @Column(name = "first_name")

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StudentCriteria extends BaseCriteria {
+public class UserCriteria extends BaseCriteria {
     private String firstName;
     private String lastName;
     private Long course;

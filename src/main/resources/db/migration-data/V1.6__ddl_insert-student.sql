@@ -1,4 +1,4 @@
-INSERT INTO student(id, first_name, last_name, phone_number, email, status, reference, price_reduction, price_paid,
+INSERT INTO "users"(id, first_name, last_name, phone_number, email, status, reference, price_reduction, price_paid,
                     comment, created_date, modified_date, deleted)
 VALUES (1, 'Florian', 'Dodaj', '069787878788', 'florian@gmail.com', 'INTERESTED', 'none', 3000, 270000, 'comment',
         '2022-09-01', '2022-09-01', false),

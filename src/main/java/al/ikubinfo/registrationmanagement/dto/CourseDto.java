@@ -39,5 +39,5 @@ public class CourseDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate modifiedDate;
 
-    private List<StudentDto> students;
+    private List<UserDto> students;
 }
