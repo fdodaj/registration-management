@@ -6,14 +6,13 @@ import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Access;
-
 @Service
 public class UserValidationService {
 
     @Autowired
     private UserRepository repository;
-    public String validatePhoneNumber(UserDto userDto){
+
+    public String validatePhoneNumber(UserDto userDto) {
         StringBuilder message = new StringBuilder();
         String pattern = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
         if (!userDto.getPhoneNumber().matches(pattern)) {
@@ -22,7 +21,7 @@ public class UserValidationService {
         return message.toString();
     }
 
-    public String validateUniqueUser(UserDto userDto){
+    public String validateUniqueUser(UserDto userDto) {
         String message = "";
         if (repository.getByEmail(userDto.getEmail()) != null) {
             message = "User already exists ";

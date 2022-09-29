@@ -1,8 +1,8 @@
 package al.ikubinfo.registrationmanagement.controller;
 
 import al.ikubinfo.registrationmanagement.converter.UserConverter;
-import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
+import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.UserService;
@@ -15,7 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -75,7 +78,7 @@ public class UserController {
      * @return ModelAndView
      */
     @GetMapping("/students/new")
-    public ModelAndView retrieveNewStudentView( @Valid UserDto student) {
+    public ModelAndView retrieveNewStudentView(@Valid UserDto student) {
         ModelAndView mv = new ModelAndView("create_student");
         mv.addObject("student", student);
         return mv;
@@ -88,19 +91,19 @@ public class UserController {
      * @return ModelAndView
      */
     @PostMapping("/students")
-    public ModelAndView saveStudent(@ModelAttribute("student")@Valid UserDto student, BindingResult result) {
-    String validatePhoneNumber = userValidationService.validatePhoneNumber(student);
-    String validateUniqueUser = userValidationService.validateUniqueUser(student);
-    if (!validatePhoneNumber.isEmpty()){
-        ObjectError error = new ObjectError("Global error", validatePhoneNumber);
-        result.addError(error);
-        return new ModelAndView("create_student");
-    }
-    if (!validateUniqueUser.isEmpty()){
-        ObjectError error = new ObjectError("Global error", validateUniqueUser);
-        result.addError(error);
-        return new ModelAndView("create_student");
-    }
+    public ModelAndView saveStudent(@ModelAttribute("student") @Valid UserDto student, BindingResult result) {
+        String validatePhoneNumber = userValidationService.validatePhoneNumber(student);
+        String validateUniqueUser = userValidationService.validateUniqueUser(student);
+        if (!validatePhoneNumber.isEmpty()) {
+            ObjectError error = new ObjectError("Global error", validatePhoneNumber);
+            result.addError(error);
+            return new ModelAndView("create_student");
+        }
+        if (!validateUniqueUser.isEmpty()) {
+            ObjectError error = new ObjectError("Global error", validateUniqueUser);
+            result.addError(error);
+            return new ModelAndView("create_student");
+        }
         userService.saveStudent(student);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
@@ -149,7 +152,7 @@ public class UserController {
     /**
      * Get student with PAID courses using EntityManager
      *
-     * @return ResponseEntity<List<UserDto>>
+     * @return ResponseEntity<List < UserDto>>
      */
     @GetMapping("/entity-manager/students")
     public ResponseEntity<List<UserDto>> listStudentsUsingEntityManager() {

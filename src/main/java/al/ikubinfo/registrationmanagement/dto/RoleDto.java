@@ -1,4 +1,5 @@
 package al.ikubinfo.registrationmanagement.dto;
+
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;

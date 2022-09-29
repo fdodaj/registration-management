@@ -29,7 +29,6 @@ public class CourseController {
     private CourseValidationService courseValidationService;
 
 
-
     /**
      * Get all courses. if criteria is applied, courses are filter accordingly
      *
@@ -78,16 +77,16 @@ public class CourseController {
      * @return ModelAndView
      */
     @PostMapping("/courses")
-    public ModelAndView saveCourse(@ModelAttribute("course") @Valid CourseDto course , BindingResult result) {
+    public ModelAndView saveCourse(@ModelAttribute("course") @Valid CourseDto course, BindingResult result) {
         String courseAlreadyExistError = courseValidationService.validateCourseAlreadyExist(course);
         String courseInvalidDatesError = courseValidationService.validateCourseInvalidDates(course);
 
-        if (!courseAlreadyExistError.isEmpty()){
+        if (!courseAlreadyExistError.isEmpty()) {
             ObjectError error = new ObjectError("Global error", courseAlreadyExistError);
             result.addError(error);
             return new ModelAndView("create_course");
         }
-        if (!courseInvalidDatesError.isEmpty()){
+        if (!courseInvalidDatesError.isEmpty()) {
             ObjectError error = new ObjectError("Global error", courseInvalidDatesError);
             result.addError(error);
             return new ModelAndView("create_course");
@@ -118,7 +117,7 @@ public class CourseController {
      * @return ModelAndView
      */
     @PostMapping("/course/{id}")
-    public ModelAndView updateCourse(@PathVariable Long id, @ModelAttribute("course")  @Valid CourseDto courseDto) {
+    public ModelAndView updateCourse(@PathVariable Long id, @ModelAttribute("course") @Valid CourseDto courseDto) {
         courseService.updateCourse(courseDto);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }

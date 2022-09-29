@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
-    private UserServiceImpl studentService;
-    @Autowired
     CourseSpecification specification;
+    @Autowired
+    private UserServiceImpl studentService;
     @Autowired
     private CourseConverter converter;
     @Autowired

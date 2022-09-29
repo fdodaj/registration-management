@@ -40,9 +40,9 @@
                         <input
                                 1 class="form-control"
                                 name="name"
-                                th:required="required"
                                 th:field="*{firstName}"
                                 th:maxlength="35"
+                                th:required="required"
                                 type="text"
                         />
                     </div>
@@ -51,9 +51,9 @@
                         <input
                                 class="form-control"
                                 name="surname"
-                                th:required="required"
                                 th:field="*{lastName}"
                                 th:maxlength="35"
+                                th:required="required"
                                 type="text"
                         />
                     </div>
@@ -62,9 +62,9 @@
                         <label>Phone number </label>
                         <input
                                 class="form-control"
-                                th:required="required"
                                 name="phoneNumber"
                                 th:field="*{phoneNumber}"
+                                th:required="required"
                                 type="text"
                         />
                     </div>
@@ -74,8 +74,8 @@
                         <input
                                 class="form-control"
                                 name="email"
-                                th:required="required"
                                 th:field="*{email}"
+                                th:required="required"
                                 type="email"
                         />
                     </div>
@@ -83,7 +83,8 @@
                         <div><label> Status </label></div>
                         <select name="status" style="text-align: center">
                             <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.StudentStatusEnum).values()}"
-                                    th:text="${statusOpt.getDisplayValue()}" th:required="required" th:value="${statusOpt}"></option>
+                                    th:required="required" th:text="${statusOpt.getDisplayValue()}"
+                                    th:value="${statusOpt}"></option>
                         </select>
 
                     </div>
@@ -109,7 +110,7 @@
                     <!--							/>-->
                     <!--						</div>-->
                     <div class="form-group">
-                        <label>  Price paid </label>
+                        <label> Price paid </label>
                         <input
                                 class="form-control"
                                 name="pricePaid"
@@ -119,12 +120,12 @@
                         />
                     </div>
                     <div class="form-group">
-                        <label>  Comment </label>
+                        <label> Comment </label>
                         <input
                                 class="form-control"
                                 name="comment"
-                                th:required="required"
                                 th:field="*{comment}"
+                                th:required="required"
                                 type="text"
                         />
                     </div>

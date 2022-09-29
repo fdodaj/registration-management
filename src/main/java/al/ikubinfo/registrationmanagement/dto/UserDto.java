@@ -27,7 +27,7 @@ public class UserDto {
     @Size(min = 10, max = 50)
     private String lastName;
 
-    @Pattern(regexp =  "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}")
+    @Pattern(regexp = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}")
     private String phoneNumber;
 
     @Size(min = 10, max = 100)
