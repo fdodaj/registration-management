@@ -79,9 +79,16 @@ public class CourseController {
      */
     @PostMapping("/courses")
     public ModelAndView saveCourse(@ModelAttribute("course") @Valid CourseDto course , BindingResult result) {
-        String err = courseValidationService.validateCourse(course);
-        if (!err.isEmpty()){
-            ObjectError error = new ObjectError("Global error", err);
+        String courseAlreadyExistError = courseValidationService.validateCourseAlreadyExist(course);
+        String courseInvalidDatesError = courseValidationService.validateCourseInvalidDates(course);
+
+        if (!courseAlreadyExistError.isEmpty()){
+            ObjectError error = new ObjectError("Global error", courseAlreadyExistError);
+            result.addError(error);
+            return new ModelAndView("create_course");
+        }
+        if (!courseInvalidDatesError.isEmpty()){
+            ObjectError error = new ObjectError("Global error", courseInvalidDatesError);
             result.addError(error);
             return new ModelAndView("create_course");
         }
@@ -139,4 +146,5 @@ public class CourseController {
         courseService.deleteStudentFromCourse(studentId, courseId);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
 }

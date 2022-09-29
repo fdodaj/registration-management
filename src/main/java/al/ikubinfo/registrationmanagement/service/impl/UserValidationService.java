@@ -2,19 +2,30 @@ package al.ikubinfo.registrationmanagement.service.impl;
 
 
 import al.ikubinfo.registrationmanagement.dto.UserDto;
-import org.apache.catalina.User;
+import al.ikubinfo.registrationmanagement.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.Access;
 
 @Service
 public class UserValidationService {
+
+    @Autowired
+    private UserRepository repository;
     public String validatePhoneNumber(UserDto userDto){
-        String message = "";
+        StringBuilder message = new StringBuilder();
         String pattern = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
-        if (userDto.getPhoneNumber().matches(pattern)) {
-            System.out.println("Valid");
+        if (!userDto.getPhoneNumber().matches(pattern)) {
+            message.append("* Please enter a correct phone number");
         }
-        else {
-            message = "* Please enter a correct phone number";
+        return message.toString();
+    }
+
+    public String validateUniqueUser(UserDto userDto){
+        String message = "";
+        if (repository.getByEmail(userDto.getEmail()) != null) {
+            message = "User already exists ";
         }
         return message;
     }

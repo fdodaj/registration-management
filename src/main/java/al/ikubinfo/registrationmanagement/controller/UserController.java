@@ -88,10 +88,16 @@ public class UserController {
      * @return ModelAndView
      */
     @PostMapping("/students")
-    public ModelAndView saveStudent(@Valid @ModelAttribute("student") UserDto student, BindingResult result) {
-    String err = userValidationService.validatePhoneNumber(student);
-    if (!err.isEmpty()){
-        ObjectError error = new ObjectError("Global error", err);
+    public ModelAndView saveStudent(@ModelAttribute("student")@Valid UserDto student, BindingResult result) {
+    String validatePhoneNumber = userValidationService.validatePhoneNumber(student);
+    String validateUniqueUser = userValidationService.validateUniqueUser(student);
+    if (!validatePhoneNumber.isEmpty()){
+        ObjectError error = new ObjectError("Global error", validatePhoneNumber);
+        result.addError(error);
+        return new ModelAndView("create_student");
+    }
+    if (!validateUniqueUser.isEmpty()){
+        ObjectError error = new ObjectError("Global error", validateUniqueUser);
         result.addError(error);
         return new ModelAndView("create_student");
     }

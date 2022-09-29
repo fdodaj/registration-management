@@ -32,7 +32,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
     @Override
     public CourseEntity toEntity(CourseDto dto) {
         CourseEntity entity = new CourseEntity();
-        entity.setId(dto.getId());
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         entity.setStartDate(LocalDate.parse(dto.getStartDate().toString(), formatter));
         entity.setEndDate(LocalDate.parse(dto.getEndDate().toString(), formatter));
