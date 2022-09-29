@@ -1,9 +1,7 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.converter.UserConverter;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
-import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import al.ikubinfo.registrationmanagement.service.impl.UserValidationService;
@@ -34,12 +32,6 @@ public class UserController {
 
     @Autowired
     private UserValidationService userValidationService;
-
-    @Autowired
-    private UserConverter userConverter;
-
-    @Autowired
-    private UserEntityManagerRepository userEntityManagerRepository;
 
 
     /**
@@ -151,13 +143,15 @@ public class UserController {
 
     /**
      * Get student with PAID courses using EntityManager
+     * For testing purposes
      *
      * @return ResponseEntity<List < UserDto>>
      */
-    @GetMapping("/entity-manager/students")
+    @GetMapping("/students/em")
     public ResponseEntity<List<UserDto>> listStudentsUsingEntityManager() {
-        return new ResponseEntity<>(userConverter.toStudentDtoList(userEntityManagerRepository.getAllStudentsWithPaidCurses()),
-                HttpStatus.OK);
+        List<UserDto> list = userService.getUserEM();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+
     }
 
 }

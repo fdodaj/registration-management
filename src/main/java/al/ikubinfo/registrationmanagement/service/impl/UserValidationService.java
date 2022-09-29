@@ -23,7 +23,7 @@ public class UserValidationService {
 
     public String validateUniqueUser(UserDto userDto) {
         String message = "";
-        if (repository.getByEmail(userDto.getEmail()) != null) {
+        if (repository.findByEmail(userDto.getEmail()) != null) {
             message = "User already exists ";
         }
         return message;

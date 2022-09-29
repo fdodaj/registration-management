@@ -5,6 +5,7 @@ import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.RoleRepository;
+import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.UserSpecification;
@@ -16,6 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,6 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserEntityManagerRepository userEMRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -70,9 +77,18 @@ public class UserServiceImpl implements UserService {
         userRepository.save(student);
     }
 
+
     public UserEntity getStudentEntity(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
+    }
+
+    @Override
+    public List<UserDto> getUserEM() {
+        return userEMRepository.getAllStudentsWithPaidCurses()
+        .stream()
+        .map(userConverter::toDto)
+        .collect(Collectors.toList());
     }
 
 }

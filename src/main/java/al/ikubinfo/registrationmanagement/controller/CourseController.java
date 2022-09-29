@@ -134,7 +134,7 @@ public class CourseController {
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
-    @PutMapping("addd/{courseId}/{studentId}")
+    @PutMapping("add/{courseId}/{studentId}")
     ResponseEntity<Void> addStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
         courseService.addStudentToCourse(studentId, courseId);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
