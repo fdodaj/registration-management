@@ -4,7 +4,6 @@ import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.UserService;
-import al.ikubinfo.registrationmanagement.service.impl.UserValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -29,9 +28,6 @@ public class UserController {
     private static final String USERS = "users";
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserValidationService userValidationService;
 
 
     /**
@@ -84,18 +80,6 @@ public class UserController {
      */
     @PostMapping("/students")
     public ModelAndView saveStudent(@ModelAttribute("student") @Valid UserDto student, BindingResult result) {
-        String validatePhoneNumber = userValidationService.validatePhoneNumber(student);
-        String validateUniqueUser = userValidationService.validateUniqueUser(student);
-        if (!validatePhoneNumber.isEmpty()) {
-            ObjectError error = new ObjectError("Global error", validatePhoneNumber);
-            result.addError(error);
-            return new ModelAndView("create_student");
-        }
-        if (!validateUniqueUser.isEmpty()) {
-            ObjectError error = new ObjectError("Global error", validateUniqueUser);
-            result.addError(error);
-            return new ModelAndView("create_student");
-        }
         userService.saveStudent(student);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }

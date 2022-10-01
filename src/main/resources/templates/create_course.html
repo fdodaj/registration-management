@@ -9,6 +9,9 @@
           rel="stylesheet">
 </head>
 <body style="background-color: #9fbab3">
+
+
+
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">Student Management System</a>
@@ -35,6 +38,10 @@
             <h1 class="text-center"> Create New Course </h1>
             <div class="card-body">
                 <form method="POST" th:action="@{/courses}" th:object="${course}">
+
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                    </div>
                     <div class="form-group">
                         <label>Course name </label>
                         <input
@@ -45,11 +52,17 @@
                                 th:required="required"
                                 type="text"
                         />
+
+                        <div th:if="${CourseExistsError !=null}">
+                        <p style="color:red" th:text="${CourseExistsError}" ></p>
+                    </div>
+
+
                     </div>
 
                     <div class="form-group ">
                         <div><label> Course Status </label></div>
-                        <select name="status" style="text-align: center">
+                        <select name="status" class="custom-select" style="text-align: center">
                             <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.CourseProgressStatus).values()}"
                                     th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
                         </select>
@@ -77,17 +90,19 @@
                                 type="date"
                         />
                     </div>
-                    <div th:if="${#fields.hasErrors('global')}">
-                        <h5>Global errors:</h5>
-                        <p class="error" th:each="err : ${#fields.errors('global')}" th:text="${err}"/>
-                    </div>
 
+                    <div th:if="${#fields.hasGlobalErrors()}">
+                        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+                    </div>
 
                     <div class="box-footer">
                         <button class="btn btn-primary" type="submit">
                             Submit
                         </button>
                     </div>
+
+
+
                 </form>
 
             </div>

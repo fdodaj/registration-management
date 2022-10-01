@@ -1,41 +1,40 @@
 package al.ikubinfo.registrationmanagement.dto;
 
 import al.ikubinfo.registrationmanagement.entity.CourseProgressStatus;
+import al.ikubinfo.registrationmanagement.validation.UniqueCourseValidation;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Data
-@Valid
-@Validated
 public class CourseDto {
 
-    @NullConstraint
-    private Long id;
 
-    @NullConstraint
-    private String name;
+    public Long id;
 
-    @NullConstraint
+
+    public String name;
+
+//    @NotNull
     private CourseProgressStatus status;
 
-    @NullConstraint
+//    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @NullConstraint
+//    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    @NullConstraint
+//    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdDate;
 
-    @NullConstraint
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate modifiedDate;
 
