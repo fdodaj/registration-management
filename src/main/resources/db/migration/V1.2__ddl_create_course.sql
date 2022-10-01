@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS course
+CREATE TABLE  course
 (
     id            SERIAL PRIMARY KEY,
     name          VARCHAR(50) NOT NULL,
