@@ -25,7 +25,6 @@ public class UniqueCourseValidationValidator implements ConstraintValidator<Uniq
         courseName = constraintAnnotation.courseName();
         startDate = constraintAnnotation.startDate();
         endDate = constraintAnnotation.endDate();
-
     }
 
     @Override

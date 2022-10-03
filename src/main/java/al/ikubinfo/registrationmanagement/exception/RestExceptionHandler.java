@@ -44,10 +44,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)  //handle this exception
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String storageException(final ConstraintViolationException throwable, final Model model) {
+    public String courseExistsException(final ConstraintViolationException throwable, final Model model) {
         model.addAttribute("errorMessage", throwable.getMessage()); //custom message to render in HTML
         return "create_course";  //the html page in resources/templates folder
     }
+
 
     @Data
     public static class ErrorResponse {

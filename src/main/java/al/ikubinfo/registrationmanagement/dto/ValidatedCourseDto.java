@@ -3,6 +3,7 @@ package al.ikubinfo.registrationmanagement.dto;
 
 import al.ikubinfo.registrationmanagement.entity.CourseProgressStatus;
 import al.ikubinfo.registrationmanagement.validation.UniqueCourseValidation;
+import al.ikubinfo.registrationmanagement.validation.ValidDateValidation;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,11 @@ import java.time.LocalDate;
         startDate = "startDate",
         endDate = "endDate",
         message = "Course already exists"
+)
+@ValidDateValidation(
+    startDate = "startDate",
+    endDate = "endDate",
+    message = "Invalid Date"
 )
 public class ValidatedCourseDto extends CourseDto{
 
