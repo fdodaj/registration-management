@@ -1,10 +1,12 @@
 package al.ikubinfo.registrationmanagement.validation;
+
 import org.springframework.beans.BeanWrapperImpl;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDate;
 
-public class ValidDateValidationValidator implements ConstraintValidator<ValidDateValidation, Object> {
+public class ValidDateConstraintValidator implements ConstraintValidator<ValidDateValidation, Object> {
 
     private String startDate;
 

@@ -12,20 +12,15 @@ import java.time.LocalDate;
 @Validated
 public class RoleDto {
 
-    @NullConstraint
     private Long id;
 
-    @NullConstraint
     private String name;
 
-    @NullConstraint
     private String description;
 
-    @NullConstraint
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdDate;
 
-    @NullConstraint
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate modifiedDate;
 

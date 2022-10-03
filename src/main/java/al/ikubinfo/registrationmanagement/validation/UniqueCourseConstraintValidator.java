@@ -10,7 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class UniqueCourseValidationValidator implements ConstraintValidator<UniqueCourseValidation, Object> {
+public class UniqueCourseConstraintValidator implements ConstraintValidator<UniqueCourseValidation, Object> {
 
     @Autowired
     private CourseRepository repository;

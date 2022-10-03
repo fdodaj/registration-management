@@ -4,9 +4,10 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
+
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
-@Constraint(validatedBy = {ValidDateValidationValidator.class})
+@Constraint(validatedBy = {ValidDateConstraintValidator.class})
 @Documented
 public @interface ValidDateValidation {
 

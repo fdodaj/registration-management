@@ -24,13 +24,13 @@ import java.time.LocalDate;
 )
 public class ValidatedCourseDto extends CourseDto{
 
+
     @Override
     @NotNull(message = "not null")
     @NotBlank(message = "Not Blank")
     public String getName() {
         return super.getName();
     }
-
 
     @Override
     @NotNull(message = "not null")
@@ -40,15 +40,15 @@ public class ValidatedCourseDto extends CourseDto{
 
     @Override
     @NotNull(message = "not null")
+    public LocalDate getStartDate() {
+        return super.getStartDate();
+    }
+
+    @Override
+    @NotNull(message = "not null")
     public LocalDate getEndDate() {
         return super.getEndDate();
     }
 
 
-
-    @Override
-    @NotNull(message = "not null")
-    public LocalDate getStartDate() {
-        return super.getStartDate();
-    }
 }
