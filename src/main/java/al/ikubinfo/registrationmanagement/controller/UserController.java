@@ -103,6 +103,17 @@ public class UserController {
         return mv;
     }
 
+    @GetMapping("/students/assign/{id}")
+    public ModelAndView assignCourseView(@PathVariable("id") Long id) {
+        UserDto userDto = userService.getStudentById(id);
+        List<CourseDto> courseDto = courseService.getAllUnfilteredCourses();
+
+        ModelAndView mv = new ModelAndView("assign_course_to_student");
+        mv.addObject("student", userDto);
+        mv.addObject("courses", courseDto);
+        return mv;
+    }
+
     /**
      * Update student
      *
@@ -117,23 +128,18 @@ public class UserController {
     }
 
 
-    @GetMapping("/students/assign/{id}")
-    public ModelAndView assignCourseView(@PathVariable("id") Long id) {
-        UserDto userDto = userService.getStudentById(id);
-        List<CourseDto> courseDto = courseService.getAllUnfilteredCourses();
-
-        ModelAndView mv = new ModelAndView("assign_course_to_student");
-        mv.addObject("student", userDto);
-        mv.addObject("courses", courseDto);
-        return mv;
+    @PostMapping("/students/{courseId}/{studentId}")
+    ModelAndView assignStudent(@PathVariable Long courseId, @PathVariable Long studentId) {
+        courseService.addStudentToCourse(studentId, courseId);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
 
-//    @PostMapping("add/{courseId}/{studentId}")
-//    ModelAndView assignStudent(@PathVariable Long courseId, @PathVariable Long studentId) {
-//        courseService.addStudentToCourse(studentId, courseId);
-//        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-//    }
+
+
+
+
+
 
 
     /**

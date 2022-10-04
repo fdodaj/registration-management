@@ -15,9 +15,6 @@ public class UpdateStudentDto {
     private String lastName;
     private String phoneNumber;
     private String email;
-    private StudentStatusEnum status;
-    private double priceReduction;
-    private double pricePaid;
     private String comment;
 
 }

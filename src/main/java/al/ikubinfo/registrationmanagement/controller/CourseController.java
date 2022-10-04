@@ -91,13 +91,6 @@ public class CourseController {
     }
 
 
-    @PostMapping("/api/courses")
-    public ResponseEntity<Void> saveCourseApi(@Valid @RequestBody ValidatedCourseDto course) {
-        courseService.saveCourse(course);
-
-        return ResponseEntity.noContent().build();
-    }
-
     /**
      * Retrieve course edition view
      *

@@ -73,9 +73,6 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
-        entity.setStatus(dto.getStatus());
-        entity.setPriceReduction(dto.getPriceReduction());
-        entity.setPricePaid(dto.getPricePaid());
         entity.setComment(dto.getComment());
         return entity;
     }

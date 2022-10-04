@@ -13,6 +13,6 @@ CREATE TABLE  users
     comment         VARCHAR(500),
     created_date    timestamp   not null,
     modified_date   timestamp   not null,
-    user_role       numeric     NOT NULL,
+    user_role       SERIAL     NOT NULL,
     deleted         BOOLEAN     not null
 );
