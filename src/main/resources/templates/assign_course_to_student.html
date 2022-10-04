@@ -16,7 +16,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
                 <h1 class="text-center"> Assign Student to Course </h1>
                 <div class="card-body">
-                    <form method="POST" th:action="@{/students/{courseId}/{studentId} (courseId=${}, studentId=${student.id}) }" th:object="${student}">
+                    <form method="POST" th:action="@{/students/{courseId}/{studentId} (courseId=${1}, studentId=${student.id}) }" th:object="${student}">
         
         
                         <div class="form-group ">

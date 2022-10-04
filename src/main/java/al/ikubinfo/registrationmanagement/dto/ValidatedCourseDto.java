@@ -26,26 +26,25 @@ public class ValidatedCourseDto extends CourseDto {
 
 
     @Override
-    @NotNull(message = "not null")
-    @NotBlank(message = "Not Blank")
+    @NotNull(message = "Name cant be empty!")
     public String getName() {
         return super.getName();
     }
 
     @Override
-    @NotNull(message = "not null")
+    @NotNull(message = "status cant be empty!")
     public CourseProgressStatus getStatus() {
         return super.getStatus();
     }
 
     @Override
-    @NotNull(message = "not null")
+    @NotNull(message = "start date cant be empty!")
     public LocalDate getStartDate() {
         return super.getStartDate();
     }
 
     @Override
-    @NotNull(message = "not null")
+    @NotNull(message = "end date cant be empty!")
     public LocalDate getEndDate() {
         return super.getEndDate();
     }

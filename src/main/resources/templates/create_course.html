@@ -49,12 +49,10 @@
                                 name="name"
                                 th:field="*{name}"
                                 th:maxlength="35"
-                                th:required="required"
                                 type="text"
                         />
 
                         <div th:if="${CourseExistsError !=null}">
-                        <p style="color:red" th:text="${CourseExistsError}" ></p>
                     </div>
 
 
@@ -75,7 +73,6 @@
                                 class="form-control"
                                 name="startDate"
                                 th:field="*{startDate}"
-                                th:required="required"
                                 type="date"
                         />
                     </div>
@@ -86,7 +83,6 @@
                                 class="form-control"
                                 name="endDate"
                                 th:field="*{endDate}"
-                                th:required="required"
                                 type="date"
                         />
                     </div>

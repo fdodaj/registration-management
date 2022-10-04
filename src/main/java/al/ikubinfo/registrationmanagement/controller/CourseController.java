@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
-@Validated
 public class CourseController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
 
@@ -78,12 +77,12 @@ public class CourseController {
      * @return ModelAndView
      */
     @PostMapping("/courses")
-    public ModelAndView saveCourse(@ModelAttribute("course") @Valid ValidatedCourseDto course, BindingResult result, Model model) {
-
+    public ModelAndView saveCourse( @Valid @ModelAttribute("course")  ValidatedCourseDto course, BindingResult result, Model model) {
+        model.addAttribute("course", course);
         if (result.hasErrors()) {
-            ObjectError error = new ObjectError("errorMessage", "globalError");
-            result.addError(error);
-            return new ModelAndView("create_course");
+            ModelAndView mv = new ModelAndView("create_course");
+            mv.addObject("course", course);
+            return mv;
         }
         courseService.saveCourse(course);
         return new ModelAndView("redirect:/courses");
