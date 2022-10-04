@@ -20,5 +20,5 @@ public interface UserService {
 
     void deleteStudentById(Long id);
 
-    public List<UserDto> getUserEM();
+    List<UserDto> getUserEM();
 }

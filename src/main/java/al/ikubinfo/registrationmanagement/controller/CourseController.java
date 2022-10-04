@@ -1,23 +1,24 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.AssignCourseToUserDto;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 @Controller
@@ -57,7 +58,6 @@ public class CourseController {
     }
 
 
-
     /**
      * Retrieve form of course creation
      *
@@ -77,24 +77,22 @@ public class CourseController {
      * @param course CourseDto
      * @return ModelAndView
      */
-     @PostMapping("/courses")
-     public ModelAndView saveCourse(@ModelAttribute("course") @Valid ValidatedCourseDto course,BindingResult result, Model model) {
+    @PostMapping("/courses")
+    public ModelAndView saveCourse(@ModelAttribute("course") @Valid ValidatedCourseDto course, BindingResult result, Model model) {
 
-         if (result.hasErrors()) {
-             ObjectError error = new ObjectError("errorMessage", "globalError");
-             result.addError(error);
-             return new ModelAndView("create_course");
-         }
-         courseService.saveCourse(course);
-         return new ModelAndView("redirect:/courses");
+        if (result.hasErrors()) {
+            ObjectError error = new ObjectError("errorMessage", "globalError");
+            result.addError(error);
+            return new ModelAndView("create_course");
+        }
+        courseService.saveCourse(course);
+        return new ModelAndView("redirect:/courses");
 
-     }
-
-
+    }
 
 
     @PostMapping("/api/courses")
-    public ResponseEntity<Void> saveCourseApi( @Valid @RequestBody ValidatedCourseDto course) {
+    public ResponseEntity<Void> saveCourseApi(@Valid @RequestBody ValidatedCourseDto course) {
         courseService.saveCourse(course);
 
         return ResponseEntity.noContent().build();
@@ -116,9 +114,7 @@ public class CourseController {
     }
 
 
-
-
-  /**
+    /**
      * Update course
      *
      * @param id        course id
@@ -130,8 +126,6 @@ public class CourseController {
         courseService.updateCourse(courseDto);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
-
-
 
 
     /**
@@ -153,14 +147,11 @@ public class CourseController {
     }
 
 
-
 //    @GetMapping("add/{courseId}/{studentId}")
 //    ModelAndView addStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
 //        courseService.addStudentToCourse(studentId, courseId);
 //        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
 //    }
-
-
 
 
 }

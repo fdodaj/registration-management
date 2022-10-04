@@ -18,11 +18,11 @@ import java.time.LocalDate;
         message = "Course already exists"
 )
 @ValidDateValidation(
-    startDate = "startDate",
-    endDate = "endDate",
-    message = "Invalid Date"
+        startDate = "startDate",
+        endDate = "endDate",
+        message = "Invalid Date"
 )
-public class ValidatedCourseDto extends CourseDto{
+public class ValidatedCourseDto extends CourseDto {
 
 
     @Override

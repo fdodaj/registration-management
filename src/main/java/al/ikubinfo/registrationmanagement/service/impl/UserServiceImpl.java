@@ -87,9 +87,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getUserEM() {
         return userEMRepository.getAllStudentsWithPaidCurses()
-        .stream()
-        .map(userConverter::toDto)
-        .collect(Collectors.toList());
+                .stream()
+                .map(userConverter::toDto)
+                .collect(Collectors.toList());
     }
 
 }

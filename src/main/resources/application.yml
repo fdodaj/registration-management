@@ -3,20 +3,19 @@ server:
 
 spring:
   profiles:
-    active: prod
+    active: dev
   #    active: dev
   application:
     name: Registration Management
 
   jpa:
     hibernate:
-      use-new-id-generator-mappings: false
       ddl-auto: none
     properties:
       hibernate:
         format_sql: false
         use_sql_comments: false
-        show_sql: false
+    show-sql: false
 
   flyway:
     baseline-on-migrate: true
@@ -28,6 +27,13 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+
+jwt:
+  header: Authorization
+  base64-secret: ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=
+  token-validity-in-seconds: 1800
+
 
 
 
