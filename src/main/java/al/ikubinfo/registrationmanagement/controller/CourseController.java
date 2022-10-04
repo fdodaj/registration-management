@@ -1,5 +1,6 @@
 package al.ikubinfo.registrationmanagement.controller;
 
+import al.ikubinfo.registrationmanagement.dto.AssignCourseToUserDto;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
@@ -48,7 +49,7 @@ public class CourseController {
      * @param id course id
      * @return ModelAndView with course details
      */
-    @GetMapping("/api/course/{id}")
+    @GetMapping("/course/{id}")
     public ModelAndView getCourseById(@Valid @PathVariable Long id) {
         ModelAndView mv = new ModelAndView("course_details");
         mv.addObject("course", courseService.getCourseById(id));
@@ -91,6 +92,7 @@ public class CourseController {
 
 
 
+
     @PostMapping("/api/courses")
     public ResponseEntity<Void> saveCourseApi( @Valid @RequestBody ValidatedCourseDto course) {
         courseService.saveCourse(course);
@@ -113,6 +115,9 @@ public class CourseController {
         return mv;
     }
 
+
+
+
   /**
      * Update course
      *
@@ -126,6 +131,9 @@ public class CourseController {
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
+
+
+
     /**
      * Delete course
      *
@@ -138,17 +146,21 @@ public class CourseController {
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
-
-    @PutMapping("add/{courseId}/{studentId}")
-    ResponseEntity<Void> addStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
-        courseService.addStudentToCourse(studentId, courseId);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-
-    @PutMapping("delete/{courseId}/{studentId}")
-    ResponseEntity<Void> deleteStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+    @GetMapping("course/{courseId}/{studentId}")
+    public ModelAndView deleteStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
         courseService.deleteStudentFromCourse(studentId, courseId);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
+
+
+
+//    @GetMapping("add/{courseId}/{studentId}")
+//    ModelAndView addStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+//        courseService.addStudentToCourse(studentId, courseId);
+//        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+//    }
+
+
+
 
 }

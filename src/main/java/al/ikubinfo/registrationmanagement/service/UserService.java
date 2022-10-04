@@ -1,5 +1,6 @@
 package al.ikubinfo.registrationmanagement.service;
 
+import al.ikubinfo.registrationmanagement.dto.NewUserDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
@@ -13,7 +14,7 @@ public interface UserService {
 
     UserDto getStudentById(Long id);
 
-    void saveStudent(UserDto student);
+    void saveStudent(NewUserDto student);
 
     UserDto updateStudent(UpdateStudentDto student);
 

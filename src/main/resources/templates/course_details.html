@@ -58,22 +58,48 @@
                         <strong>START DATE:</strong>
                         <td th:text="*{startDate}">1</td>
                     </div>
-
+    
                     <div class="form-group">
                         <strong>END DATE:</strong>
                         <td th:text="*{endDate}">1</td>
-
+    
                     </div>
                     <div class="form-group">
                         <strong>LAST MODIFIED:</strong>
                         <td th:text="*{modifiedDate}">1</td>
                     </div>
-
+    
+                    <hr>
                     <div class="form-group">
-                        <!--                        return a list of users that are in this course-->
-                        <strong>STUDENTS:</strong>
-                        <td th:text="${course.getStudents()}">1</td>
-
+        
+                        <table class="table" style="background-color: white">
+                            <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+            
+                            <tbody>
+                            <tr th:each="user: ${course.getStudents()}">
+                
+                
+                                <td th:text="${user.firstName }"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.status}"></td>
+                                
+                                <td style="text-align: center">
+                                    <a class="btn"
+                                       th:href="@{/students/{id}(id=${user.id})}">View</a>
+    
+                                    <a class="btn"
+                                       th:href="@{/course/{courseId}/{studentId} (courseId=${course.id}, studentId=${user.id}) }">Remove from course</a>
+                                    
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
 
 

@@ -5,6 +5,7 @@ public enum StudentStatusEnum {
 
     REGISTERED("Registered"),
     INTERESTED("Interested"),
+    UNASSIGNED("unassigned"),
     PAID("Paid");
 
     private final String displayValue;

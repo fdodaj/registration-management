@@ -17,6 +17,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Service
 public class CourseServiceImpl implements CourseService {
 
@@ -44,6 +46,11 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findById(id)
                 .map(converter::toDto)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
+    }
+
+    @Override
+    public List<CourseDto> getAllUnfilteredCourses() {
+        return converter.toCourseDtoList(courseRepository.findAll());
     }
 
 

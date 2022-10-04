@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Student Management System</title>
+    <link crossorigin="anonymous"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet">
+</head>
+<body style="background-color: #9fbab3">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">Student Management System</a>
+        
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" data-target="#collapsibleNavbar" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/students}">Student Management</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                <h1 class="text-center"> Assign Student to Course </h1>
+                <div class="card-body">
+                    <form method="POST" th:action="@{/students}" th:object="${student}">
+                        
+                        
+                        <div class="form-group ">
+                            <div><label> Status </label></div>
+                            <select name="status" class="custom-select" style="text-align: center">
+                                <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.StudentStatusEnum).values()}"
+                                        th:required="required" th:text="${statusOpt.getDisplayValue()}"
+                                        th:value="${statusOpt}"></option>
+                            </select>
+                        
+                        </div>
+                        <div class="form-group">
+                            <label> Price Reduction </label>
+                            <input
+                                    type="number"
+                                    name="priceReduction"
+                                    th:field="*{priceReduction}"
+                                    class="form-control"
+                                    placeholder="Enter Student price reduction"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label> Price paid </label>
+                            <input
+                                    class="form-control"
+                                    name="pricePaid"
+                                    th:field="*{pricePaid}"
+                                    th:required="required"
+                                    type="number"
+                            />
+                        </div>
+                        
+                        <select th:field="*{courses}" class="form-control">
+                            <option th:each="course : ${courses}"
+                                    th:values="${course}" th:text="${course.name}">
+                        
+                        </select>
+                        <hr>
+    
+    
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit">
+                                Submit
+                            </button>
+                            <a class="btn btn-danger"
+                               th:href="@{/students}">Cancel</a>
+                        </div>
+                    </form>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</body>
+</html>

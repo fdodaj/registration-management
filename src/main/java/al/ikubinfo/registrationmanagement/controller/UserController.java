@@ -1,8 +1,11 @@
 package al.ikubinfo.registrationmanagement.controller;
 
+import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.NewUserDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
+import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +31,8 @@ public class UserController {
     private static final String USERS = "users";
     @Autowired
     private UserService userService;
+    @Autowired
+    private CourseService courseService;
 
 
     /**
@@ -79,7 +84,7 @@ public class UserController {
      * @return ModelAndView
      */
     @PostMapping("/students")
-    public ModelAndView saveStudent(@ModelAttribute("student") @Valid UserDto student, BindingResult result) {
+    public ModelAndView saveStudent(@ModelAttribute("student") @Valid NewUserDto student, BindingResult result) {
         userService.saveStudent(student);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
@@ -94,11 +99,10 @@ public class UserController {
     @GetMapping("/students/edit/{id}")
     public ModelAndView updateStudentView(@PathVariable("id") Long id) {
         UserDto userDto = userService.getStudentById(id);
-        ModelAndView mv = new ModelAndView("edit_student.html");
+        ModelAndView mv = new ModelAndView("edit_student");
         mv.addObject("student", userDto);
         return mv;
     }
-
 
     /**
      * Update student
@@ -112,6 +116,27 @@ public class UserController {
         UserDto dto = userService.updateStudent(student);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
+
+
+    @GetMapping("/students/assign/{id}")
+    public ModelAndView assignCourseView(@PathVariable("id") Long id) {
+        UserDto userDto = userService.getStudentById(id);
+        List<CourseDto> courseDto = courseService.getAllUnfilteredCourses();
+
+        ModelAndView mv = new ModelAndView("assign_course_to_student");
+        mv.addObject("student", userDto);
+        mv.addObject("courses", courseDto);
+        return mv;
+    }
+
+
+//    @PostMapping("add/{courseId}/{studentId}")
+//    ModelAndView assignStudent(@PathVariable Long courseId, @PathVariable Long studentId) {
+//        courseService.addStudentToCourse(studentId, courseId);
+//        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+//    }
+
+
 
     /**
      * Delete student by id

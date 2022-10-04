@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.UserConverter;
+import al.ikubinfo.registrationmanagement.dto.NewUserDto;
 import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
@@ -56,8 +57,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveStudent(UserDto dto) {
-        UserEntity userEntity = userConverter.toEntity(dto);
+    public void saveStudent(NewUserDto dto) {
+        UserEntity userEntity = userConverter.toNewUserEntity(dto);
         userEntity.setRole(roleRepository.findByName("STUDENT"));
         userRepository.save(userEntity);
     }
