@@ -40,13 +40,13 @@ public class UserDto {
 
     private double pricePaid;
 
-    private String comment;
+    public String comment;
 
-    private LocalDate modifiedDate;
+    public LocalDate modifiedDate;
 
-    private LocalDate createdDate;
+    public LocalDate createdDate;
 
-    private RoleDto role;
+    public RoleDto role;
 
-    private List<CourseDto> courses;
+    public List<CourseDto> courses;
 }

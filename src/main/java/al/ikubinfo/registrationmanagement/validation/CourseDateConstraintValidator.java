@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDate;
 
-public class ValidDateConstraintValidator implements ConstraintValidator<ValidDateValidation, Object> {
+public class CourseDateConstraintValidator implements ConstraintValidator<CourseDateValidation, Object> {
 
     private String startDate;
 
@@ -14,7 +14,7 @@ public class ValidDateConstraintValidator implements ConstraintValidator<ValidDa
 
 
     @Override
-    public void initialize(ValidDateValidation constraintAnnotation) {
+    public void initialize(CourseDateValidation constraintAnnotation) {
         startDate = constraintAnnotation.startDate();
         endDate = constraintAnnotation.endDate();
     }
