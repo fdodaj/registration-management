@@ -36,28 +36,31 @@
             <div class="card-body">
                 <!--					<form th:action="@{/students}" th:object="${studentDto}" method="POST">-->
                 <form method="POST" th:action="@{/students}" th:object="${student}">
+    
                     <div class="form-group">
                         <label> Firstname </label>
                         <input
-                                1 class="form-control"
+                                class="form-control"
                                 name="name"
                                 th:field="*{firstName}"
                                 th:maxlength="35"
-                                th:required="required"
                                 type="text"
                         />
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}"
+                             th:errors="*{firstName}"></div>
                     </div>
 
                     <div class="form-group">
                         <label>Lastname </label>
                         <input
                                 class="form-control"
-                                name="surname"
+                                name="lastName"
                                 th:field="*{lastName}"
                                 th:maxlength="35"
-                                th:required="required"
                                 type="text"
                         />
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}"
+                             th:errors="*{lastName}"></div>
                     </div>
 
                     <div class="form-group">
@@ -66,9 +69,10 @@
                                 class="form-control"
                                 name="phoneNumber"
                                 th:field="*{phoneNumber}"
-                                th:required="required"
                                 type="text"
                         />
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+                             th:errors="*{phoneNumber}"></div>
                     </div>
 
                     <div class="form-group">
@@ -77,9 +81,10 @@
                                 class="form-control"
                                 name="email"
                                 th:field="*{email}"
-                                th:required="required"
                                 type="email"
                         />
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}"></div>
                     </div>
                   
                     <div class="form-group">
@@ -88,9 +93,10 @@
                                 class="form-control"
                                 name="reference"
                                 th:field="*{reference}"
-                                th:required="required"
                                 type="text"
                         />
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('reference')}"
+                             th:errors="*{reference}"></div>
                     </div>
  
 
@@ -100,14 +106,12 @@
                                 class="form-control"
                                 name="comment"
                                 th:field="*{comment}"
-                                th:required="required"
                                 type="text"
                         />
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('comment')}"
+                             th:errors="*{comment}"></div>
                     </div>
-
-                    <div style="color: red" th:if="${#fields.hasErrors('global')}">
-                        <p class="error" th:each="err : ${#fields.errors('global')}" th:text="${err}"/>
-                    </div>
+                    
 
                     <div class="box-footer">
                         <button class="btn btn-primary" type="submit">

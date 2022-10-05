@@ -1,9 +1,6 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.NewUserDto;
-import al.ikubinfo.registrationmanagement.dto.UpdateStudentDto;
-import al.ikubinfo.registrationmanagement.dto.UserDto;
+import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
@@ -12,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
-@Validated
 @Controller
 public class UserController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/students";
@@ -83,7 +80,14 @@ public class UserController {
      * @return ModelAndView
      */
     @PostMapping("/students")
-    public ModelAndView saveStudent(@ModelAttribute("student") @Valid NewUserDto student, BindingResult result) {
+    public ModelAndView saveStudent(@Valid @ModelAttribute("student")  ValidatedUserDto student, BindingResult result, Model model) {
+        model.addAttribute("student", student);
+
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("create_student");
+            mv.addObject("student", student);
+            return mv;
+        }
         userService.saveStudent(student);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
@@ -133,14 +137,6 @@ public class UserController {
         courseService.addStudentToCourse(studentId, courseId);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
-
-
-
-
-
-
-
-
 
     /**
      * Delete student by id
