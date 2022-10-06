@@ -1,4 +1,4 @@
-package al.ikubinfo.hrmanagement.security;
+package al.ikubinfo.registrationmanagement.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
