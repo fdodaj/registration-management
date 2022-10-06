@@ -49,20 +49,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getStudentById(Long id) {
+    public UserDto getUserById(Long id) {
         return userConverter.toDto(getStudentEntity(id));
 
     }
 
     @Override
-    public void saveStudent(ValidatedUserDto dto) {
+    public void saveUser(ValidatedUserDto dto) {
         UserEntity userEntity = userConverter.toValidatedUserEntity(dto);
         userEntity.setRole(roleRepository.findByName("STUDENT"));
         userRepository.save(userEntity);
     }
 
     @Override
-    public UserDto updateStudent(UpdateStudentDto student) {
+    public UserDto updateUser(UpdateUserDto student) {
         UserEntity currentEntity = getStudentEntity(student.getId());
         UserEntity userEntity = userConverter.toUpdateStudentEntity(student, currentEntity);
         return userConverter.toDto(userRepository.save(userEntity));
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void deleteStudentById(Long id) {
+    public void deleteUserById(Long id) {
         UserEntity student = getStudentEntity(id);
         student.setDeleted(true);
         userRepository.save(student);

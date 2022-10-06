@@ -20,7 +20,7 @@ public interface CourseService {
 
     void deleteCourseById(Long id);
 
-    void addStudentToCourse(Long studentId, Long courseId);
+    void addUserToCourse(Long studentId, Long courseId);
 
     void deleteStudentFromCourse(Long studentId, Long courseId);
 

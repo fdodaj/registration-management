@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.dto;
 
-import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
+import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class AssignCourseToUserDto {
     private Long id;
 
-    private StudentStatusEnum status;
+    private UserStatusEnum status;
 
     private double priceReduction;
 

@@ -1,7 +1,7 @@
 package al.ikubinfo.registrationmanagement.converter;
 
 import al.ikubinfo.registrationmanagement.dto.*;
-import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
+import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,7 +40,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
-        entity.setStatus(StudentStatusEnum.UNASSIGNED);
+        entity.setStatus(UserStatusEnum.UNASSIGNED);
         entity.setReference(dto.getReference());
         entity.setComment(dto.getComment());
         entity.setRole(roleConverter.toEntity(dto.getRole()));
@@ -55,7 +55,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
-        entity.setStatus(StudentStatusEnum.UNASSIGNED);
+        entity.setStatus(UserStatusEnum.UNASSIGNED);
         entity.setReference(dto.getReference());
         entity.setComment(dto.getComment());
         entity.setRole(roleConverter.toEntity(dto.getRole()));
@@ -81,7 +81,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         return dto;
     }
 
-    public UserEntity toUpdateStudentEntity(UpdateStudentDto dto, UserEntity entity) {
+    public UserEntity toUpdateStudentEntity(UpdateUserDto dto, UserEntity entity) {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());

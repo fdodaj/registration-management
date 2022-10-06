@@ -1,7 +1,7 @@
 package al.ikubinfo.registrationmanagement.dto;
 
 
-import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
+import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,7 +29,7 @@ public class NewUserDto {
 
     public String reference;
 
-    public StudentStatusEnum status;
+    public UserStatusEnum status;
 
     public String comment;
 

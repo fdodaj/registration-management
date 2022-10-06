@@ -81,7 +81,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void addStudentToCourse(Long studentId, Long courseId) {
+    public void addUserToCourse(Long studentId, Long courseId) {
         CourseEntity course = getCourseEntity(courseId);
         UserEntity userEntity = studentService.getStudentEntity(studentId);
 

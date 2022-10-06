@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/students}">Student Management</a>
+                <a class="nav-link" th:href="@{/users}">Student Management</a>
             </li>
         </ul>
     </div>
@@ -91,10 +91,10 @@
                                 
                                 <td style="text-align: center">
                                     <a class="btn"
-                                       th:href="@{/students/{id}(id=${user.id})}">View</a>
+                                       th:href="@{/users/{id}(id=${user.id})}">View</a>
     
                                     <a class="btn"
-                                       th:href="@{/course/{courseId}/{studentId} (courseId=${course.id}, studentId=${user.id}) }">Remove from course</a>
+                                       th:href="@{/course/{courseId}/{userId} (courseId=${course.id}, userId=${user.id}) }">Remove from course</a>
                                     
                                 </td>
                             </tr>

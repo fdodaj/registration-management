@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/students}">Student Management</a>
+                <a class="nav-link" th:href="@{/users}">Student Management</a>
             </li>
         </ul>
     </div>
@@ -34,7 +34,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Update Student </h1>
             <div class="card-body">
-                <form method="POST" th:action="@{/students/{id} (id=${student.id})}" th:object="${student}">
+                <form method="POST" th:action="@{/users/{id} (id=${user.id})}" th:object="${user}">
                     <div class="form-group">
                         <label> Firstname </label>
                         <input
@@ -82,33 +82,13 @@
                     <div class="form-group ">
                         <div><label> Status </label></div>
                         <select name="status" style="text-align: center">
-                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.StudentStatusEnum).values()}"
+                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.UserStatusEnum).values()}"
                                     th:required="required" th:text="${statusOpt.getDisplayValue()}"
                                     th:value="${statusOpt}"></option>
                         </select>
 
                     </div>
 
-                    <!--						<div class ="form-group">-->
-                    <!--							<label> Student reference </label>-->
-                    <!--							<input-->
-                    <!--									type = "text"-->
-                    <!--									name = "reference"-->
-                    <!--									th:field = "*{}"-->
-                    <!--									class = "form-control"-->
-                    <!--									placeholder="Enter Student reference (leave empty for none)"-->
-                    <!--							/>-->
-                    <!--						</div>-->
-                    <!--						<div class ="form-group">-->
-                    <!--							<label> Price Reduction </label>-->
-                    <!--							<input-->
-                    <!--									type = "number"-->
-                    <!--									name = "priceReduction"-->
-                    <!--									th:field = "*{priceReduction}"-->
-                    <!--									class = "form-control"-->
-                    <!--									placeholder="Enter Student price reduction"-->
-                    <!--							/>-->
-                    <!--						</div>-->
                     <div class="form-group">
                         <label> Price paid </label>
                         <input
@@ -135,7 +115,7 @@
                             Submit
                         </button>
                         <a class="btn btn-danger"
-                           th:href="@{/students}">Cancel</a>
+                           th:href="@{/users}">Cancel</a>
                     </div>
                 </form>
 

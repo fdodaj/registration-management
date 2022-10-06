@@ -1,6 +1,9 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.*;
+import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.UpdateUserDto;
+import al.ikubinfo.registrationmanagement.dto.UserDto;
+import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
@@ -11,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,7 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/students";
+    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/users";
     private static final String USERS = "users";
     @Autowired
     private UserService userService;
@@ -32,13 +34,13 @@ public class UserController {
 
 
     /**
-     * Get all students. if criteria is applied, students are filter accordingly
+     * Get all users. if criteria is applied, users are filter accordingly
      *
      * @param criteria filter object
-     * @return ModelAndView -> students filtered list
+     * @return ModelAndView -> users filtered list
      */
-    @GetMapping("/students")
-    public ModelAndView listStudents(@Valid UserCriteria criteria) {
+    @GetMapping("/users")
+    public ModelAndView listUsers(@Valid UserCriteria criteria) {
         Page<UserDto> users = userService.filterUsers(criteria);
         ModelAndView mv = new ModelAndView(USERS);
         mv.addObject(USERS, users);
@@ -47,120 +49,130 @@ public class UserController {
 
 
     /**
-     * Retrieve student details
+     * Retrieve user details
      *
-     * @param id student id
-     * @return ModelAndView with student details
+     * @param id user id
+     * @return ModelAndView with users details
      */
-    @GetMapping("/students/{id}")
-    public ModelAndView getStudentById(@Valid @PathVariable Long id) {
-        ModelAndView mv = new ModelAndView("student_details");
-        mv.addObject("student", userService.getStudentById(id));
+    @GetMapping("/users/{id}")
+    public ModelAndView getUserById(@Valid @PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("user_details");
+        mv.addObject("user", userService.getUserById(id));
         return mv;
     }
 
 
     /**
-     * Retrieve form of student creation
+     * Retrieve form of user creation
      *
-     * @param student student dto
+     * @param user user dto
      * @return ModelAndView
      */
-    @GetMapping("/students/new")
-    public ModelAndView retrieveNewStudentView(@Valid UserDto student) {
-        ModelAndView mv = new ModelAndView("create_student");
-        mv.addObject("student", student);
+    @GetMapping("/users/new")
+    public ModelAndView retrieveNewUserView(@Valid UserDto user) {
+        ModelAndView mv = new ModelAndView("create_user");
+        mv.addObject("user", user);
         return mv;
     }
 
     /**
-     * Save student
+     * Save user
      *
-     * @param student student dto
+     * @param user user dto
      * @return ModelAndView
      */
-    @PostMapping("/students")
-    public ModelAndView saveStudent(@Valid @ModelAttribute("student")  ValidatedUserDto student, BindingResult result, Model model) {
-        model.addAttribute("student", student);
+    @PostMapping("/users")
+    public ModelAndView saveUser(@Valid @ModelAttribute("user")  ValidatedUserDto user, BindingResult result, Model model) {
+        model.addAttribute("user", user);
 
         if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("create_student");
-            mv.addObject("student", student);
+            ModelAndView mv = new ModelAndView("create_user");
+            mv.addObject("user", user);
             return mv;
         }
-        userService.saveStudent(student);
+        userService.saveUser(user);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
 
     /**
-     * Retrieve student edition view
+     * Retrieve user edition view
      *
-     * @param id student id
+     * @param id user id
      * @return ModelAndView
      */
-    @GetMapping("/students/edit/{id}")
-    public ModelAndView updateStudentView(@PathVariable("id") Long id) {
-        UserDto userDto = userService.getStudentById(id);
-        ModelAndView mv = new ModelAndView("edit_student");
-        mv.addObject("student", userDto);
+    @GetMapping("/users/edit/{id}")
+    public ModelAndView updateUserView(@PathVariable("id") Long id) {
+        UserDto userDto = userService.getUserById(id);
+        ModelAndView mv = new ModelAndView("edit_user");
+        mv.addObject("user", userDto);
         return mv;
     }
 
-    @GetMapping("/students/assign/{id}")
+    /**
+     * Retrieve user assign to course view
+     *
+     * @param id user id
+     * @return ModelAndView
+     */
+    @GetMapping("/users/assign/{id}")
     public ModelAndView assignCourseView(@PathVariable("id") Long id) {
-        UserDto userDto = userService.getStudentById(id);
+        UserDto userDto = userService.getUserById(id);
         List<CourseDto> courseDto = courseService.getAllUnfilteredCourses();
 
-        ModelAndView mv = new ModelAndView("assign_course_to_student");
-        mv.addObject("student", userDto);
+        ModelAndView mv = new ModelAndView("assign_course_to_user");
+        mv.addObject("user", userDto);
         mv.addObject("courses", courseDto);
         return mv;
     }
 
     /**
-     * Update student
+     * Update user
      *
-     * @param id      student id
-     * @param student Student updated dto
+     * @param id      user id
+     * @param user   updated dto
      * @return
      */
-    @PostMapping("/students/{id}")
-    public ModelAndView updateStudent(@PathVariable Long id, @ModelAttribute("student") UpdateStudentDto student) {
-        UserDto dto = userService.updateStudent(student);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
-
-
-    @PostMapping("/students/{courseId}/{studentId}")
-    ModelAndView assignStudent(@PathVariable Long courseId, @PathVariable Long studentId) {
-        courseService.addStudentToCourse(studentId, courseId);
+    @PostMapping("/users/{id}")
+    public ModelAndView updateUser(@PathVariable Long id, @ModelAttribute("user") UpdateUserDto user) {
+        UserDto dto = userService.updateUser(user);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
     /**
-     * Delete student by id
+     * assign user to course
      *
-     * @param id student id
+     * @param courseId  courseId
+     * @param userId userId
+     * @return ModelAndView
+     */
+    @PostMapping("/users/{courseId}/{userId}")
+    ModelAndView assignUser(@PathVariable Long courseId, @PathVariable Long userId) {
+        courseService.addUserToCourse(userId, courseId);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
+
+    /**
+     * Delete user by id
+     *
+     * @param id user id
      * @return ModelAndView homepage
      */
-    @GetMapping("/students/delete/{id}")
-    public ModelAndView deleteStudent(@PathVariable Long id) {
-        userService.deleteStudentById(id);
+    @GetMapping("/users/delete/{id}")
+    public ModelAndView deleteUser(@PathVariable Long id) {
+        userService.deleteUserById(id);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
     /**
-     * Get student with PAID courses using EntityManager
+     * Get users with PAID courses using EntityManager
      * For testing purposes
      *
      * @return ResponseEntity<List < UserDto>>
      */
-    @GetMapping("/students/em")
-    public ResponseEntity<List<UserDto>> listStudentsUsingEntityManager() {
+    @GetMapping("/users/em")
+    public ResponseEntity<List<UserDto>> listUsersUsingEntityManager() {
         List<UserDto> list = userService.getUserEM();
         return new ResponseEntity<>(list, HttpStatus.OK);
-
     }
-
 }

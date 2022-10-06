@@ -44,7 +44,7 @@ public class CourseController {
 
 
     /**
-     * Retrieve student details
+     * Retrieve course details
      *
      * @param id course id
      * @return ModelAndView with course details

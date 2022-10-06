@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.repository.criteria;
 
-import al.ikubinfo.registrationmanagement.entity.StudentStatusEnum;
+import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +10,5 @@ public class UserCriteria extends BaseCriteria {
     private String firstName;
     private String lastName;
     private Long course;
-    private StudentStatusEnum status;
+    private UserStatusEnum status;
 }

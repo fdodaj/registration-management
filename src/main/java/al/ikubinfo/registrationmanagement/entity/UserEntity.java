@@ -44,7 +44,7 @@ public class UserEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private StudentStatusEnum status;
+    private UserStatusEnum status;
 
     @Column(name = "reference")
     private String reference;

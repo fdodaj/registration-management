@@ -1,7 +1,7 @@
 package al.ikubinfo.registrationmanagement.entity;
 
 
-public enum StudentStatusEnum {
+public enum UserStatusEnum {
 
     REGISTERED("Registered"),
     INTERESTED("Interested"),
@@ -10,7 +10,7 @@ public enum StudentStatusEnum {
 
     private final String displayValue;
 
-    StudentStatusEnum(String displayValue) {
+    UserStatusEnum(String displayValue) {
         this.displayValue = displayValue;
     }
 

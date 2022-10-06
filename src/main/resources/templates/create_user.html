@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/students}">Student Management</a>
+                <a class="nav-link" th:href="@{/users}">Student Management</a>
             </li>
         </ul>
     </div>
@@ -35,7 +35,7 @@
             <h1 class="text-center"> Create New Student </h1>
             <div class="card-body">
                 <!--					<form th:action="@{/students}" th:object="${studentDto}" method="POST">-->
-                <form method="POST" th:action="@{/students}" th:object="${student}">
+                <form method="POST" th:action="@{/users}" th:object="${user}">
     
                     <div class="form-group">
                         <label> Firstname </label>
