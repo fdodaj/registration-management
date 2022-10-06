@@ -82,7 +82,7 @@ public class UserController {
      * @return ModelAndView
      */
     @PostMapping("/users")
-    public ModelAndView saveUser(@Valid @ModelAttribute("user")  ValidatedUserDto user, BindingResult result, Model model) {
+    public ModelAndView saveUser(@Valid @ModelAttribute("user") ValidatedUserDto user, BindingResult result, Model model) {
         model.addAttribute("user", user);
 
         if (result.hasErrors()) {
@@ -129,8 +129,8 @@ public class UserController {
     /**
      * Update user
      *
-     * @param id      user id
-     * @param user   updated dto
+     * @param id   user id
+     * @param user updated dto
      * @return
      */
     @PostMapping("/users/{id}")
@@ -142,8 +142,8 @@ public class UserController {
     /**
      * assign user to course
      *
-     * @param courseId  courseId
-     * @param userId userId
+     * @param courseId courseId
+     * @param userId   userId
      * @return ModelAndView
      */
     @PostMapping("/users/{courseId}/{userId}")

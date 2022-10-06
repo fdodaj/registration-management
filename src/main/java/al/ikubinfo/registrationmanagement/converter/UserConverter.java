@@ -1,8 +1,11 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.*;
-import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
+import al.ikubinfo.registrationmanagement.dto.NewUserDto;
+import al.ikubinfo.registrationmanagement.dto.UpdateUserDto;
+import al.ikubinfo.registrationmanagement.dto.UserDto;
+import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
+import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +51,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
     }
 
 
-    public UserEntity toValidatedUserEntity(ValidatedUserDto dto){
+    public UserEntity toValidatedUserEntity(ValidatedUserDto dto) {
         UserEntity entity = new UserEntity();
 
         entity.setFirstName(dto.getFirstName());

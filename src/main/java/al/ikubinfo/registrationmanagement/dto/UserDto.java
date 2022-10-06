@@ -13,31 +13,18 @@ import java.util.List;
 @Validated
 public class UserDto {
 
-    private Long id;
-
-    private String firstName;
-
-    private String lastName;
-
-    private String phoneNumber;
-
-    private String email;
-
-    private UserStatusEnum status;
-
-    private String reference;
-
-    private double priceReduction;
-
-    private double pricePaid;
-
     public String comment;
-
     public LocalDate modifiedDate;
-
     public LocalDate createdDate;
-
     public RoleDto role;
-
     public List<CourseDto> courses;
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String email;
+    private UserStatusEnum status;
+    private String reference;
+    private double priceReduction;
+    private double pricePaid;
 }

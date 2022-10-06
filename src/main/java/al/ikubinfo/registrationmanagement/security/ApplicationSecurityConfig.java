@@ -60,7 +60,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**")
                 // allow anonymous resource requests
-                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/","/students/assign/assign/**", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**", "/h2/**");
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/", "/students/assign/assign/**", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**", "/h2/**");
     }
 
     // Configure security settings

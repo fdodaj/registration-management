@@ -3,6 +3,7 @@ package al.ikubinfo.registrationmanagement.dto;
 import al.ikubinfo.registrationmanagement.entity.CourseProgressStatus;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.util.List;
 
