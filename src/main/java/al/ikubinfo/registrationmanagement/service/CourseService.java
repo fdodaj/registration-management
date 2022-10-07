@@ -21,9 +21,9 @@ public interface CourseService {
 
     void deleteCourseById(Long id);
 
-    CourseUserDto assignUserToCourse(Long userId,  Long courseId);
+    CourseUserDto assignUserToCourse(Long userId, Long courseId);
 
-    CourseUserDto removeUserFromCourse(Long userId,  Long courseId);
+    CourseUserDto removeUserFromCourse(Long userId, Long courseId);
 
     List<CourseUserDto> getAllStudentsByCourseId(Long studentId);
 }

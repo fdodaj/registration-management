@@ -1,4 +1,5 @@
 package al.ikubinfo.registrationmanagement.dto;
+
 import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import lombok.Data;
 

@@ -177,7 +177,6 @@ public class UserController {
     }
 
 
-
     /**
      * delete user from course
      *
