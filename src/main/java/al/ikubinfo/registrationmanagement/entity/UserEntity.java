@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -50,12 +51,13 @@ public class UserEntity extends BaseEntity {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToMany(mappedBy = "courseStudents", fetch = FetchType.LAZY)
-    private List<CourseEntity> courses;
-
     @ManyToOne
     @JoinColumn(name = "user_role")
     @JsonIgnore
     private RoleEntity role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CourseUserEntity> userCourses = new ArrayList<>();
+
 
 }

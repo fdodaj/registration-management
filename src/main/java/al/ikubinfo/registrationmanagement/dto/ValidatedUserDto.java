@@ -15,11 +15,11 @@ import java.util.List;
 @Data
 public class ValidatedUserDto {
 
-    public String comment;
-    public LocalDate modifiedDate;
-    public LocalDate createdDate;
-    public RoleDto role;
-    public List<CourseDto> courses;
+    private String comment;
+    private LocalDate modifiedDate;
+    private LocalDate createdDate;
+    private RoleDto role;
+    private List<CourseDto> courses;
     private Long id;
     @NotBlank(message = "first name is required")
     private String firstName;

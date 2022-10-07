@@ -15,30 +15,30 @@ import java.util.List;
 @Valid
 @Validated
 public class NewUserDto {
-    public Long id;
+    private Long id;
 
-    public String firstName;
+    private String firstName;
 
-    public String lastName;
+    private String lastName;
 
     @Pattern(regexp = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}")
-    public String phoneNumber;
+    private String phoneNumber;
 
     @Email
-    public String email;
+    private String email;
 
-    public String reference;
+    private String reference;
 
-    public UserStatusEnum status;
+    private UserStatusEnum status;
 
-    public String comment;
+    private String comment;
 
-    public LocalDate modifiedDate;
+    private LocalDate modifiedDate;
 
-    public LocalDate createdDate;
+    private LocalDate createdDate;
 
-    public RoleDto role;
+    private RoleDto role;
 
-    public List<CourseDto> courses;
+    private List<CourseDto> courses;
 
 }

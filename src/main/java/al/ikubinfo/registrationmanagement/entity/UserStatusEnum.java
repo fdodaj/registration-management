@@ -5,7 +5,6 @@ public enum UserStatusEnum {
 
     REGISTERED("Registered"),
     INTERESTED("Interested"),
-    UNASSIGNED("unassigned"),
     PAID("Paid");
 
     private final String displayValue;

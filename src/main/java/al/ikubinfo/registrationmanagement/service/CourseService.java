@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.service;
 
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import org.springframework.data.domain.Page;
 
@@ -20,9 +21,10 @@ public interface CourseService {
 
     void deleteCourseById(Long id);
 
-    void addUserToCourse(Long studentId, Long courseId);
+    CourseUserDto assignUserToCourse(Long userId,  Long courseId);
 
-    void deleteStudentFromCourse(Long studentId, Long courseId);
+    CourseUserDto removeUserFromCourse(Long userId,  Long courseId);
+
 
 
 }

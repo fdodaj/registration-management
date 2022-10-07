@@ -13,11 +13,11 @@ import java.util.List;
 @Validated
 public class UserDto {
 
-    public String comment;
-    public LocalDate modifiedDate;
-    public LocalDate createdDate;
-    public RoleDto role;
-    public List<CourseDto> courses;
+    private String comment;
+    private LocalDate modifiedDate;
+    private LocalDate createdDate;
+    private RoleDto role;
+    private List<CourseDto> courses;
     private Long id;
     private String firstName;
     private String lastName;

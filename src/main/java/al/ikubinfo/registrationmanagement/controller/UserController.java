@@ -1,9 +1,6 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.UpdateUserDto;
-import al.ikubinfo.registrationmanagement.dto.UserDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
+import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
@@ -14,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -140,17 +134,18 @@ public class UserController {
     }
 
     /**
-     * assign user to course
+     * Assign user to course
+     * When an ACTIVE student is assigned to a course, status is set to REGISTERED
      *
      * @param courseId courseId
      * @param userId   userId
      * @return ModelAndView
      */
-    @PostMapping("/users/{courseId}/{userId}")
-    ModelAndView assignUser(@PathVariable Long courseId, @PathVariable Long userId) {
-        courseService.addUserToCourse(userId, courseId);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
+//    @PostMapping("/users/{courseId}/{userId}")
+//    ModelAndView assignUserToCourse(@PathVariable Long courseId, @PathVariable Long userId) {
+//        courseService.addUserToCourse(userId, courseId);
+//        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+//    }
 
     /**
      * Delete user by id
@@ -174,5 +169,31 @@ public class UserController {
     public ResponseEntity<List<UserDto>> listUsersUsingEntityManager() {
         List<UserDto> list = userService.getUserEM();
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    /**
+     * Assign user to course
+     * When an ACTIVE student is assigned to a course, status is set to REGISTERED
+     *
+     * @param courseId courseId
+     * @param userId   userId
+     * @return ModelAndView
+     */
+    @PostMapping("/users/{courseId}/{userId}")
+    ResponseEntity<CourseUserDto> assignUserToCourse(@PathVariable Long courseId, @PathVariable Long userId) {
+        return new ResponseEntity<>(courseService.assignUserToCourse(userId, courseId), HttpStatus.ACCEPTED);
+    }
+
+
+    /**
+     * delete user from course
+     *
+     * @param courseId courseId
+     * @param userId   userId
+     * @return ModelAndView
+     */
+    @PutMapping("/users/{courseId}/{userId}")
+    ResponseEntity<CourseUserDto> removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long userId) {
+        return new ResponseEntity<>(courseService.removeUserFromCourse(userId, courseId), HttpStatus.ACCEPTED);
     }
 }

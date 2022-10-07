@@ -1,21 +1,23 @@
 package al.ikubinfo.registrationmanagement.controller;
 
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class CourseController {
@@ -82,7 +84,6 @@ public class CourseController {
         }
         courseService.saveCourse(course);
         return new ModelAndView("redirect:/courses");
-
     }
 
 
@@ -122,17 +123,19 @@ public class CourseController {
      * @param id course id
      * @return ModelAndView
      */
-    @GetMapping("/courses/delete/{id}")
-    public ModelAndView deleteCourse(@PathVariable Long id) {
-        courseService.deleteCourseById(id);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
 
-    @GetMapping("course/{courseId}/{studentId}")
-    public ModelAndView deleteStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
-        courseService.deleteStudentFromCourse(studentId, courseId);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
+
+//    @PostMapping("/courses/add")
+//    public ResponseEntity<CourseUserDto> saveUserCourse(@RequestBody CourseUserDto course) {
+//          return new ResponseEntity<>(courseService.saveCourseUser(course), HttpStatus.ACCEPTED);
+//    }
+
+
+//    @GetMapping("course/{courseId}/{studentId}")
+//    public ModelAndView deleteStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+//        courseService.deleteStudentFromCourse(studentId, courseId);
+//        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+//    }
 
 
 //    @GetMapping("add/{courseId}/{studentId}")
