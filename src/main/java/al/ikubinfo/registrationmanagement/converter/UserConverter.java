@@ -24,11 +24,6 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
-        entity.setReference(dto.getReference());
-        entity.setStatus(dto.getStatus());
-        entity.setPriceReduction(dto.getPriceReduction());
-        entity.setPricePaid(dto.getPricePaid());
-        entity.setComment(dto.getComment());
         entity.setRole(roleConverter.toEntity(dto.getRole()));
         return entity;
     }
@@ -40,10 +35,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
-        entity.setEmail(dto.getEmail());
-        entity.setStatus(UserStatusEnum.INTERESTED);
-        entity.setReference(dto.getReference());
-        entity.setComment(dto.getComment());
+        entity.setEmail(dto.getEmail());;
         entity.setRole(roleConverter.toEntity(dto.getRole()));
         return entity;
     }
@@ -56,9 +48,6 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
-        entity.setStatus(UserStatusEnum.INTERESTED);
-        entity.setReference(dto.getReference());
-        entity.setComment(dto.getComment());
         entity.setRole(roleConverter.toEntity(dto.getRole()));
         return entity;
     }
@@ -72,11 +61,6 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         dto.setLastName(entity.getLastName());
         dto.setPhoneNumber(entity.getPhoneNumber());
         dto.setEmail(entity.getEmail());
-        dto.setStatus(entity.getStatus());
-        dto.setReference(entity.getReference());
-        dto.setPriceReduction(entity.getPriceReduction());
-        dto.setPricePaid(entity.getPricePaid());
-        dto.setComment(entity.getComment());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setModifiedDate(entity.getModifiedDate());
         return dto;
@@ -87,7 +71,6 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
-        entity.setComment(dto.getComment());
         return entity;
     }
 

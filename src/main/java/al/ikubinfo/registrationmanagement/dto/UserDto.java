@@ -13,7 +13,6 @@ import java.util.List;
 @Validated
 public class UserDto {
 
-    private String comment;
     private LocalDate modifiedDate;
     private LocalDate createdDate;
     private RoleDto role;
@@ -23,8 +22,4 @@ public class UserDto {
     private String lastName;
     private String phoneNumber;
     private String email;
-    private UserStatusEnum status;
-    private String reference;
-    private double priceReduction;
-    private double pricePaid;
 }

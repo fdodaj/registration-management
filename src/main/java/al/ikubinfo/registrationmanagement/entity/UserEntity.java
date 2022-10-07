@@ -35,21 +35,6 @@ public class UserEntity extends BaseEntity {
     @Column(name = "password")
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private UserStatusEnum status;
-
-    @Column(name = "reference")
-    private String reference;
-
-    @Column(name = "price_reduction")
-    private double priceReduction;
-
-    @Column(name = "price_paid")
-    private double pricePaid;
-
-    @Column(name = "comment")
-    private String comment;
 
     @ManyToOne
     @JoinColumn(name = "user_role")

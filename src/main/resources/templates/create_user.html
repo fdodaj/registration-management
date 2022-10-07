@@ -87,30 +87,8 @@
                              th:errors="*{email}"></div>
                     </div>
                   
-                    <div class="form-group">
-                        <label> Reference </label>
-                        <input
-                                class="form-control"
-                                name="reference"
-                                th:field="*{reference}"
-                                type="text"
-                        />
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('reference')}"
-                             th:errors="*{reference}"></div>
-                    </div>
- 
-
-                    <div class="form-group">
-                        <label> Comment </label>
-                        <input
-                                class="form-control"
-                                name="comment"
-                                th:field="*{comment}"
-                                type="text"
-                        />
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('comment')}"
-                             th:errors="*{comment}"></div>
-                    </div>
+                    
+                  
                     
 
                     <div class="box-footer">

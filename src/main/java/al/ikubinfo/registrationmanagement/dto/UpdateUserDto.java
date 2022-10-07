@@ -14,6 +14,5 @@ public class UpdateUserDto {
     private String lastName;
     private String phoneNumber;
     private String email;
-    private String comment;
 
 }

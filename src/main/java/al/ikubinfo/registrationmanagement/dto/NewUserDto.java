@@ -27,12 +27,6 @@ public class NewUserDto {
     @Email
     private String email;
 
-    private String reference;
-
-    private UserStatusEnum status;
-
-    private String comment;
-
     private LocalDate modifiedDate;
 
     private LocalDate createdDate;
