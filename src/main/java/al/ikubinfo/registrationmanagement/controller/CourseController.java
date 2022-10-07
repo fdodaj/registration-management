@@ -126,11 +126,9 @@ public class CourseController {
     }
 
 
-    /**
-     * Delete course
-     *
-     * @param id course id
-     * @return ModelAndView
-     */
-
+    @GetMapping("/courses/delete/{id}")
+    public ModelAndView deleteCourse(@PathVariable Long id) {
+        courseService.deleteCourseById(id);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
 }

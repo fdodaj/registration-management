@@ -60,7 +60,7 @@
                     <div class="form-group ">
                         <div><label> Course Status </label></div>
                         <select name="status" style="text-align: center">
-                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.CourseProgressStatus).values()}"
+                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.CourseStatus).values()}"
                                     th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
                         </select>
 

@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity, Long>, JpaSpecificationExecutor<CourseEntity> {
 
-    Optional<CourseEntity> findByNameAndStartDateAndEndDate(String name, LocalDate startDate, LocalDate endDate);
+    Optional<CourseEntity> findByCourseNameAndCourseStartDateAndCourseEndDate(String name, LocalDate startDate, LocalDate endDate);
 }

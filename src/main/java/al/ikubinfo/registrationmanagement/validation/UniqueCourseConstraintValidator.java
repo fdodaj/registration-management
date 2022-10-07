@@ -34,7 +34,7 @@ public class UniqueCourseConstraintValidator implements ConstraintValidator<Uniq
         LocalDate sDate = (LocalDate) beanWrapper.getPropertyValue(startDate);
         LocalDate eDate = (LocalDate) beanWrapper.getPropertyValue(endDate);
 
-        Optional<CourseEntity> opt = repository.findByNameAndStartDateAndEndDate(name, sDate, eDate);
+        Optional<CourseEntity> opt = repository.findByCourseNameAndCourseStartDateAndCourseEndDate(name, sDate, eDate);
 
         return opt.isEmpty();
 

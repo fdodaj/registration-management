@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.entity;
 
-public enum CourseProgressStatus {
+public enum CourseStatus {
 
     READY_TO_START("ready to start"),
     IN_PROGRESS("in progress"),
@@ -8,7 +8,7 @@ public enum CourseProgressStatus {
 
     private final String displayValue;
 
-    CourseProgressStatus(String displayValue) {
+    CourseStatus(String displayValue) {
         this.displayValue = displayValue;
     }
 

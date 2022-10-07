@@ -20,27 +20,32 @@ import java.util.List;
 @Table(name = "course")
 public class CourseEntity extends BaseEntity {
 
-
-    @Column(name = "name")
-    private String name;
+    @Column(name = "course_name")
+    private String courseName;
 
     @Column(name = "price")
     private double price;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private CourseProgressStatus status;
+    private CourseStatus status;
 
-
-    @Column(name = "start_date")
+    @Column(name = "course_start_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
+    private LocalDate courseStartDate;
 
-
-    @Column(name = "end_date")
+    @Column(name = "course_end_date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate endDate;
+    private LocalDate courseEndDate;
 
+    @Column(name = "registration_start_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate registrationStartDate;
+
+
+    @Column(name = "registration_end_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate registrationEndDate;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourseUserEntity> courseUsers = new ArrayList<>();
