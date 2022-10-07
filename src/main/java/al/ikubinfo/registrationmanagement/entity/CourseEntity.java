@@ -24,6 +24,9 @@ public class CourseEntity extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "price")
+    private double price;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private CourseProgressStatus status;

@@ -19,38 +19,17 @@
                     <form method="POST" th:action="@{/users/{courseId}/{userId} (courseId=${1}, userId=${user.id}) }" th:object="${user}">
         
         
-                        <div class="form-group ">
-                            <div><label> Status </label></div>
-                            <select name="status" class="custom-select" style="text-align: center">
-                                <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.UserStatusEnum).values()}"
-                                          th:value="${statusOpt}" th:required="required"
-                                        th:text="${statusOpt.getDisplayValue()}"
-                                ></option>
-                            </select>
-        
-                        </div>
-                        <div class="form-group">
-                            <label> Price Reduction </label>
-                            <input
-                                    type="number"
-                                    name="priceReduction"
-                                    th:field="*{priceReduction}"
-                                    class="form-control"
-                                    placeholder="Enter Student price reduction"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label> Price paid </label>
-                            <input
-                                    class="form-control"
-                                    name="pricePaid"
-                                    th:field="*{pricePaid}"
-                                    th:required="required"
-                                    type="number"
-                            />
-                        </div>
-    
-    
+<!--                        <div class="form-group ">-->
+<!--                            <div><label> Status </label></div>-->
+<!--                            <select name="status" class="custom-select" style="text-align: center">-->
+<!--                                <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.UserStatusEnum).values()}"-->
+<!--                                          th:value="${statusOpt}" th:required="required"-->
+<!--                                        th:text="${statusOpt.getDisplayValue()}"-->
+<!--                                ></option>-->
+<!--                            </select>-->
+<!--        -->
+<!--                        </div>-->
+                        
                         <div class="form-group">
         
                             <select th:field="*{courses}" class="form-control">

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -112,6 +113,15 @@ public class CourseServiceImpl implements CourseService {
         entity.setDeleted(true);
 
         return converter.toCourseUserDto(courseUserRepository.save(entity));
+    }
+
+    @Override
+    public List<CourseUserDto> getAllStudentsByCourseId(Long studentId) {
+
+        return courseUserRepository.getAllByCourseId(studentId)
+                .stream()
+                .map(converter::toCourseUserDto)
+                .collect(Collectors.toList());
     }
 
 

@@ -15,6 +15,8 @@ public class CourseDto {
 
     private String name;
 
+    private double price;
+
     private CourseProgressStatus status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

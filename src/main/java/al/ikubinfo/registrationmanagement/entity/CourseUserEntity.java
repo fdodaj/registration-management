@@ -29,17 +29,27 @@ public class CourseUserEntity  {
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-
     @UpdateTimestamp
     @Column(name = "modified_date")
     private LocalDate modifiedDate;
 
+    @Column(name = "status")
+    private UserStatusEnum status;
+
+    @Column(name = "reference")
+    private String reference;
+
+    @Column(name = "price_reduction")
+    private double priceReduction;
+
+    @Column(name = "price_paid")
+    private double pricePaid;
+
+    @Column(name = "comment")
+    private String comment;
 
     @Column(name = "deleted")
     private boolean deleted;
-
-    @Column(name = "status")
-    private UserStatusEnum status;
 
     public CourseUserEntity() {
         super();

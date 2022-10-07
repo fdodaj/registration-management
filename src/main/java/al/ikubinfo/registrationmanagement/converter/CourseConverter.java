@@ -4,7 +4,6 @@ import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
-import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +28,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setEndDate(entity.getEndDate());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setModifiedDate(entity.getModifiedDate());
+        dto.setPrice(entity.getPrice());
 //        dto.setStudents(userConverter.toStudentDtoList(entity.getCourseStudents()));
         return dto;
     }
@@ -43,19 +43,26 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         entity.setEndDate(LocalDate.parse(dto.getEndDate().toString(), formatter));
         entity.setName(dto.getName());
         entity.setStatus(dto.getStatus());
+        entity.setPrice(dto.getPrice());
         return entity;
     }
 
-    public CourseUserEntity toCourseUserEntity(CourseUserDto dto) {
-        CourseUserEntity entity = new CourseUserEntity();
-        entity.setCourse(toEntity(dto.getCourse()));
-        entity.setUser(userConverter.toEntity(dto.getUser()));
-        entity.setCreatedDate(LocalDate.now());
-        entity.setModifiedDate(LocalDate.now());
-        entity.setDeleted(false);
-        entity.setStatus(UserStatusEnum.REGISTERED);
+
+    public CourseEntity toUpdateStudentEntity(CourseDto dto, CourseEntity entity) {
+        entity.setId(dto.getId());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        entity.setStartDate(LocalDate.parse(dto.getStartDate().toString(), formatter));
+        entity.setEndDate(LocalDate.parse(dto.getEndDate().toString(), formatter));
+        entity.setName(dto.getName());
+        entity.setStatus(dto.getStatus());
+        entity.setPrice(dto.getPrice());
         return entity;
     }
+
+    public List<CourseDto> toCourseDtoList(List<CourseEntity> entities) {
+        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
 
     public CourseUserDto toCourseUserDto(CourseUserEntity entity) {
         CourseUserDto dto = new CourseUserDto();
@@ -67,22 +74,4 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setStatus(entity.getStatus());
         return dto;
     }
-
-    public CourseEntity toUpdateStudentEntity(CourseDto dto, CourseEntity entity) {
-        entity.setId(dto.getId());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        entity.setStartDate(LocalDate.parse(dto.getStartDate().toString(), formatter));
-        entity.setEndDate(LocalDate.parse(dto.getEndDate().toString(), formatter));
-        entity.setName(dto.getName());
-        entity.setStatus(dto.getStatus());
-        return entity;
-    }
-
-    public List<CourseDto> toCourseDtoList(List<CourseEntity> entities) {
-        return entities.stream().map(this::toDto).collect(Collectors.toList());
-    }
-
-
-
-
 }

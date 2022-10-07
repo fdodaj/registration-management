@@ -25,6 +25,5 @@ public interface CourseService {
 
     CourseUserDto removeUserFromCourse(Long userId,  Long courseId);
 
-
-
+    List<CourseUserDto> getAllStudentsByCourseId(Long studentId);
 }

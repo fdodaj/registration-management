@@ -146,6 +146,11 @@ public class UserController {
 //        courseService.addUserToCourse(userId, courseId);
 //        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
 //    }
+    @PostMapping("/users/{courseId}/{userId}")
+    ModelAndView assignUserToCourse(@PathVariable Long courseId, @PathVariable Long userId) {
+        courseService.assignUserToCourse(userId, courseId);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
 
     /**
      * Delete user by id
@@ -171,18 +176,6 @@ public class UserController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    /**
-     * Assign user to course
-     * When an ACTIVE student is assigned to a course, status is set to REGISTERED
-     *
-     * @param courseId courseId
-     * @param userId   userId
-     * @return ModelAndView
-     */
-    @PostMapping("/users/{courseId}/{userId}")
-    ResponseEntity<CourseUserDto> assignUserToCourse(@PathVariable Long courseId, @PathVariable Long userId) {
-        return new ResponseEntity<>(courseService.assignUserToCourse(userId, courseId), HttpStatus.ACCEPTED);
-    }
 
 
     /**
