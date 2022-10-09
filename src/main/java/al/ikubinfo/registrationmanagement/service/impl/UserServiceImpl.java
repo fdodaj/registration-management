@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.UserConverter;
+import al.ikubinfo.registrationmanagement.dto.PasswordDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
@@ -9,12 +10,15 @@ import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.UserSpecification;
+import al.ikubinfo.registrationmanagement.security.Utils;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserEntityManagerRepository userEMRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Page<UserDto> filterUsers(UserCriteria criteria) {
@@ -90,5 +97,21 @@ public class UserServiceImpl implements UserService {
                 .map(userConverter::toDto)
                 .collect(Collectors.toList());
     }
+
+    public UserDto changePassword(PasswordDto passwordDto) {
+        UserEntity user = userRepository
+        .findByEmail(Utils.getCurrentEmail().orElseThrow(null))
+        .orElseThrow(() -> new RuntimeException("User not found"));
+        if (!authenticate(user, passwordDto.getCurrentPassword())) {
+            throw new AccessDeniedException("Access denied. Cannot change password");
+        }
+        user.setPassword(bCryptPasswordEncoder.encode(passwordDto.getNewPassword()));
+        return userConverter.toDto(userRepository.save(user));
+    }
+
+    private boolean authenticate(UserEntity user, String password) {
+        return bCryptPasswordEncoder.matches(password, user.getPassword());
+    }
+
 
 }

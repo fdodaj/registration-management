@@ -51,7 +51,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @Size(max = 50)
+//    @Size(max = 50)
     @Enumerated(EnumType.STRING)
     @Column(name = "reach_form")
     private ReachFormEnum reachForm;

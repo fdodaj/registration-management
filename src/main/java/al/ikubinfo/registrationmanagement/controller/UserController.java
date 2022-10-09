@@ -1,9 +1,6 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.UserDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
+import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
@@ -14,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -169,6 +163,20 @@ public class UserController {
         return mv;
     }
 
+    @GetMapping("/change_password")
+    public ModelAndView getChangePasswordView(PasswordDto passwordDto){
+        ModelAndView mv = new ModelAndView("change_password");
+        mv.addObject("passwordDto", passwordDto);
+        return mv;
+    }
+
+    @PostMapping( "/changePassword")
+    public ModelAndView changePassword(PasswordDto passwordDto) {
+        ModelAndView mv = new ModelAndView("redirect:/users");
+        userService.changePassword(passwordDto);
+        mv.addObject("passwordData", passwordDto);
+        return mv;
+    }
     /**
      * Get users with PAID courses using EntityManager
      * For testing purposes
@@ -180,4 +188,7 @@ public class UserController {
         List<UserDto> list = userService.getUsersEM();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+
+
 }
