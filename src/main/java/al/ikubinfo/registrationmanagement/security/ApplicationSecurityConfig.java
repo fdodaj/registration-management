@@ -71,8 +71,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 // create no session
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/login", "/**").permitAll()
-//                .antMatchers("/**").hasAuthority(RoleEnum.ADMIN.name())
+                .antMatchers("/login").permitAll()
+                .antMatchers("/**").hasAuthority(RoleEnum.ADMIN.name())
 
                 .anyRequest().authenticated();
 

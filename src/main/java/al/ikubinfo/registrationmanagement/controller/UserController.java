@@ -189,6 +189,11 @@ public class UserController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @RequestMapping("/")
+    public void handleRequest() {
+        throw new RuntimeException("test exception");
+    }
+
 
 
 }
