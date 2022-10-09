@@ -1,6 +1,9 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.*;
+import al.ikubinfo.registrationmanagement.dto.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.UserDto;
+import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
@@ -11,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -21,8 +27,10 @@ import java.util.List;
 public class UserController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/users";
     private static final String USERS = "users";
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private CourseService courseService;
 
@@ -41,7 +49,6 @@ public class UserController {
         return mv;
     }
 
-
     /**
      * Retrieve user details
      *
@@ -54,7 +61,6 @@ public class UserController {
         mv.addObject("user", userService.getUserById(id));
         return mv;
     }
-
 
     /**
      * Retrieve form of user creation
@@ -78,7 +84,6 @@ public class UserController {
     @PostMapping("/users")
     public ModelAndView saveUser(@Valid @ModelAttribute("user") ValidatedUserDto user, BindingResult result, Model model) {
         model.addAttribute("user", user);
-
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("create_user");
             mv.addObject("user", user);
@@ -87,7 +92,6 @@ public class UserController {
         userService.saveUser(user);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
-
 
     /**
      * Retrieve user edition view
@@ -104,56 +108,20 @@ public class UserController {
     }
 
     /**
-     * Retrieve user assign to course view
-     *
-     * @param id user id
-     * @return ModelAndView
-     */
-    @GetMapping("/users/assign/{id}")
-    public ModelAndView assignCourseView(@PathVariable("id") Long id) {
-        UserDto userDto = userService.getUserById(id);
-        List<CourseDto> courseDto = courseService.getAllUnfilteredCourses();
-
-        ModelAndView mv = new ModelAndView("assign_course_to_user");
-        mv.addObject("user", userDto);
-        mv.addObject("courses", courseDto);
-        return mv;
-    }
-
-    /**
      * Update user
      *
      * @param id   user id
      * @param user updated dto
-     * @return
-     */
-    @PostMapping("/users/{id}")
-    public ModelAndView updateUser(@PathVariable Long id, @ModelAttribute("user") UpdateUserDto user) {
-        UserDto dto = userService.updateUser(user);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
-
-    /**
-     * Assign user to course
-     * When an ACTIVE student is assigned to a course, status is set to REGISTERED
-     *
-     * @param courseId courseId
-     * @param userId   userId
      * @return ModelAndView
      */
-//    @PostMapping("/users/{courseId}/{userId}")
-//    ModelAndView assignUserToCourse(@PathVariable Long courseId, @PathVariable Long userId) {
-//        courseService.addUserToCourse(userId, courseId);
-//        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-//    }
-    @PostMapping("/users/{courseId}/{userId}")
-    ModelAndView assignUserToCourse(@PathVariable Long courseId, @PathVariable Long userId) {
-        courseService.assignUserToCourse(userId, courseId);
+    @PostMapping("/users/{id}")
+    public ModelAndView updateUser(@PathVariable Long id, @ModelAttribute("user") ValidatedUserDto user) {
+        userService.updateUser(user);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
     /**
-     * Delete user by id
+     * Delete user by id (soft deletion)
      *
      * @param id user id
      * @return ModelAndView homepage
@@ -165,6 +133,43 @@ public class UserController {
     }
 
     /**
+     * Assigns user to course
+     *
+     * @param courseUserDto courseUserDto
+     * @return  ModelAndView
+     */
+    @PostMapping("/users/assign-course")
+    public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
+        ModelAndView modelAndView = new ModelAndView("assign_users_to_course");
+        modelAndView.addObject("courseUserDto", courseUserDto);
+        courseService.assignUserToCourse(courseUserDto);
+        return modelAndView;
+    }
+
+    /**
+     * Retrieve assign user to course view
+     *
+     * @param userId userId
+     * @param courseId  courseId
+     * @param courseUserDto courseUserDto
+     *
+     * @return ModelAndView
+     */
+    @GetMapping("/course/assign/{userId}/{courseId}")
+    public ModelAndView assignCourseView(@PathVariable("userId") Long userId,
+                                         @PathVariable("courseId") Long courseId, CourseUserDto courseUserDto) {
+        ModelAndView mv = new ModelAndView("assign_users_to_course");
+        UserDto user = userService.getUserById(userId);
+        CourseDto course = courseService.getCourseById(courseId);
+        courseUserDto.setUserId(user.getId());
+        courseUserDto.setCourseId(course.getId());
+        mv.addObject("courseUserDto", courseUserDto);
+        mv.addObject("user", user);
+        mv.addObject("course", course);
+        return mv;
+    }
+
+    /**
      * Get users with PAID courses using EntityManager
      * For testing purposes
      *
@@ -172,20 +177,7 @@ public class UserController {
      */
     @GetMapping("/users/em")
     public ResponseEntity<List<UserDto>> listUsersUsingEntityManager() {
-        List<UserDto> list = userService.getUserEM();
+        List<UserDto> list = userService.getUsersEM();
         return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
-
-    /**
-     * delete user from course
-     *
-     * @param courseId courseId
-     * @param userId   userId
-     * @return ModelAndView
-     */
-    @PutMapping("/users/{courseId}/{userId}")
-    ResponseEntity<CourseUserDto> removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long userId) {
-        return new ResponseEntity<>(courseService.removeUserFromCourse(userId, courseId), HttpStatus.ACCEPTED);
     }
 }

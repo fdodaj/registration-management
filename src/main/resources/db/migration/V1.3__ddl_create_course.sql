@@ -1,6 +1,6 @@
 CREATE TABLE course
 (
-    id                      INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    id                      serial PRIMARY KEY,
     course_name             VARCHAR(50) NOT NULL,
     price                   INTEGER     NOT NULL,
     status                  VARCHAR(50) NOT NULL,

@@ -1,24 +1,37 @@
 package al.ikubinfo.registrationmanagement.dto;
 
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
-@Valid
-@Validated
 public class UserDto {
 
-    private LocalDate modifiedDate;
-    private LocalDate createdDate;
-    private RoleDto role;
-    private List<CourseDto> courses;
     private Long id;
+
     private String firstName;
+
     private String lastName;
-    private String phoneNumber;
+
     private String email;
+
+    private String phoneNumber;
+
+    private ReachFormEnum reachForm; // rekomandim, rrjete sociale etj
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate modifiedDate;
+
+    private RoleDto role;
+
+    private List<CourseDto> courses;
+
 }

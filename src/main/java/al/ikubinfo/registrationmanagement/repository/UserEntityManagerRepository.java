@@ -15,7 +15,8 @@ public class UserEntityManagerRepository {
     private EntityManager entityManager;
 
     public List<UserEntity> getAllStudentsWithPaidCurses() {
-        TypedQuery<UserEntity> query = entityManager.createQuery("select U from UserEntity U where U.status = 'PAID'", UserEntity.class);
+        TypedQuery<UserEntity> query = entityManager
+                .createQuery("select U from UserEntity U where U.status = 'PAID'", UserEntity.class);
         return query.getResultList();
     }
 }

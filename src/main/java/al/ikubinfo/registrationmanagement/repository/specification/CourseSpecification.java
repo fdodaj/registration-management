@@ -13,11 +13,15 @@ public class CourseSpecification extends SpecificationBuilder<CourseEntity, Cour
     public Specification<CourseEntity> filter(CourseCriteria criteria) {
         Specification<CourseEntity> specification = Specification.where(null);
 
-        if (criteria.getName() != null) {
-            specification = specification.and(equalsSpecification("name", criteria.getName()));
+        if (criteria.getCourseName() != null) {
+            specification = specification.and(likeUpperSpecification("name", criteria.getCourseName()));
         }
         if (criteria.getStatus() != null) {
             specification = specification.and(equalsSpecification("status", criteria.getStatus()));
+        }
+
+        if (criteria.getStudentName() != null) {
+            specification = specification.and(likeUpperSpecification("courseUsers.user.firstName", criteria.getStudentName()));
         }
 
         return specification;

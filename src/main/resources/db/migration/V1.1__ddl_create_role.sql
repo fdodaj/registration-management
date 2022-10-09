@@ -1,6 +1,6 @@
 CREATE TABLE role
 (
-    id            INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    id            serial PRIMARY KEY ,
     name          VARCHAR(50) NOT NULL,
     description   VARCHAR(50) NOT NULL,
     created_date  TIMESTAMP   NOT NULL,

@@ -1,12 +1,18 @@
 package al.ikubinfo.registrationmanagement.entity;
 
-import lombok.AllArgsConstructor;
+import al.ikubinfo.registrationmanagement.dto.CourseStatus;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,18 +20,18 @@ import java.util.List;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Where(clause = "deleted = false")
 @Table(name = "course")
 public class CourseEntity extends BaseEntity {
 
+    @Size(max = 50)
     @Column(name = "course_name")
     private String courseName;
 
     @Column(name = "price")
     private double price;
 
+    @Size(max = 50)
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private CourseStatus status;
@@ -50,6 +56,9 @@ public class CourseEntity extends BaseEntity {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourseUserEntity> courseUsers = new ArrayList<>();
 
+    public CourseEntity() {
+        super();
+    }
 }
 
 

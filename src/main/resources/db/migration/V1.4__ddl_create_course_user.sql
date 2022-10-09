@@ -6,9 +6,9 @@ CREATE TABLE course_user
     modified_date   TIMESTAMP   NOT NULL,
     deleted         BOOLEAN     NOT NULL,
     status          VARCHAR(50) NOT NULL,
-    reference       VARCHAR(50),
+    reference       VARCHAR(100),
     price_reduction INTEGER,
     price_paid      INTEGER,
-    comment         VARCHAR(50),
+    comment         VARCHAR(500),
     PRIMARY KEY (course_id, user_id)
 );

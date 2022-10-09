@@ -13,4 +13,14 @@ public abstract class SpecificationBuilder<E extends BaseEntity, C extends BaseC
         return (root, query, builder) -> builder.equal(root.get(fieldName), value);
     }
 
+    protected Specification<E> likeUpperSpecification(String fieldName, String value) {
+        return (root, query, builder) ->
+                builder.like(builder.upper(root.get(fieldName)), wrapLikeQuery(value));
+    }
+
+    protected String wrapLikeQuery(String txt) {
+        return "%" + txt.toUpperCase() + '%';
+    }
+
+
 }

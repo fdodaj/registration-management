@@ -27,6 +27,9 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/courses}">Course Management</a>
             </li>
+            <li class="nav-item" style="margin-left: 315px; padding-left: 315px" >
+                <a class="nav-link" th:href="@{/signout}">Logout</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -50,13 +53,12 @@
             <input class="form-control" id="last_name" placeholder="Last Name" type="search"/>
         </div>
         <button class="btn btn-primary" id="sendButton" type="button">
-            <!--            <i class="fas fa-search"></i>-->
             Search
         </button>
     </div>
 
     <table class="table table-striped table-bordered" style="background-color: white">
-        <thead class="table-dark">
+        <thead class="table-dark table-hover">
         <tr>
             <th style="text-align: center">First Name</th>
             <th style="text-align: center">Last Name</th>
@@ -87,13 +89,14 @@
                     Delete</a>
     
                 <a class="btn btn-primary"
-                   th:href="@{/users/assign/{id}(id=${user.id})}">Assign to course</a>
+                   th:href="@{course/assign/{id}(id=${user.id})} ">Assign to course</a>
             </td>
         </tr>
         </tbody>
 
     </table>
-
+    
+   
 </div>
 <script>
     let sendBtn = document.getElementById('sendButton');
@@ -113,8 +116,7 @@
 
         }
     )
-
-
+    
 </script>
 </body>
 </html>

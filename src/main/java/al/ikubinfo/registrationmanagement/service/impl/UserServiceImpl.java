@@ -1,7 +1,6 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.UserConverter;
-import al.ikubinfo.registrationmanagement.dto.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,19 +34,20 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private UserEntityManagerRepository userEMRepository;
-
-    @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private UserEntityManagerRepository userEMRepository;
+
     @Override
-    public Page<UserDto> filterUsers(@RequestBody UserCriteria criteria) {
+    public Page<UserDto> filterUsers(UserCriteria criteria) {
         Pageable pageable = PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(),
                 Sort.Direction.valueOf(criteria.getSortDirection()), criteria.getOrderBy());
         return userRepository
                 .findAll(specification.filter(criteria), pageable)
                 .map(userConverter::toDto);
     }
+
 
     @Override
     public UserDto getUserById(Long id) {
@@ -57,14 +56,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(ValidatedUserDto dto) {
+    public UserDto saveUser(ValidatedUserDto dto) {
         UserEntity userEntity = userConverter.toValidatedUserEntity(dto);
         userEntity.setRole(roleRepository.findByName("STUDENT"));
-        userRepository.save(userEntity);
+        return userConverter.toDto(userRepository.save(userEntity));
     }
 
     @Override
-    public UserDto updateUser(UpdateUserDto student) {
+    public UserDto updateUser(ValidatedUserDto student) {
         UserEntity currentEntity = getStudentEntity(student.getId());
         UserEntity userEntity = userConverter.toUpdateStudentEntity(student, currentEntity);
         return userConverter.toDto(userRepository.save(userEntity));
@@ -85,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getUserEM() {
+    public List<UserDto> getUsersEM() {
         return userEMRepository.getAllStudentsWithPaidCurses()
                 .stream()
                 .map(userConverter::toDto)

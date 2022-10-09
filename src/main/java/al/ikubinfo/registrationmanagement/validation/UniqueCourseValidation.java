@@ -14,15 +14,13 @@ public @interface UniqueCourseValidation {
 
     Class<?>[] groups() default {};
 
-    String message() default "kursi ekziston";
+    String message() default "Course already exists";
 
     Class<? extends Payload>[] payload() default {};
 
     String courseName();
 
-    String startDate();
-
-    String endDate();
+    String registrationStartDate();
 
 
 }

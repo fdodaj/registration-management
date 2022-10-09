@@ -44,9 +44,8 @@
                     <div class="form-group">
                         <strong>NAME:</strong>
                         <td th:text="*{firstName}">1</td>
-
-
                     </div>
+
                     <div class="form-group">
                         <strong> Last name:</strong>
                         <td th:text="*{lastName}">1</td>
@@ -61,12 +60,25 @@
                     <div class="form-group">
                         <strong> EMAIL:</strong>
                         <td th:text="*{email}">1</td>
-
-              
-                    <div class="form-group">
-                        <strong>LAST MODIFIED:</strong>
-                        <td th:text="*{modifiedDate}">1</td>
                     </div>
+
+                    <div class="form-group">
+                        <strong> REACH FORM:</strong>
+                        <td th:text="*{reachForm}"></td>
+                    </div>
+
+                    <div class="form-group">
+                        <strong> BIRTHDAY:</strong>
+                        <td th:text="*{birthDate}"></td>
+
+                    </div>
+
+                    <div class="form-group">
+                        <strong> LAST MODIFIED:</strong>
+                        <td th:text="*{modifiedDate}">1</td>
+
+                    </div>
+
 
 
                     <div class="box-footer">
@@ -76,7 +88,6 @@
                         <a class="btn btn-success"
                            th:href="@{/users}">Back</a>
 
-                    </div>
                     </div>
                 </form>
 

@@ -8,18 +8,18 @@ import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
-@Constraint(validatedBy = {CourseDateConstraintValidator.class})
+@Constraint(validatedBy = {DatesCheckValidator.class})
 @Documented
-public @interface CourseDateValidation {
+public @interface DatesCheck {
 
     Class<?>[] groups() default {};
 
-    String message() default "InvalidDate";
+    String message() default "Invalid Dates";
 
     Class<? extends Payload>[] payload() default {};
 
-    String startDate();
+    String first();
 
-    String endDate();
+    String second();
 
 }

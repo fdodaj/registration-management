@@ -1,22 +1,17 @@
 package al.ikubinfo.registrationmanagement.converter;
 
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.CourseStatus;
+import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
-import al.ikubinfo.registrationmanagement.entity.CourseStatus;
-import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class CourseConverter implements BidirectionalConverter<CourseDto, CourseEntity> {
 
-    @Autowired
-    private UserConverter userConverter;
 
     @Override
     public CourseDto toDto(CourseEntity entity) {
@@ -37,6 +32,10 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
 
     @Override
     public CourseEntity toEntity(CourseDto dto) {
+        return toEntity((ValidatedCourseDto) dto);
+    }
+
+    public CourseEntity toEntity(ValidatedCourseDto dto) {
         CourseEntity entity = new CourseEntity();
 
         entity.setCourseStartDate(dto.getCourseStartDate());
@@ -57,7 +56,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         entity.setRegistrationStartDate(dto.getRegistrationStartDate());
         entity.setRegistrationEndDate(dto.getRegistrationEndDate());
         entity.setCourseName(dto.getCourseName());
-        entity.setStatus(dto.getStatus());
+        entity.setStatus(dto.getStatus() != null ? dto.getStatus() : CourseStatus.READY_TO_START);
         entity.setPrice(dto.getPrice());
         return entity;
     }
@@ -67,16 +66,4 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
     }
 
 
-    // @TODO ??? see again
-
-    public CourseUserDto toCourseUserDto(CourseUserEntity entity) {
-        CourseUserDto dto = new CourseUserDto();
-        dto.setCourse(toDto(entity.getCourse()));
-        dto.setUser(userConverter.toDto(entity.getUser()));
-        dto.setCreatedDate(LocalDate.now());
-        dto.setModifiedDate(LocalDate.now());
-        dto.setDeleted(entity.isDeleted());
-        dto.setStatus(entity.getStatus());
-        return dto;
-    }
 }

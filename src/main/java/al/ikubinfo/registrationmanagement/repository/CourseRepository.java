@@ -1,5 +1,6 @@
 package al.ikubinfo.registrationmanagement.repository;
 
+import al.ikubinfo.registrationmanagement.dto.CourseStatus;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,5 +12,8 @@ import java.util.Optional;
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity, Long>, JpaSpecificationExecutor<CourseEntity> {
 
-    Optional<CourseEntity> findByCourseNameAndCourseStartDateAndCourseEndDate(String name, LocalDate startDate, LocalDate endDate);
+    Optional<CourseEntity> findByCourseNameAndRegistrationStartDateAndStatus(
+            String name,
+            LocalDate registrationStartDate,
+            CourseStatus status);
 }

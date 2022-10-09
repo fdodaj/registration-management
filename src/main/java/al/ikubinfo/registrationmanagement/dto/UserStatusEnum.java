@@ -1,11 +1,11 @@
-package al.ikubinfo.registrationmanagement.entity;
+package al.ikubinfo.registrationmanagement.dto;
 
 
 public enum UserStatusEnum {
 
-    REGISTERED("Registered"),
-    INTERESTED("Interested"),
-    PAID("Paid");
+    REGISTERED("REGISTERED"),
+    INTERESTED("INTERESTED"),
+    PAID("PAID");
 
     private final String displayValue;
 
@@ -15,5 +15,9 @@ public enum UserStatusEnum {
 
     public String getDisplayValue() {
         return displayValue;
+    }
+
+    UserStatusEnum getValueByCode(String code) {
+        return UserStatusEnum.valueOf(code);
     }
 }

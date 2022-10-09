@@ -37,47 +37,21 @@
                 <form method="POST" th:action="@{/users/{id} (id=${user.id})}" th:object="${user}">
                     <div class="form-group">
                         <label> Firstname </label>
-                        <input
-                                1 class="form-control"
-                                name="name"
-                                th:field="*{firstName}"
-                                th:maxlength="35"
-                                th:required="required"
-                                type="text"
-                        />
+                        <input class="form-control" name="name" th:field="*{firstName}" th:maxlength="35" th:required="required" type="text"/>
                     </div>
                     <div class="form-group">
                         <label>Lastname </label>
-                        <input
-                                class="form-control"
-                                name="surname"
-                                th:field="*{lastName}"
-                                th:maxlength="35"
-                                th:required="required"
-                                type="text"
-                        />
+                        <input class="form-control" name="surname" th:field="*{lastName}" th:maxlength="35" th:required="required" type="text"/>
                     </div>
 
                     <div class="form-group">
                         <label>Phone number </label>
-                        <input
-                                class="form-control"
-                                name="phoneNumber"
-                                th:field="*{phoneNumber}"
-                                th:required="required"
-                                type="text"
-                        />
+                        <input class="form-control" name="phoneNumber" th:field="*{phoneNumber}" th:required="required" type="text"/>
                     </div>
 
                     <div class="form-group">
                         <label> Email </label>
-                        <input
-                                class="form-control"
-                                name="email"
-                                th:field="*{email}"
-                                th:required="required"
-                                type="email"
-                        />
+                        <input class="form-control" name="email" th:field="*{email}" th:required="required" type="email"/>
                     </div>
                   
                     

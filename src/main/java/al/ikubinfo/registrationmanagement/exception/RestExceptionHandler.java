@@ -3,14 +3,12 @@ package al.ikubinfo.registrationmanagement.exception;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
 @Slf4j
@@ -35,11 +33,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler(ConstraintViolationException.class)  //handle this exception
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String courseExistsException(final ConstraintViolationException throwable, final Model model) {
-        model.addAttribute("errorMessage", throwable.getMessage()); //custom message to render in HTML
-        return "create_course";  //the html page in resources/templates folder
+    @ExceptionHandler(AccessDeniedException.class)  //handle this exception
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String accessDenied(final AccessDeniedException ex) {
+//        model.addAttribute("errorMessage", throwable.getMessage()); //custom message to render in HTML
+        return "redirect:/login";  //the html page in resources/templates folder
     }
 
 

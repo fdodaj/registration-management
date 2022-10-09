@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Component("userDetailsService")
 public class UserModelDetailsService implements UserDetailsService {
@@ -22,8 +23,12 @@ public class UserModelDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
-        UserEntity user = userRepository.findByEmail(email);
-        List<GrantedAuthority> role = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName()));
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), role);
+        Optional<UserEntity> optional = userRepository.findByEmail(email);
+        if (optional.isPresent()) {
+            UserEntity user = optional.get();
+            List<GrantedAuthority> role = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName()));
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), role);
+        }
+        return null;
     }
 }

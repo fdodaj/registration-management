@@ -1,11 +1,19 @@
 package al.ikubinfo.registrationmanagement.entity;
 
+import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
@@ -36,6 +44,7 @@ public class CourseUserEntity {
     @Column(name = "status")
     private UserStatusEnum status;
 
+    @Size(max = 100)
     @Column(name = "reference")
     private String reference;
 
@@ -45,6 +54,7 @@ public class CourseUserEntity {
     @Column(name = "price_paid")
     private double pricePaid;
 
+    @Size(max = 500)
     @Column(name = "comment")
     private String comment;
 

@@ -1,7 +1,5 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.NewUserDto;
-import al.ikubinfo.registrationmanagement.dto.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
@@ -20,32 +18,21 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
     @Override
     public UserEntity toEntity(UserDto dto) {
         UserEntity entity = new UserEntity();
-
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setReachForm(dto.getReachForm());
         entity.setRole(roleConverter.toEntity(dto.getRole()));
         return entity;
     }
-
-
-    public UserEntity toNewUserEntity(NewUserDto dto) {
-        UserEntity entity = new UserEntity();
-
-        entity.setFirstName(dto.getFirstName());
-        entity.setLastName(dto.getLastName());
-        entity.setPhoneNumber(dto.getPhoneNumber());
-        entity.setEmail(dto.getEmail());
-        ;
-        entity.setRole(roleConverter.toEntity(dto.getRole()));
-        return entity;
-    }
-
 
     public UserEntity toValidatedUserEntity(ValidatedUserDto dto) {
         UserEntity entity = new UserEntity();
 
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setReachForm(dto.getReachForm());
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
@@ -65,14 +52,17 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         dto.setEmail(entity.getEmail());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setModifiedDate(entity.getModifiedDate());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setReachForm(dto.getReachForm());
         return dto;
     }
 
-    public UserEntity toUpdateStudentEntity(UpdateUserDto dto, UserEntity entity) {
+    public UserEntity toUpdateStudentEntity(ValidatedUserDto dto, UserEntity entity) {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
+        entity.setReachForm(dto.getReachForm());
         return entity;
     }
 

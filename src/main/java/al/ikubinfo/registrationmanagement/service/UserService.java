@@ -1,6 +1,5 @@
 package al.ikubinfo.registrationmanagement.service;
 
-import al.ikubinfo.registrationmanagement.dto.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
@@ -10,16 +9,51 @@ import java.util.List;
 
 public interface UserService {
 
+    /**
+     * Get all users. if criteria is applied, users are filter accordingly
+     *
+     * @param criteria UserCriteria
+     * @return Page<UserDto>
+     */
     Page<UserDto> filterUsers(UserCriteria criteria);
 
+
+    /**
+     * Retrieve user details
+     *
+     * @param id user id
+     * @return UserDto
+     */
     UserDto getUserById(Long id);
 
-    void saveUser(ValidatedUserDto student);
+    /**
+     * Save user/student
+     *
+     * @param student ValidatedUserDto
+     * @return UserDto
+     */
+    UserDto saveUser(ValidatedUserDto student);
 
-    UserDto updateUser(UpdateUserDto student);
+    /**
+     * Update user
+     *
+     * @param student ValidatedUserDto
+     * @return UserDto
+     */
+    UserDto updateUser(ValidatedUserDto student);
 
+    /**
+     * Delete user
+     *
+     * @param id user id
+     */
     void deleteUserById(Long id);
 
-    List<UserDto> getUserEM();
+    /**
+     * Get user using entity manager. Created for testing purposes
+     *
+     * @return List<UserDto>
+     */
+    List<UserDto> getUsersEM();
 
 }

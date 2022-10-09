@@ -1,11 +1,9 @@
 package al.ikubinfo.registrationmanagement.repository.criteria;
 
-import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
-import lombok.Getter;
-import lombok.Setter;
+import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UserCriteria extends BaseCriteria {
     private String firstName;
     private String lastName;

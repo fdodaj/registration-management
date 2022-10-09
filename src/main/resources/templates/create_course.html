@@ -38,67 +38,40 @@
             <h1 class="text-center"> Create New Course </h1>
             <div class="card-body">
                 <form method="POST" th:action="@{/courses}" th:object="${course}">
-    
-                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-                    </div>
-    
-                    <div class="form-group">
+
+
+                <div class="form-group">
                         <label>Course name </label>
-                        <input
-                                class="form-control"
-                                name="name"
-                                th:field="*{name}"
-                                type="text"
-                        />
-                      
+                        <input class="form-control" name="courseName" th:field="*{courseName}" type="text"/>
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}"></div>
                     </div>
     
                     <div class="form-group">
                         <label>Course price </label>
-                        <input
-                                class="form-control"
-                                name="price"
-                                th:field="*{price}"
-                                type="number"
-                        />
-    
+                        <input class="form-control" name="price" th:field="*{price}" type="number"/>
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                     </div>
-    
-    
-                    <div class="form-group ">
-                        <div><label> Course Status </label></div>
-                        <select name="status" class="custom-select" style="text-align: center">
-                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.entity.CourseStatus).values()}"
-                                    th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
-                        </select>
-    
+
+                    <div class="form-group">
+                        <label> course registration date </label>
+                        <input class="form-control" name="registrationStartDate" th:field="*{registrationStartDate}" type="date"/>
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('registrationStartDate')}" th:errors="*{registrationStartDate}"></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label> course registration end date</label>
+                        <input class="form-control" name="registrationEndDate" th:field="*{registrationEndDate}" type="date"/>
                     </div>
     
                     <div class="form-group">
-                        <label> course start date </label>
-                        <input
-                                class="form-control"
-                                name="startDate"
-                                th:field="*{startDate}"
-                                type="date"
-                        />
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('startDate')}"
-                             th:errors="*{startDate}"></div>
-    
+                        <label> course start date</label>
+                        <input class="form-control" name="courseStartDate" th:field="*{courseStartDate}" type="date"/>
                     </div>
-    
+
                     <div class="form-group">
                         <label> course end date</label>
-                        <input
-                                class="form-control"
-                                name="endDate"
-                                th:field="*{endDate}"
-                                type="date"
-                        />
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('endDate')}"
-                             th:errors="*{endDate}"></div>
-    
+                        <input class="form-control" name="courseEndDate" th:field="*{courseEndDate}" type="date"/>
                     </div>
     
     

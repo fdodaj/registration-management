@@ -1,12 +1,14 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.CourseConverter;
+import al.ikubinfo.registrationmanagement.converter.CourseUserConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.SimplifiedCourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
-import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.CourseUserRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
@@ -20,8 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,10 +34,10 @@ public class CourseServiceImpl implements CourseService {
     CourseSpecification specification;
 
     @Autowired
-    private UserServiceImpl studentService;
+    private CourseConverter converter;
 
     @Autowired
-    private CourseConverter converter;
+    private CourseUserConverter courseUserConverter;
 
     @Autowired
     private CourseRepository courseRepository;
@@ -43,13 +45,12 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private UserRepository userRepository;
 
-
     @Autowired
     private CourseUserRepository courseUserRepository;
 
 
     @Override
-    public Page<CourseDto> filterCourses(@RequestBody CourseCriteria criteria) {
+    public Page<CourseDto> filterCourses(CourseCriteria criteria) {
         Pageable pageable = PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(),
                 Sort.Direction.valueOf(criteria.getSortDirection()), criteria.getOrderBy());
         Specification<CourseEntity> spec = specification.filter(criteria);
@@ -71,13 +72,13 @@ public class CourseServiceImpl implements CourseService {
 
 
     @Override
-    public void saveCourse(CourseDto courseDto) {
+    public CourseDto saveCourse(ValidatedCourseDto courseDto) {
         CourseEntity entity = converter.toEntity(courseDto);
-        courseRepository.save(entity);
+        return converter.toDto(courseRepository.save(entity));
     }
 
     @Override
-    public CourseDto updateCourse(CourseDto courseDto) {
+    public CourseDto updateCourse(ValidatedCourseDto courseDto) {
         CourseEntity currentEntity = getCourseEntity(courseDto.getId());
         CourseEntity entity = converter.toUpdateCourseEntity(courseDto, currentEntity);
         return converter.toDto(courseRepository.save(entity));
@@ -92,35 +93,31 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseUserDto assignUserToCourse(Long userId, Long courseId) {
-        CourseUserEntity entity = new CourseUserEntity();
-
-        CourseUserId id = new CourseUserId();
-        id.setCourseId(courseId);
-        id.setUserId(userId);
-        entity.setId(id);
-
-
-        entity.setCourse(courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Course does not exist")));
-        entity.setUser(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User does not exist")));
-        entity.setStatus(UserStatusEnum.REGISTERED);
-        return converter.toCourseUserDto(courseUserRepository.save(entity));
+    public CourseUserDto assignUserToCourse(CourseUserDto dto) {
+        dto.setCreatedDate(LocalDate.now());
+        dto.setCreatedDate(LocalDate.now());
+        courseUserRepository.save(courseUserConverter.toEntity(dto));
+        return courseUserConverter.toDto(courseUserConverter.toEntity(dto));
     }
 
     @Override
-    public CourseUserDto removeUserFromCourse(Long userId, Long courseId) {
-        CourseUserEntity entity = courseUserRepository.getByUserIdAndCourseId(userId, courseId);
+    public void removeUserFromCourse(Long userId, Long courseId) {
+        CourseUserEntity entity = courseUserRepository.getByIdCourseIdAndIdUserId(courseId, userId);
         entity.setDeleted(true);
-
-        return converter.toCourseUserDto(courseUserRepository.save(entity));
     }
 
     @Override
-    public List<CourseUserDto> getAllStudentsByCourseId(Long studentId) {
+    public CourseUserDto updateCourseUser(CourseUserDto dto) {
+        CourseUserEntity currentEntity = getCourseUserEntity(dto.getUserId(), dto.getCourseId());
+        CourseUserEntity entity = courseUserConverter.toUpdateCourseUserEntity(dto, currentEntity);
+        return courseUserConverter.toDto(courseUserRepository.save(entity));
+    }
 
-        return courseUserRepository.getAllByCourseId(studentId)
+    @Override
+    public List<SimplifiedCourseUserDto> getAllStudentsByCourseId(Long courseId) {
+        return courseUserRepository.getByIdCourseId(courseId)
                 .stream()
-                .map(converter::toCourseUserDto)
+                .map(courseUserConverter::toSimplifiedDto)
                 .collect(Collectors.toList());
     }
 
@@ -128,6 +125,11 @@ public class CourseServiceImpl implements CourseService {
     private CourseEntity getCourseEntity(Long id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
+    }
+
+    private CourseUserEntity getCourseUserEntity(Long courseId, Long userId) {
+        return courseUserRepository.findById(new CourseUserId(userId, courseId))
+                .orElseThrow(() -> new RuntimeException("Course user relation was not found"));
     }
 
 

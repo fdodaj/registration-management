@@ -1,21 +1,33 @@
 package al.ikubinfo.registrationmanagement.dto;
 
-import al.ikubinfo.registrationmanagement.entity.UserStatusEnum;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
 public class CourseUserDto {
-    private Long id;
-    private CourseDto course;
-    private UserDto user;
-    private LocalDate createdDate;
-    private LocalDate modifiedDate;
-    private Boolean deleted;
+
+    @NotNull
+    private Long userId;
+
+    @NotNull
+    private Long courseId;
+
     private UserStatusEnum status;
+
     private String reference;
-    private double priceReduction;
-    private double pricePaid;
+
     private String comment;
+
+    private double pricePaid;
+
+    private double priceReduction;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate modifiedDate;
 }

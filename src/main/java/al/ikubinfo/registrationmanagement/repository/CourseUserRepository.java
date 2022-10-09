@@ -1,15 +1,18 @@
 package al.ikubinfo.registrationmanagement.repository;
 
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
+import al.ikubinfo.registrationmanagement.entity.CourseUserId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface CourseUserRepository extends JpaRepository<CourseUserEntity, Long> {
+@Repository
+public interface CourseUserRepository extends JpaRepository<CourseUserEntity, CourseUserId> {
 
-    CourseUserEntity getByUserIdAndCourseId(Long courseId, Long userId);
+    CourseUserEntity getByIdCourseIdAndIdUserId(Long courseId, Long userId);
 
-    List<CourseUserEntity> getAllByCourseId(Long courseId);
+    List<CourseUserEntity> getByIdCourseId(Long courseId);
 
 
 }

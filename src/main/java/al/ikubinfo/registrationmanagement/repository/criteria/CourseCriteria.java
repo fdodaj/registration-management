@@ -1,15 +1,25 @@
 package al.ikubinfo.registrationmanagement.repository.criteria;
 
-import al.ikubinfo.registrationmanagement.entity.CourseStatus;
-import lombok.Getter;
-import lombok.Setter;
+import al.ikubinfo.registrationmanagement.dto.CourseStatus;
+import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 public class CourseCriteria extends BaseCriteria {
 
-    private String name;
+    private String courseName;
+
     private CourseStatus status;
+
+    private UserStatusEnum studentStatus;
+
+    private String studentName;
+
+    private LocalDate registrationStartPeriod;
+
+    private LocalDate registrationEndPeriod;
 
 
 }

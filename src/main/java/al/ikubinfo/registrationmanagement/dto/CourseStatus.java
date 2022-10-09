@@ -1,10 +1,10 @@
-package al.ikubinfo.registrationmanagement.entity;
+package al.ikubinfo.registrationmanagement.dto;
 
 public enum CourseStatus {
 
-    READY_TO_START("ready to start"),
-    IN_PROGRESS("in progress"),
-    FINISHED("finished");
+    READY_TO_START("READY_TO_START"),
+    IN_PROGRESS("IN_PROGRESS"),
+    FINISHED("FINISHED");
 
     private final String displayValue;
 
