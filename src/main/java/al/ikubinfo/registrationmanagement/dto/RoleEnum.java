@@ -2,7 +2,7 @@ package al.ikubinfo.registrationmanagement.dto;
 
 public enum RoleEnum {
     ADMIN("ADMIN"),
-    STUDENT("DTUDENT");
+    STUDENT("SDTUDENT");
 
     final String roleName;
 

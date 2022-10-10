@@ -90,12 +90,12 @@ public class CourseController {
     /**
      * Delete course (soft deletion)
      *
-     * @param courseId course id
+     * @param id course id
      * @return ModelAndView
      */
     @GetMapping("/courses/delete/{id}")
-    public ModelAndView deleteCourse(@PathVariable Long courseId) {
-        courseService.deleteCourseById(courseId);
+    public ModelAndView deleteCourse(@PathVariable Long id) {
+        courseService.deleteCourseById(id);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
     /**
@@ -135,7 +135,7 @@ public class CourseController {
      */
     @PostMapping("/courses/assign-user")
     public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
-        ModelAndView modelAndView = new ModelAndView("assign_course_to_user");
+        ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
         modelAndView.addObject("courseUserDto", courseUserDto);
         courseService.assignUserToCourse(courseUserDto);
         return modelAndView;

@@ -3,6 +3,7 @@ package al.ikubinfo.registrationmanagement.dto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,11 +14,13 @@ public class CourseDto {
 
     private Long id;
 
-    @NotNull
+    @NotBlank(message = "Course name cannot be null")
     private String courseName;
 
+    @NotNull
     private double price;
 
+    @NotNull
     private CourseStatus status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -26,7 +29,7 @@ public class CourseDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate courseEndDate;
 
-    @NotNull
+    @NotNull(message = "Registration start date cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate registrationStartDate;
 

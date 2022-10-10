@@ -3,6 +3,7 @@ package al.ikubinfo.registrationmanagement.dto;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
@@ -37,7 +38,7 @@ public class ValidatedUserDto extends UserDto {
         return super.getLastName();
     }
 
-    @NotBlank(message = "BirthDate is required")
+    @NotNull(message = "BirthDate is required")
     @Override
     public LocalDate getBirthDate() {
         return super.getBirthDate();

@@ -31,7 +31,6 @@ public class CourseEntity extends BaseEntity {
     @Column(name = "price")
     private double price;
 
-    @Size(max = 50)
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private CourseStatus status;
@@ -41,7 +40,7 @@ public class CourseEntity extends BaseEntity {
     private LocalDate courseStartDate;
 
     @Column(name = "course_end_date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate courseEndDate;
 
     @Column(name = "registration_start_date")
@@ -50,7 +49,7 @@ public class CourseEntity extends BaseEntity {
 
 
     @Column(name = "registration_end_date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate registrationEndDate;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
