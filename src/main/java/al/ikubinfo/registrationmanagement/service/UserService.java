@@ -57,6 +57,8 @@ public interface UserService {
      */
     List<UserDto> getUsersEM();
 
+    List<UserDto> getUnassignedUsers();
+
 
      UserDto changePassword(PasswordDto passwordDto);
 }

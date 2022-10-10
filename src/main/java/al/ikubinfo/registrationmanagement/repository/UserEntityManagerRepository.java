@@ -14,9 +14,15 @@ public class UserEntityManagerRepository {
     @Autowired
     private EntityManager entityManager;
 
-    public List<UserEntity> getAllStudentsWithPaidCurses() {
+    public List<UserEntity> getAllRegisteredUsers() {
         TypedQuery<UserEntity> query = entityManager
-                .createQuery("select U from UserEntity U where U.status = 'PAID'", UserEntity.class);
+                .createQuery("select u from UserEntity u left join CourseUserEntity cu on u.id = cu.user.id where cu.status='1'", UserEntity.class);
+        return query.getResultList();
+    }
+
+    public  List<UserEntity> getAllUnassignedUsers() {
+        TypedQuery<UserEntity> query = entityManager
+                .createQuery("select u from UserEntity u where u.id not in (select cu.id.userId from CourseUserEntity cu)", UserEntity.class);
         return query.getResultList();
     }
 }

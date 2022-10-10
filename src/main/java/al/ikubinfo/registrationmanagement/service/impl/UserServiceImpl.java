@@ -92,7 +92,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getUsersEM() {
-        return userEMRepository.getAllStudentsWithPaidCurses()
+        return userEMRepository.getAllStudentsWithInstagramReachForm()
+                .stream()
+                .map(userConverter::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDto> getUnassignedUsers() {
+        return userEMRepository.getAllUnassignedUsers()
                 .stream()
                 .map(userConverter::toDto)
                 .collect(Collectors.toList());

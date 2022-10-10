@@ -5,7 +5,6 @@ import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
-import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +55,7 @@ public class CourseController {
         ModelAndView mv = new ModelAndView("course_details");
         mv.addObject(COURSE, courseService.getCourseById(id));
         mv.addObject("users", courseService.getAllStudentsByCourseId(id));
-        mv.addObject("userList", userService.filterUsers(new UserCriteria()));
+        mv.addObject("userList", userService.getUnassignedUsers());
         return mv;
     }
 
@@ -171,5 +170,4 @@ public class CourseController {
         courseService.saveCourse(course);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
-
 }

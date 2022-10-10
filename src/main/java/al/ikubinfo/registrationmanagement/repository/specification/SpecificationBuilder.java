@@ -22,5 +22,4 @@ public abstract class SpecificationBuilder<E extends BaseEntity, C extends BaseC
         return "%" + txt.toUpperCase() + '%';
     }
 
-
 }
