@@ -104,10 +104,11 @@ public class CourseController {
      * @param studentId userId
      * @return ModelAndView
      */
-    @PutMapping("/users/{courseId}/{studentId}")
-    ResponseEntity<Void> removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+    @GetMapping("/users/{courseId}/{studentId}")
+    ModelAndView removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+        ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
         courseService.removeUserFromCourse(studentId, courseId);
-        return ResponseEntity.noContent().build();
+        return mv;
     }
 
     /**

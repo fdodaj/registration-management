@@ -102,8 +102,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void removeUserFromCourse(Long userId, Long courseId) {
-        CourseUserEntity entity = courseUserRepository.findByIdCourseIdAndUserId(courseId, userId);
+        CourseUserEntity entity = courseUserRepository.findByIdCourseIdAndIdUserId(courseId, userId);
         entity.setDeleted(true);
+        courseUserRepository.save(entity);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package al.ikubinfo.registrationmanagement;
 
-import al.ikubinfo.registrationmanagement.converter.RoleConverter;
 import al.ikubinfo.registrationmanagement.dto.CourseStatus;
 import al.ikubinfo.registrationmanagement.dto.ReachFormEnum;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
@@ -9,8 +8,6 @@ import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.RoleRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
-import al.ikubinfo.registrationmanagement.service.impl.CourseServiceImpl;
-import al.ikubinfo.registrationmanagement.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
