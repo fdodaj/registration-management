@@ -109,7 +109,7 @@
         
         sendBtn.addEventListener("click", () => {
                     coursePage = document.getElementById("name").value !== ""
-                            ? coursePage + "?name=" + document.getElementById("name").value
+                            ? coursePage + "?courseName=" + document.getElementById("name").value
                             : coursePage + "?";
 
                     window.location.replace(coursePage)

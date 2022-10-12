@@ -13,10 +13,10 @@ public class UserSpecification extends SpecificationBuilder<UserEntity, UserCrit
         Specification<UserEntity> specification = Specification.where(null);
 
         if (criteria.getFirstName() != null && !criteria.getFirstName().isEmpty()) {
-            specification = specification.and(equalsSpecification("firstName", criteria.getFirstName()));
+            specification = specification.and(likeUpperSpecification("firstName", criteria.getFirstName()));
         }
         if (criteria.getLastName() != null && !criteria.getLastName().isEmpty()) {
-            specification = specification.and(equalsSpecification("lastName", criteria.getLastName()));
+            specification = specification.and(likeUpperSpecification("lastName", criteria.getLastName()));
         }
         if (criteria.getStatus() != null && !criteria.getStatus().getDisplayValue().isEmpty()) {
             specification = specification.and(equalsSpecification("status", criteria.getStatus()));

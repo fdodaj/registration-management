@@ -14,7 +14,7 @@ public class CourseSpecification extends SpecificationBuilder<CourseEntity, Cour
         Specification<CourseEntity> specification = Specification.where(null);
 
         if (criteria.getCourseName() != null) {
-            specification = specification.and(likeUpperSpecification("name", criteria.getCourseName()));
+            specification = specification.and(likeUpperSpecification("courseName", criteria.getCourseName()));
         }
         if (criteria.getStatus() != null) {
             specification = specification.and(equalsSpecification("status", criteria.getStatus()));
