@@ -172,7 +172,7 @@ public class UserController {
 
     @PostMapping( "/changePassword")
     public ModelAndView changePassword(PasswordDto passwordDto) {
-        ModelAndView mv = new ModelAndView("redirect:/users");
+        ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
         userService.changePassword(passwordDto);
         mv.addObject("passwordData", passwordDto);
         return mv;
