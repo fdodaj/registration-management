@@ -36,16 +36,7 @@ class Tests {
     private RoleRepository roleRepository;
 
     @Autowired
-    private RoleConverter roleConverter;
-
-    @Autowired
     private CourseRepository courseRepository;
-
-    @Autowired
-    private CourseServiceImpl courseService;
-
-    @Autowired
-    private UserServiceImpl userService;
 
 
     @Test
