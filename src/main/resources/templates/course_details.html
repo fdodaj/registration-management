@@ -88,6 +88,7 @@
     
                                 <td style="text-align: center">
                                     <a class="btn" th:href="@{/users/{id}(id=${user.userId})}">View</a>
+                                    <a class="btn " th:href="@{/users/{courseId}/{studentId}(courseId=${course.id}, studentId=${user.userId})}">Remove from course </a>
                                 </td>
 
                             </tbody>
