@@ -29,7 +29,7 @@ public class CourseEntity extends BaseEntity {
     private String courseName;
 
     @Column(name = "price")
-    private double price;
+    private Double price;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

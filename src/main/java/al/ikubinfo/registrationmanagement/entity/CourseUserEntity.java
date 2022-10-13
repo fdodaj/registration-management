@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "course_user")
-@Where(clause = "deleted = false")
+//@Where(clause = "deleted = false")
 public class CourseUserEntity {
 
     @EmbeddedId
@@ -49,10 +49,10 @@ public class CourseUserEntity {
     private String reference;
 
     @Column(name = "price_reduction")
-    private double priceReduction;
+    private Double priceReduction;
 
     @Column(name = "price_paid")
-    private double pricePaid;
+    private Double pricePaid;
 
     @Size(max = 500)
     @Column(name = "comment")

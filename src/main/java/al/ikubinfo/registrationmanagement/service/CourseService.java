@@ -48,7 +48,7 @@ public interface CourseService {
      * @param courseDto course dto
      * @return CourseDto
      */
-    CourseDto updateCourse(ValidatedCourseDto courseDto);
+    CourseDto updateCourse(CourseDto courseDto);
 
     /**
      * Delete course

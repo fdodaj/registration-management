@@ -78,7 +78,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDto updateCourse(ValidatedCourseDto courseDto) {
+    public CourseDto updateCourse(CourseDto courseDto) {
         CourseEntity currentEntity = getCourseEntity(courseDto.getId());
         CourseEntity entity = converter.toUpdateCourseEntity(courseDto, currentEntity);
         return converter.toDto(courseRepository.save(entity));
@@ -94,10 +94,19 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseUserDto assignUserToCourse(CourseUserDto dto) {
-        dto.setCreatedDate(LocalDate.now());
-        dto.setCreatedDate(LocalDate.now());
-        courseUserRepository.save(courseUserConverter.toEntity(dto));
-        return courseUserConverter.toDto(courseUserConverter.toEntity(dto));
+        CourseUserEntity courseUserEntity = courseUserRepository
+            .findById(new CourseUserId(dto.getUserId(), dto.getCourseId()))
+            .orElse(null);
+        if (courseUserEntity != null) {
+            courseUserEntity.setDeleted(false);
+            courseUserRepository.save(courseUserEntity);
+            return courseUserConverter.toDto(courseUserEntity);
+        } else {
+            dto.setCreatedDate(LocalDate.now());
+            dto.setCreatedDate(LocalDate.now());
+            courseUserRepository.save(courseUserConverter.toEntity(dto));
+            return courseUserConverter.toDto(courseUserConverter.toEntity(dto));
+        }
     }
 
     @Override
@@ -116,8 +125,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<SimplifiedCourseUserDto> getAllStudentsByCourseId(Long courseId) {
+
         return courseUserRepository.getByIdCourseId(courseId)
                 .stream()
+                .filter(c -> !c.isDeleted())
                 .map(courseUserConverter::toSimplifiedDto)
                 .collect(Collectors.toList());
     }

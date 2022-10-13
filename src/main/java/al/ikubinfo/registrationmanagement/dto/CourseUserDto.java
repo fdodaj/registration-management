@@ -2,6 +2,7 @@ package al.ikubinfo.registrationmanagement.dto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.unbescape.xml.XmlEscape;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -9,21 +10,24 @@ import java.time.LocalDate;
 @Data
 public class CourseUserDto {
 
-    @NotNull
+    @NotNull(message = "User is required")
     private Long userId;
 
-    @NotNull
+    @NotNull(message = "Course is required")
     private Long courseId;
 
+    @NotNull(message = "Status is required")
     private UserStatusEnum status;
 
     private String reference;
 
     private String comment;
 
-    private double pricePaid;
+    @NotNull(message = "Please enter a price paid")
+    private Double pricePaid;
 
-    private double priceReduction;
+    @NotNull(message = "Please enter price reduction")
+    private Double priceReduction;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdDate;

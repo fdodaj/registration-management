@@ -88,6 +88,38 @@ public class UserController {
     }
 
     /**
+     * Assigns user to course
+     *
+     * @param courseUserDto courseUserDto
+     * @return  ModelAndView
+     */
+    @PostMapping("/users/assign-course")
+    public ModelAndView assignUserToCourse(@Valid @ModelAttribute("course") CourseUserDto courseUserDto) {
+        ModelAndView modelAndView = new ModelAndView("assign_users_to_course");
+        modelAndView.addObject("courseUserDto", courseUserDto);
+        courseService.assignUserToCourse(courseUserDto);
+        return modelAndView;
+    }
+
+    /**
+     * Update user
+     *
+     * @param user updated dto
+     * @return ModelAndView
+     */
+    @PostMapping("/users/{id}")
+    public ModelAndView updateUser(@Valid @ModelAttribute("user") ValidatedUserDto user, BindingResult result, Model model) {
+        model.addAttribute("user", user);
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("edit_user");
+            mv.addObject("user", user);
+            return mv;
+        }
+        userService.updateUser(user);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
+
+    /**
      * Retrieve user edition view
      *
      * @param id user id
@@ -101,18 +133,6 @@ public class UserController {
         return mv;
     }
 
-    /**
-     * Update user
-     *
-     * @param id   user id
-     * @param user updated dto
-     * @return ModelAndView
-     */
-    @PostMapping("/users/{id}")
-    public ModelAndView updateUser(@PathVariable Long id, @ModelAttribute("user") ValidatedUserDto user) {
-        userService.updateUser(user);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
 
     /**
      * Delete user by id (soft deletion)
@@ -126,19 +146,7 @@ public class UserController {
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
-    /**
-     * Assigns user to course
-     *
-     * @param courseUserDto courseUserDto
-     * @return  ModelAndView
-     */
-    @PostMapping("/users/assign-course")
-    public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
-        ModelAndView modelAndView = new ModelAndView("assign_users_to_course");
-        modelAndView.addObject("courseUserDto", courseUserDto);
-        courseService.assignUserToCourse(courseUserDto);
-        return modelAndView;
-    }
+
 
     /**
      * Retrieve assign user to course view

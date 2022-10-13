@@ -17,8 +17,8 @@ public class CourseDto {
     @NotBlank(message = "Course name cannot be null")
     private String courseName;
 
-    @NotNull
-    private double price;
+    @NotNull(message = "price can't  be null")
+    private Double price;
 
     @NotNull
     private CourseStatus status;

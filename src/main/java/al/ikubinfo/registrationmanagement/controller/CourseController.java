@@ -76,13 +76,36 @@ public class CourseController {
     /**
      * Update course
      *
-     * @param id        course id
-     * @param courseDto courseDto
+     * @param course courseDto
      * @return ModelAndView
      */
     @PostMapping("/course/{id}")
-    public ModelAndView updateCourse(@PathVariable Long id, @ModelAttribute("course") @Valid ValidatedCourseDto courseDto) {
-        courseService.updateCourse(courseDto);
+    public ModelAndView updateCourse(@Valid @ModelAttribute("course")  CourseDto course, BindingResult result, Model model) {
+        model.addAttribute(COURSE, course);
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("edit_course");
+            mv.addObject(COURSE, course);
+            return mv;
+        }
+        courseService.updateCourse(course);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
+
+    /**
+     * Save new course
+     *
+     * @param course CourseDto
+     * @return ModelAndView
+     */
+    @PostMapping("/courses")
+    public ModelAndView saveCourse(@Valid @ModelAttribute("course") ValidatedCourseDto course, BindingResult result, Model model) {
+        model.addAttribute(COURSE, course);
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("create_course");
+            mv.addObject(COURSE, course);
+            return mv;
+        }
+        courseService.saveCourse(course);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
@@ -154,21 +177,5 @@ public class CourseController {
         return mv;
     }
 
-    /**
-     * Save new course
-     *
-     * @param course CourseDto
-     * @return ModelAndView
-     */
-    @PostMapping("/courses")
-    public ModelAndView saveCourse(@Valid @ModelAttribute("course") ValidatedCourseDto course, BindingResult result, Model model) {
-        model.addAttribute(COURSE, course);
-        if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("create_course");
-            mv.addObject(COURSE, course);
-            return mv;
-        }
-        courseService.saveCourse(course);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
+
 }
