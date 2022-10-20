@@ -1,9 +1,6 @@
 package al.ikubinfo.registrationmanagement.service;
 
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.SimplifiedCourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import org.springframework.data.domain.Page;
 
@@ -82,4 +79,7 @@ public interface CourseService {
      * @return List<CourseUserDto>
      */
     List<SimplifiedCourseUserDto> getAllStudentsByCourseId(Long courseId);
+
+
+    List<CourseUserList> getCourseUserList();
 }

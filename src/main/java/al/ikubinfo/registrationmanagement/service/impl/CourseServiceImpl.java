@@ -2,10 +2,7 @@ package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.CourseConverter;
 import al.ikubinfo.registrationmanagement.converter.CourseUserConverter;
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.SimplifiedCourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
@@ -130,6 +127,14 @@ public class CourseServiceImpl implements CourseService {
                 .stream()
                 .filter(c -> !c.isDeleted())
                 .map(courseUserConverter::toSimplifiedDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourseUserList> getCourseUserList(){
+        return courseUserRepository.findAll()
+                .stream()
+                .map(courseUserConverter::toCourseUserList)
                 .collect(Collectors.toList());
     }
 

@@ -1,14 +1,12 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.UserDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class CourseController {
@@ -176,6 +175,12 @@ public class CourseController {
         mv.addObject(COURSE, course);
         return mv;
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<CourseUserList>> getCourseUserList(){
+        return new ResponseEntity<>(courseService.getCourseUserList(), HttpStatus.OK);
+    }
+
 
 
 }

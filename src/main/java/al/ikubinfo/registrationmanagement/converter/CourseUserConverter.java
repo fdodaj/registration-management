@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.converter;
 
 import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.CourseUserList;
 import al.ikubinfo.registrationmanagement.dto.SimplifiedCourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
@@ -73,5 +74,19 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
         entity.setStatus(dto.getStatus());
         entity.setReference(dto.getReference());
         return entity;
+    }
+
+    public CourseUserList toCourseUserList(CourseUserEntity entity) {
+        CourseUserList dto = new CourseUserList();
+        dto.setCourseDto(courseConverter.toDto(entity.getCourse()));
+        dto.setUserDto(userConverter.toDto(entity.getUser()));
+        dto.setStatus(entity.getStatus());
+        dto.setReference(entity.getReference());
+        dto.setComment(entity.getComment());
+        dto.setPricePaid(entity.getPricePaid());
+        dto.setPriceReduction(entity.getPriceReduction());
+        dto.setCreatedDate(entity.getCreatedDate());
+        dto.setModifiedDate(entity.getModifiedDate());
+        return dto;
     }
 }
