@@ -16,6 +16,8 @@ public interface CourseService {
      */
     Page<CourseDto> filterCourses(CourseCriteria criteria);
 
+    Page<CourseUserListDto> getCourseUserList(UserCourseCriteria criteria);
+
     /**
      * Retrieve course details
      *

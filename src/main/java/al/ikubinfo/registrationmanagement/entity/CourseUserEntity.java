@@ -4,15 +4,8 @@ import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -41,6 +34,7 @@ public class CourseUserEntity {
     @Column(name = "modified_date")
     private LocalDate modifiedDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private UserStatusEnum status;
 

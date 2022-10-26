@@ -4,10 +4,16 @@ import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +28,10 @@ public class CourseController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
     private static final String COURSES = "courses";
     private static final String COURSE = "course";
+
+    public static final String PDF = "PDF";
+    public static final String CSV = "CSV";
+    public static final String EXCEL = "EXCEL";
 
     @Autowired
     private CourseService courseService;
@@ -42,6 +52,15 @@ public class CourseController {
         mv.addObject(COURSES, courseDtos);
         return mv;
     }
+
+    @GetMapping("/all")
+    public ModelAndView getCourseUserList(@Valid UserCourseCriteria criteria) {
+        Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
+        ModelAndView mv = new ModelAndView("UserCourseList");
+        mv.addObject("UserCourseList", userCourseList);
+        return mv;
+    }
+
 
     /**
      * Retrieve course details
