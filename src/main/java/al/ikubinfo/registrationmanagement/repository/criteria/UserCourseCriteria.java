@@ -1,8 +1,8 @@
 package al.ikubinfo.registrationmanagement.repository.criteria;
 
 import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
+import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import lombok.Data;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
@@ -10,11 +10,10 @@ import javax.persistence.Enumerated;
 public class UserCourseCriteria extends BaseCriteria{
 
 
-
-
     @Enumerated(EnumType.STRING)
     private UserStatusEnum status;
 
-    private String courseName;
+    private CourseEntity courseName;
+
 
 }

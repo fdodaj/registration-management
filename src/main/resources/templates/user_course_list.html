@@ -47,7 +47,33 @@
     <div class="container">
         <div style="text-align: center">
             <h2> HOME </h2>
-            
+            <div class="input-group d-flex justify-content-end mb-2">
+                <!--                <div class="form-outline">-->
+                <!--                    <input class="form-control" id="status" name="status" placeholder="status"-->
+                <!--                           type="search"/>-->
+                <!--                </div>-->
+        
+                <div class="form-outline ">
+                    <select name="status" id="status" style="text-align: center" class="form-control">
+                        <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.UserStatusEnum).values()}"
+                                th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
+                    </select>
+                </div>
+        
+                <div class="form-outline mx-2">
+                    <input class="form-control" id="student_name" placeholder="Student Name" type="search"/>
+                </div>
+                <div class="form-outline mx-2">
+                    <input class="form-control" id="course_name" placeholder="Course Name" type="search"/>
+                </div>
+                <div class="form-outline mx-2">
+                    <input class="form-control" id="start_date" placeholder="Start date" type="date"/>
+                </div>
+                <button class="btn btn-primary" id="sendButton" type="button">
+                    Search
+                </button>
+            </div>
+    
             <div class="container">
                 <div class="table-responsive">
                     <table class="table table-bordered" style="background-color: white">
@@ -102,16 +128,31 @@
     
     <script>
         let sendBtn = document.getElementById('sendButton');
-        let coursePage = 'http://localhost:8080/all'
-        
+        let studentPage = 'http://localhost:8080/all'
+    
+    
         sendBtn.addEventListener("click", () => {
-                    coursePage = document.getElementById("name").value !== ""
-                            ? coursePage + "?status=" + document.getElementById("name").value
-                            : coursePage + "?";
-                    
-                    window.location.replace(coursePage)
+                    studentPage = document.getElementById('status').value !== ""
+                            ? studentPage + `?status=` + document.getElementById('status').value
+                            : studentPage + `?`;
+                
+                    studentPage = document.getElementById('student_name').value !== ""
+                            ? studentPage + `&studentName=` + document.getElementById('student_name').value
+                            : studentPage;
+                
+                    studentPage = document.getElementById('course_name').value !== ""
+                            ? studentPage + `&courseName=` + document.getElementById('course_name').value
+                            : studentPage;
+                            
+                    studentPage = document.getElementById('start_date').value !== ""
+                            ? studentPage + `&startDate=` + document.getElementById('start_date').value
+                            : studentPage;
+                
+                    window.location.replace(studentPage)
+                
                 }
         )
+
     </script>
 </body>
 </html>

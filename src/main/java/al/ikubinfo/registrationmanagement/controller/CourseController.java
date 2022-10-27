@@ -56,7 +56,7 @@ public class CourseController {
     @GetMapping("/all")
     public ModelAndView getCourseUserList(@Valid UserCourseCriteria criteria) {
         Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
-        ModelAndView mv = new ModelAndView("UserCourseList");
+        ModelAndView mv = new ModelAndView("user_course_list");
         mv.addObject("UserCourseList", userCourseList);
         return mv;
     }
