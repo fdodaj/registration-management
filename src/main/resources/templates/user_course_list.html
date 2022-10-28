@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Student Management System</title>
     <link crossorigin="anonymous"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -46,15 +46,12 @@
     
     <div class="container">
         <div style="text-align: center">
-            <h2> HOME </h2>
+            <h3> HOME </h3>
             <div class="input-group d-flex justify-content-end mb-2">
-                <!--                <div class="form-outline">-->
-                <!--                    <input class="form-control" id="status" name="status" placeholder="status"-->
-                <!--                           type="search"/>-->
-                <!--                </div>-->
-        
+    
                 <div class="form-outline ">
                     <select name="status" id="status" style="text-align: center" class="form-control">
+                        <option value="" selected disabled hidden>Status</option>
                         <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.UserStatusEnum).values()}"
                                 th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
                     </select>
@@ -81,25 +78,25 @@
                         <tr>
                             <th style="text-align: center">Name</th>
                             <th style="text-align: center">Email</th>
-                            <th style="text-align: center">Phone Number</th>
-                            <th style="text-align: center">Course Name</th>
-                            <th style="text-align: center">Start Date</th>
-                            <th style="text-align: center">End Date</th>
-                            <th style="text-align: center">Registration start date</th>
-                            <th style="text-align: center">Registration end date</th>
+                            <th style="text-align: center"><nobr>Phone Number</nobr></th>
+                            <th style="text-align: center"><nobr>Course Name</nobr></th>
+                            <th style="text-align: center"><nobr>Course Start Date</nobr></th>
+                            <th style="text-align: center"><nobr>Course End Date</nobr></th>
+                            <th style="text-align: center"><nobr>Registration Start Date</nobr></th>
+                            <th style="text-align: center"><nobr>Registration End Date</nobr></th>
                             <th style="text-align: center">Status</th>
                             <th style="text-align: center">Reference</th>
                             <th style="text-align: center">Comment</th>
-                            <th style="text-align: center">Price Paid</th>
-                            <th style="text-align: center">Price reduction</th>
+                            <th style="text-align: center"><nobr>Price Paid</nobr></th>
+                            <th style="text-align: center"><nobr>Price Reduction</nobr></th>
                             <!--                <th style="text-align: center">Actions</th>-->
                         </tr>
                         </thead>
                         
                         <tbody>
                         <tr th:each="course: ${UserCourseList}">
-                            <!--                            <td th:text="${course.userDto.firstName} + '  ' + ${course.userDto.lastName}"></td>-->
-                            <td><a style="text-decoration: none" th:href="@{/users/{id}(id=${course.userDto.id})}"
+                            <td><a style="text-decoration: none; color: black"
+                                   th:href="@{/users/{id}(id=${course.userDto.id})}"
                                    th:text="${course.userDto.firstName} + '  ' + ${course.userDto.lastName}"></a>
                             </td>
                             <td th:text="${course.userDto.email}"></td>
