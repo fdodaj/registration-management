@@ -2,6 +2,7 @@ package al.ikubinfo.registrationmanagement.service;
 
 import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
+import al.ikubinfo.registrationmanagement.repository.criteria.UserCourseCriteria;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -83,5 +84,5 @@ public interface CourseService {
     List<SimplifiedCourseUserDto> getAllStudentsByCourseId(Long courseId);
 
 
-    List<CourseUserList> getCourseUserList();
+    List<CourseUserListDto> getCourseUserList();
 }
