@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "course_user")
 //@Where(clause = "deleted = false")
-public class CourseUserEntity {
+public class CourseUserEntity extends BaseEntity{
 
     @EmbeddedId
     private CourseUserId id;

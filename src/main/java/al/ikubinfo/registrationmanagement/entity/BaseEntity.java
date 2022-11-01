@@ -17,12 +17,6 @@ import java.time.LocalDate;
 @Setter
 public abstract class BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, updatable = false)
-    private Long id;
-
-
     @CreationTimestamp
     @Column(name = "created_date")
     private LocalDate createdDate;

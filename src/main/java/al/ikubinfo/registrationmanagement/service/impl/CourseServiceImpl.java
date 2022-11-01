@@ -10,9 +10,9 @@ import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.CourseUserRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
-import al.ikubinfo.registrationmanagement.repository.criteria.UserCourseCriteria;
+import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
-import al.ikubinfo.registrationmanagement.repository.specification.UserCourseSpecification;
+import al.ikubinfo.registrationmanagement.repository.specification.CourseUserSpecification;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,7 +35,7 @@ public class CourseServiceImpl implements CourseService {
 
 
     @Autowired
-    UserCourseSpecification userCourseSpecification;
+    CourseUserSpecification courseUserSpecification;
 
     @Autowired
     private CourseConverter converter;
@@ -64,11 +64,11 @@ public class CourseServiceImpl implements CourseService {
 
 
     @Override
-    public Page<CourseUserListDto> getCourseUserList(UserCourseCriteria criteria){
+    public Page<CourseUserListDto> getCourseUserList(CourseUserCriteria criteria){
         Pageable pageable = PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(),
                 Sort.Direction.valueOf(criteria.getSortDirection()), criteria.getOrderBy());
 
-        Specification<CourseUserEntity> spec = userCourseSpecification.filter(criteria);
+        Specification<CourseUserEntity> spec = courseUserSpecification.filter(criteria);
         return courseUserRepository.findAll(spec, pageable).map(courseUserConverter::toCourseUserList);
     }
 

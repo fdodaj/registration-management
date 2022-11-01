@@ -58,13 +58,18 @@
                 </div>
         
                 <div class="form-outline mx-2">
-                    <input class="form-control" id="student_name" placeholder="Student Name" type="search"/>
+                    <input name="student_name" class="form-control" id="student_name" placeholder="Student Name"
+                           type="search"/>
                 </div>
                 <div class="form-outline mx-2">
-                    <input class="form-control" id="course_name" placeholder="Course Name" type="search"/>
+                    <input name="course_name" class="form-control" id="course_name" placeholder="Course Name"
+                           type="search"/>
                 </div>
                 <div class="form-outline mx-2">
-                    <input class="form-control" id="start_date" placeholder="Start date" type="date"/>
+                    <input name="start_date" class="form-control" id="start_date"  placeholder="Start date" onfocus="(this.type='date')"  onblur="(this.type='text')" type="date"/>
+                </div>
+                <div class="form-outline mx-2">
+                    <input name="end_date" class="form-control" id="end_date" placeholder="End date" type="date"/>
                 </div>
                 <button class="btn btn-primary" id="sendButton" type="button">
                     Search
@@ -134,19 +139,24 @@
                             : studentPage + `?`;
                 
                     studentPage = document.getElementById('student_name').value !== ""
-                            ? studentPage + `&studentName=` + document.getElementById('student_name').value
+                            ? studentPage + `&firstName=` + document.getElementById('student_name').value
                             : studentPage;
-                
+            
                     studentPage = document.getElementById('course_name').value !== ""
                             ? studentPage + `&courseName=` + document.getElementById('course_name').value
                             : studentPage;
-                            
+            
                     studentPage = document.getElementById('start_date').value !== ""
-                            ? studentPage + `&startDate=` + document.getElementById('start_date').value
+                            ? studentPage + `&courseStartDateFrom=` + document.getElementById('start_date').value
                             : studentPage;
-                
+            
+                    studentPage = document.getElementById('end_date').value !== ""
+                            ? studentPage + `&courseStartDateTo=` + document.getElementById('end_date').value
+                            : studentPage;
+            
+            
                     window.location.replace(studentPage)
-                
+            
                 }
         )
 

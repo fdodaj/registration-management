@@ -2,13 +2,11 @@ package al.ikubinfo.registrationmanagement.controller;
 
 import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
-import al.ikubinfo.registrationmanagement.repository.criteria.UserCourseCriteria;
+import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class CourseController {
@@ -52,7 +49,7 @@ public class CourseController {
     }
 
     @GetMapping("/all")
-    public ModelAndView getCourseUserList(@Valid UserCourseCriteria criteria) {
+    public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
         Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
         ModelAndView mv = new ModelAndView("user_course_list");
         mv.addObject("UserCourseList", userCourseList);
@@ -193,10 +190,10 @@ public class CourseController {
         return mv;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<CourseUserListDto>> getCourseUserList() {
-        return new ResponseEntity<>(courseService.getCourseUserList(), HttpStatus.OK);
-    }
+//    @GetMapping("/all")
+//    public ResponseEntity<List<CourseUserListDto>> getCourseUserList() {
+//        return new ResponseEntity<>(courseService.getCourseUserList(), HttpStatus.OK);
+//    }
 
 
 
