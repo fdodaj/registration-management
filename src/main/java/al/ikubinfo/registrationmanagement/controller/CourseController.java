@@ -7,16 +7,18 @@ import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CourseController {
@@ -48,14 +50,6 @@ public class CourseController {
         return mv;
     }
 
-    @GetMapping("/all")
-    public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
-        Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
-        ModelAndView mv = new ModelAndView("user_course_list");
-        mv.addObject("UserCourseList", userCourseList);
-        return mv;
-    }
-
 
     /**
      * Retrieve course details
@@ -71,6 +65,15 @@ public class CourseController {
         mv.addObject("userList", userService.getUnassignedUsers());
         return mv;
     }
+
+    @GetMapping("/all")
+    public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
+        Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
+        ModelAndView mv = new ModelAndView("user_course_list");
+        mv.addObject("UserCourseList", userCourseList);
+        return mv;
+    }
+
 
     /**
      * Retrieve course edition view
@@ -102,6 +105,18 @@ public class CourseController {
         }
         courseService.updateCourse(course);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
+
+    @PutMapping(path = "/edit/{courseId}/{userId}")
+    public ResponseEntity<CourseUserDto> updateCourseUser(@RequestBody CourseUserDto courseUserDto, @PathVariable Long courseId, @PathVariable Long userId) {
+        courseUserDto.setUserId(userId);
+        courseUserDto.setCourseId(courseId);
+        return ResponseEntity.ok(courseService.editCourseUser(courseUserDto));
+    }
+
+    @GetMapping(path = "{courseId}/{userId}")
+    public ResponseEntity<CourseUserDto> getCourseUser(@PathVariable Long courseId, @PathVariable Long userId) {
+        return ResponseEntity.ok(courseService.getCourseUserEntity(courseId, userId));
     }
 
     /**
@@ -173,6 +188,8 @@ public class CourseController {
     public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
         ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
         modelAndView.addObject("courseUserDto", courseUserDto);
+        courseUserDto.setCreatedDate(LocalDate.now());
+        courseUserDto.setModifiedDate(LocalDate.now());
         courseService.assignUserToCourse(courseUserDto);
         return modelAndView;
     }
@@ -189,12 +206,4 @@ public class CourseController {
         mv.addObject(COURSE, course);
         return mv;
     }
-
-//    @GetMapping("/all")
-//    public ResponseEntity<List<CourseUserListDto>> getCourseUserList() {
-//        return new ResponseEntity<>(courseService.getCourseUserList(), HttpStatus.OK);
-//    }
-
-
-
 }

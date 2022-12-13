@@ -81,7 +81,7 @@ class Tests {
         course.setCourseEndDate(LocalDate.of(2022, 2, 11));
         course.setRegistrationStartDate(LocalDate.of(2022, 1, 10));
         course.setRegistrationEndDate(LocalDate.of(2022, 2, 11));
-        course.setPrice(123);
+        course.setPrice(123.0);
         course.setStatus(CourseStatus.READY_TO_START);
         course.setCreatedDate(LocalDate.now());
         course.setModifiedDate(LocalDate.now());

@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.service;
 
 import al.ikubinfo.registrationmanagement.dto.*;
+import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,11 @@ public interface CourseService {
     Page<CourseDto> filterCourses(CourseCriteria criteria);
 
     Page<CourseUserListDto> getCourseUserList(CourseUserCriteria criteria);
+
+    CourseUserDto editCourseUser(CourseUserDto courseUserDto);
+
+
+
 
     /**
      * Retrieve course details
@@ -85,4 +91,7 @@ public interface CourseService {
 
 
     List<CourseUserListDto> getCourseUserList();
+
+    CourseUserDto getCourseUserEntity(Long courseId, Long userId);
+
 }

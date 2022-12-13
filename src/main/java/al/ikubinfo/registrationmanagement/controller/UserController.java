@@ -102,6 +102,20 @@ public class UserController {
     }
 
     /**
+     * Retrieve user edition view
+     *
+     * @param id user id
+     * @return ModelAndView
+     */
+    @GetMapping("/users/edit/{id}")
+    public ModelAndView updateUserView(@PathVariable("id") Long id) {
+        UserDto userDto = userService.getUserById(id);
+        ModelAndView mv = new ModelAndView("edit_user");
+        mv.addObject("user", userDto);
+        return mv;
+    }
+
+    /**
      * Update user
      *
      * @param user updated dto
@@ -117,20 +131,6 @@ public class UserController {
         }
         userService.updateUser(user);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
-
-    /**
-     * Retrieve user edition view
-     *
-     * @param id user id
-     * @return ModelAndView
-     */
-    @GetMapping("/users/edit/{id}")
-    public ModelAndView updateUserView(@PathVariable("id") Long id) {
-        UserDto userDto = userService.getUserById(id);
-        ModelAndView mv = new ModelAndView("edit_user");
-        mv.addObject("user", userDto);
-        return mv;
     }
 
 

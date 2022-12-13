@@ -73,6 +73,20 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public CourseDto updateCourse(CourseDto courseDto) {
+        CourseEntity currentEntity = getCourseEntity(courseDto.getId());
+        CourseEntity entity = converter.toUpdateCourseEntity(courseDto, currentEntity);
+        return converter.toDto(courseRepository.save(entity));
+    }
+
+    @Override
+    public CourseUserDto editCourseUser(CourseUserDto courseUserDto) {
+        CourseUserEntity currentCourseUserEntity = courseUserConverter.toEntity(getCourseUserEntity(courseUserDto.getCourseId(), courseUserDto.getUserId()));
+        CourseUserEntity entity = courseUserConverter.toUpdateCourseUserEntity(courseUserDto, currentCourseUserEntity);
+        return courseUserConverter.toDto(courseUserRepository.save(entity));
+    }
+
+    @Override
     public CourseDto getCourseById(Long id) {
 
         return courseRepository.findById(id)
@@ -89,13 +103,6 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDto saveCourse(ValidatedCourseDto courseDto) {
         CourseEntity entity = converter.toEntity(courseDto);
-        return converter.toDto(courseRepository.save(entity));
-    }
-
-    @Override
-    public CourseDto updateCourse(CourseDto courseDto) {
-        CourseEntity currentEntity = getCourseEntity(courseDto.getId());
-        CourseEntity entity = converter.toUpdateCourseEntity(courseDto, currentEntity);
         return converter.toDto(courseRepository.save(entity));
     }
 
@@ -133,7 +140,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseUserDto updateCourseUser(CourseUserDto dto) {
-        CourseUserEntity currentEntity = getCourseUserEntity(dto.getUserId(), dto.getCourseId());
+        CourseUserEntity currentEntity = courseUserConverter.toEntity(getCourseUserEntity(dto.getUserId(), dto.getCourseId()));
         CourseUserEntity entity = courseUserConverter.toUpdateCourseUserEntity(dto, currentEntity);
         return courseUserConverter.toDto(courseUserRepository.save(entity));
     }
@@ -162,9 +169,10 @@ public class CourseServiceImpl implements CourseService {
                 .orElseThrow(() -> new RuntimeException("Course not found"));
     }
 
-    private CourseUserEntity getCourseUserEntity(Long courseId, Long userId) {
-        return courseUserRepository.findById(new CourseUserId(userId, courseId))
-                .orElseThrow(() -> new RuntimeException("Course user relation was not found"));
+    @Override
+    public CourseUserDto getCourseUserEntity(Long courseId, Long userId) {
+        return courseUserConverter.toDto(courseUserRepository.findById(new CourseUserId(userId, courseId))
+                .orElseThrow(() -> new RuntimeException("Course user relation was not found")));
     }
 
 

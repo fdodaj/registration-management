@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Student Management System</title>
+    <link crossorigin="anonymous"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet">
+</head>
+<body style="background-color: #9fbab3">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Student Management System</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" data-target="#collapsibleNavbar" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/all}">Student Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center"> update user-course </h1>
+            <div class="card-body">
+                <form method="POST" th:action="@{/edit/{courseId}/{userId} (courseId=${courseUser.getCourseId()}, userId=${courseUser.getUserId()} )}" th:object="${courseUser}">
+
+
+                    <div class="form-group">
+                        <label> comment </label>
+                        <input class="form-control" name="name" th:field="${courseUserDto.comment}" th:maxlength="35" th:required="required" type="text"/>
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label>Lastname </label>-->
+<!--                        <input class="form-control" name="surname" th:field="*{lastName}" th:maxlength="35" th:required="required" type="text"/>-->
+<!--                        <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label>Phone number </label>-->
+<!--                        <input class="form-control" name="phoneNumber" th:field="*{phoneNumber}" th:required="required" type="text"/>-->
+<!--                        <div class="alert alert-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label>Birthday </label>-->
+<!--                        <input class="form-control" name="birthdate" placeholder="birthdate" th:field="*{birthDate}" type="date"/>-->
+<!--                        <div class="alert alert-danger" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></div>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group ">-->
+<!--                        <div><label> Reach Form </label></div>-->
+<!--                        <select name="status" th:field="*{reachForm}"  style="text-align: center" class="form-control" >-->
+<!--                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.ReachFormEnum).values()}"-->
+<!--                                    th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}" ></option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label> Email </label>-->
+<!--                        <input class="form-control" name="email" th:field="*{email}" th:required="required" type="email"/>-->
+<!--                        <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>-->
+
+<!--                    </div>-->
+
+
+                    <div class="box-footer">
+                        <button class="btn btn-primary" type="submit">
+                            Submit
+                        </button>
+                        <a class="btn btn-danger"
+                           th:href="@{/users}">Cancel</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
