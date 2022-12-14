@@ -83,6 +83,8 @@ public class CourseServiceImpl implements CourseService {
     public CourseUserDto editCourseUser(CourseUserDto courseUserDto) {
         CourseUserEntity currentCourseUserEntity = courseUserConverter.toEntity(getCourseUserEntity(courseUserDto.getCourseId(), courseUserDto.getUserId()));
         CourseUserEntity entity = courseUserConverter.toUpdateCourseUserEntity(courseUserDto, currentCourseUserEntity);
+        entity.setCreatedDate(getCourseUserEntity(courseUserDto.getCourseId(), courseUserDto.getUserId()).getCreatedDate());
+
         return courseUserConverter.toDto(courseUserRepository.save(entity));
     }
 

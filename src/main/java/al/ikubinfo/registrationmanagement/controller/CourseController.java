@@ -26,6 +26,8 @@ public class CourseController {
     private static final String COURSES = "courses";
     private static final String COURSE = "course";
 
+    private static final String COURSEUSER = "courseUser";
+
     public static final String PDF = "PDF";
     public static final String CSV = "CSV";
     public static final String EXCEL = "EXCEL";
@@ -89,6 +91,14 @@ public class CourseController {
         return mv;
     }
 
+    @GetMapping("/all/{courseId}/{userId}")
+    public ModelAndView updateCourseUserView(@Valid @PathVariable("courseId")Long courseId, @PathVariable("userId") Long userId) {
+        CourseUserDto courseUserDto = courseService.getCourseUserEntity(courseId, userId);
+        ModelAndView mv = new ModelAndView("edit_user_course");
+        mv.addObject(COURSEUSER, courseUserDto);
+        return mv;
+    }
+
     /**
      * Update course
      *
@@ -106,13 +116,24 @@ public class CourseController {
         courseService.updateCourse(course);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
-
-    @PutMapping(path = "/edit/{courseId}/{userId}")
-    public ResponseEntity<CourseUserDto> updateCourseUser(@RequestBody CourseUserDto courseUserDto, @PathVariable Long courseId, @PathVariable Long userId) {
-        courseUserDto.setUserId(userId);
-        courseUserDto.setCourseId(courseId);
-        return ResponseEntity.ok(courseService.editCourseUser(courseUserDto));
+    @PostMapping(path = "/edit/{courseId}/{userId}")
+    public ModelAndView updateCourseUser(@ModelAttribute CourseUserDto courseUserDto, BindingResult result, Model model) {
+        model.addAttribute(COURSEUSER, courseUserDto);
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("edit_user_course");
+            mv.addObject(COURSEUSER, courseUserDto);
+            return mv;
+        }
+        courseService.editCourseUser(courseUserDto);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
+
+//    @PostMapping(path = "/edit/{courseId}/{userId}")
+//    public ResponseEntity<CourseUserDto> updateCourseUser(@RequestBody CourseUserDto courseUserDto, @PathVariable Long courseId, @PathVariable Long userId) {
+//        courseUserDto.setUserId(userId);
+//        courseUserDto.setCourseId(courseId);
+//        return ResponseEntity.ok(courseService.editCourseUser(courseUserDto));
+//    }
 
     @GetMapping(path = "{courseId}/{userId}")
     public ResponseEntity<CourseUserDto> getCourseUser(@PathVariable Long courseId, @PathVariable Long userId) {

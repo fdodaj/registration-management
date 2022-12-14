@@ -13,6 +13,8 @@ import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class CourseUserConverter implements BidirectionalConverter<CourseUserDto, CourseUserEntity> {
 
@@ -39,7 +41,7 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
         dto.setPriceReduction(entity.getPriceReduction());
         dto.setStatus(entity.getStatus());
         dto.setCreatedDate(entity.getCreatedDate());
-        dto.setModifiedDate(entity.getModifiedDate());
+        dto.setModifiedDate(LocalDate.now());
         return dto;
     }
 
