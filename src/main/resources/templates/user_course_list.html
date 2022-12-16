@@ -82,7 +82,9 @@
                 <table class="table table-bordered" style="background-color: white">
                     <thead class="thead-dark">
                     <tr>
-                        <th style="text-align: center">Name</th>
+                        <th style="text-align: center">
+                            <nobr> name</nobr>
+                        </th>
                         <th style="text-align: center">Email</th>
                         <th style="text-align: center">
                             <nobr>Phone Number</nobr>
@@ -100,7 +102,10 @@
                             <nobr>Registration Start Date</nobr>
                         </th>
                         <th style="text-align: center">
-                            <nobr>Registration End Date</nobr>
+                            <nobr>
+                                <Registr></Registr>
+                                ation End Date
+                            </nobr>
                         </th>
                         <th style="text-align: center">Status</th>
                         <th style="text-align: center">Reference</th>
@@ -117,20 +122,39 @@
 
                     <tbody>
                     <tr th:each="course: ${UserCourseList}">
-                        <td><a style="text-decoration: none; color: black"
-                               th:href="@{/users/{id}(id=${course.userDto.id})}"
-                               th:text="${course.userDto.firstName} + '  ' + ${course.userDto.lastName}"></a>
+
+                        <td>
+                            <nobr><a style="text-decoration: none; color: black"
+                                     th:href="@{/users/{id}(id=${course.userDto.id})}"
+                                     th:text="${course.userDto.firstName} + '  ' + ${course.userDto.lastName}"></a>
+                            </nobr>
                         </td>
+
                         <td th:text="${course.userDto.email}"></td>
                         <td th:text="${course.userDto.phoneNumber}"></td>
-                        <td th:text="${course.courseDto.courseName}"></td>
+                        <td>
+                            <nobr><h6 style="text-decoration: none;"
+                                      th:text="${course.courseDto.courseName}"></h6>
+                            </nobr>
+                        </td>
                         <td th:text="${course.courseDto.courseStartDate}"></td>
                         <td th:text="${course.courseDto.courseStartDate}"></td>
                         <td th:text="${course.courseDto.registrationStartDate}"></td>
                         <td th:text="${course.courseDto.registrationEndDate}"></td>
                         <td th:text="${course.status}"></td>
-                        <td th:text="${course.reference}"></td>
-                        <td th:text="${course.comment}"></td>
+                        <td>
+                            <nobr><h6 style="text-decoration: none;"
+                                      th:text="${course.reference}"></h6>
+                            </nobr>
+                        </td>
+
+                        <td>
+                            <nobr><h6 style="text-decoration: none;"
+                                      th:text="${course.comment}"></h6>
+                            </nobr>
+                        </td>
+
+
                         <td th:text="${course.pricePaid}"></td>
                         <td th:text="${course.priceReduction}"></td>
                         <td style="text-align: center">
