@@ -5,10 +5,16 @@ import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -226,5 +232,49 @@ public class CourseController {
         ModelAndView mv = new ModelAndView("create_course");
         mv.addObject(COURSE, course);
         return mv;
+    }
+
+    @PostMapping(value = "/exportToExcel")
+    public ResponseEntity<Resource> exportToExcel(@Nullable @RequestBody CourseCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+
+        resource = new ByteArrayResource(courseService.createExcel(criteria));
+        headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
+
+    @PostMapping(value = "/exportToCvs")
+    public ResponseEntity<Resource> exportToCvs(@Nullable @RequestBody CourseCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+        resource = new ByteArrayResource(courseService.createCsv(criteria));
+        headers.setContentType(new MediaType("text", "csv"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
+
+    @PostMapping(value = "/exportToPdf")
+    public ResponseEntity<Resource> exportToPdf(@Nullable @RequestBody CourseCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+        resource = new ByteArrayResource(courseService.createPdf(criteria));
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
     }
 }

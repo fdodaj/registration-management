@@ -94,4 +94,8 @@ public interface CourseService {
 
     CourseUserDto getCourseUserEntity(Long courseId, Long userId);
 
+    byte[] createCsv(CourseCriteria criteria);
+    byte[] createPdf(CourseCriteria criteria);
+    byte[] createExcel(CourseCriteria criteria);
+
 }
