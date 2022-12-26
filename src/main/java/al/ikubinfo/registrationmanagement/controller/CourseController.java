@@ -235,8 +235,8 @@ public class CourseController {
 
 
 
-    @PostMapping(value = "/exportToExcel")
-    public ResponseEntity<Resource> exportToExcel(@Nullable @RequestBody CourseCriteria criteria) {
+    @GetMapping(value = "/exportToExcel")
+    public ResponseEntity<Resource> exportToExcel(@Nullable CourseCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
@@ -250,8 +250,8 @@ public class CourseController {
                 .body(resource);
     }
 
-    @PostMapping(value = "/exportToCvs")
-    public ResponseEntity<Resource> exportToCvs(@Nullable @RequestBody CourseCriteria criteria) {
+    @GetMapping(value = "/exportToCvs")
+    public ResponseEntity<Resource> exportToCvs(@Nullable CourseCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();

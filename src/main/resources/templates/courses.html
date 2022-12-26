@@ -106,15 +106,23 @@
         </tbody>
     
     </table>
-    <button class="btn btn-primary" id="export" type="button">
+    <button class="btn btn-primary" id="exportToPdf" type="button">
         export to PDF
+    </button>
+    <button class="btn btn-primary" id="exportToCvs" type="button">
+        export to CVS
+    </button>
+    <button class="btn btn-primary" id="exporttoExcel" type="button">
+        export to EXCEL
     </button>
 </div>
     
     <script>
 
         let sendBtn = document.getElementById('sendButton');
-        let exportButton = document.getElementById('export');
+        let exportToPdfButton = document.getElementById('exportToPdf');
+        let exportToCvsButton = document.getElementById('exportToCvs');
+        let exportToExcelButton = document.getElementById('exporttoExcel');
         let coursePage = 'http://localhost:8080/courses'
 
         sendBtn.addEventListener("click", () => {
@@ -126,9 +134,19 @@
                 }
         )
 
-        exportButton.addEventListener("click", () => {
+        exportToPdfButton.addEventListener("click", () => {
             let url = window.location.toString();
             window.location = url.replace(/courses/, 'exportToPdf')
+            }
+        )
+        exportToCvsButton.addEventListener("click", () => {
+                let url = window.location.toString();
+                window.location = url.replace(/courses/, 'exportToCvs')
+            }
+        )
+        exportToExcelButton.addEventListener("click", () => {
+                let url = window.location.toString();
+                window.location = url.replace(/courses/, 'exportToExcel')
             }
         )
 
