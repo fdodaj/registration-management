@@ -60,14 +60,12 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseConverter converter;
 
+
     @Autowired
     private CourseUserConverter courseUserConverter;
 
     @Autowired
     private CourseRepository courseRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private CourseUserRepository courseUserRepository;

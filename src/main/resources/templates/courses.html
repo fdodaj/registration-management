@@ -51,7 +51,7 @@
         <div class="col-lg-8">
             <a class="btn btn-primary btn-sm mb-1" th:href="@{/course/new}"> Add course</a>
             <a class="btn btn-success btn-sm mb-1" th:href="@{/courses}">Home</a>
-            <a class="btn btn-success btn-sm mb-1" th:href="@{/exportToPdf}">Export To Pdf</a>
+
 
 
         </div>
@@ -106,12 +106,17 @@
         </tbody>
     
     </table>
+    <button class="btn btn-primary" id="export" type="button">
+        export to PDF
+    </button>
 </div>
     
     <script>
+
         let sendBtn = document.getElementById('sendButton');
+        let exportButton = document.getElementById('export');
         let coursePage = 'http://localhost:8080/courses'
-        
+
         sendBtn.addEventListener("click", () => {
                     coursePage = document.getElementById("name").value !== ""
                             ? coursePage + "?courseName=" + document.getElementById("name").value
@@ -120,6 +125,13 @@
                     window.location.replace(coursePage)
                 }
         )
+
+        exportButton.addEventListener("click", () => {
+            let url = window.location.toString();
+            window.location = url.replace(/courses/, 'exportToPdf')
+            }
+        )
+
     </script>
 </body>
 </html>

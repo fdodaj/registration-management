@@ -264,8 +264,8 @@ public class CourseController {
                 .body(resource);
     }
 
-    @PostMapping(value = "/exportToPdf")
-    public ResponseEntity<Resource> exportToPdf(@Nullable @RequestBody CourseCriteria criteria) {
+    @GetMapping(value = "/exportToPdf")
+    public ResponseEntity<Resource> exportToPdf(@Nullable CourseCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
