@@ -44,6 +44,89 @@ public class CourseController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/all")
+    public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
+        Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
+        ModelAndView mv = new ModelAndView("user_course_list");
+        mv.addObject("UserCourseList", userCourseList);
+        return mv;
+    }
+    @GetMapping(path = "{courseId}/{userId}")
+    public ResponseEntity<CourseUserDto> getCourseUser(@PathVariable Long courseId, @PathVariable Long userId) {
+        return ResponseEntity.ok(courseService.getCourseUserEntity(courseId, userId));
+    }
+    @GetMapping("/all/{courseId}/{userId}")
+    public ModelAndView updateCourseUserView(@Valid @PathVariable("courseId")Long courseId, @PathVariable("userId") Long userId) {
+        CourseUserDto courseUserDto = courseService.getCourseUserEntity(courseId, userId);
+        ModelAndView mv = new ModelAndView("edit_user_course");
+        mv.addObject(COURSEUSER, courseUserDto);
+        return mv;
+    }
+    @PostMapping(path = "/edit/{courseId}/{userId}")
+    public ModelAndView updateCourseUser(@ModelAttribute CourseUserDto courseUserDto, BindingResult result, Model model) {
+        model.addAttribute(COURSEUSER, courseUserDto);
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("edit_user_course");
+            mv.addObject(COURSEUSER, courseUserDto);
+            return mv;
+        }
+        courseService.editCourseUser(courseUserDto);
+        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    }
+
+    /**
+     * Retrieve user assign to course view
+     *
+     * @param userId user id
+     * @return ModelAndView
+     */
+
+    @GetMapping("/course/assign/{userId}")
+    public ModelAndView assignCourseView(@PathVariable("userId") Long userId, CourseUserDto courseUserDto) {
+        ModelAndView mv = new ModelAndView("assign_course_to_user");
+        UserDto user = userService.getUserById(userId);
+        courseUserDto.setUserId(user.getId());
+        mv.addObject("courseUserDto", courseUserDto);
+        mv.addObject(COURSES, courseService.filterCourses(new CourseCriteria()));
+        return mv;
+    }
+
+    /**
+     * Assigns to course
+     *
+     * @return ModelAndView
+     */
+    @PostMapping("/courses/assign-user")
+    public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
+        ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+        modelAndView.addObject("courseUserDto", courseUserDto);
+        courseUserDto.setCreatedDate(LocalDate.now());
+        courseUserDto.setModifiedDate(LocalDate.now());
+        courseService.assignUserToCourse(courseUserDto);
+        return modelAndView;
+    }
+    /**
+     * Remove user from course
+     *
+     * @param courseId  courseId
+     * @param studentId userId
+     * @return ModelAndView
+     */
+    @GetMapping("/users/{courseId}/{studentId}")
+    ModelAndView removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+        ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+        courseService.removeUserFromCourse(studentId, courseId);
+        return mv;
+    }
+
+
+
+
+
+
+
+
+
     /**
      * Get all courses. if criteria is applied, courses are filter accordingly
      *
@@ -57,7 +140,6 @@ public class CourseController {
         mv.addObject(COURSES, courseDtos);
         return mv;
     }
-
 
     /**
      * Retrieve course details
@@ -74,15 +156,6 @@ public class CourseController {
         return mv;
     }
 
-    @GetMapping("/all")
-    public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
-        Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
-        ModelAndView mv = new ModelAndView("user_course_list");
-        mv.addObject("UserCourseList", userCourseList);
-        return mv;
-    }
-
-
     /**
      * Retrieve course edition view
      *
@@ -96,15 +169,6 @@ public class CourseController {
         mv.addObject(COURSE, courseDto);
         return mv;
     }
-
-    @GetMapping("/all/{courseId}/{userId}")
-    public ModelAndView updateCourseUserView(@Valid @PathVariable("courseId")Long courseId, @PathVariable("userId") Long userId) {
-        CourseUserDto courseUserDto = courseService.getCourseUserEntity(courseId, userId);
-        ModelAndView mv = new ModelAndView("edit_user_course");
-        mv.addObject(COURSEUSER, courseUserDto);
-        return mv;
-    }
-
     /**
      * Update course
      *
@@ -121,29 +185,6 @@ public class CourseController {
         }
         courseService.updateCourse(course);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
-    @PostMapping(path = "/edit/{courseId}/{userId}")
-    public ModelAndView updateCourseUser(@ModelAttribute CourseUserDto courseUserDto, BindingResult result, Model model) {
-        model.addAttribute(COURSEUSER, courseUserDto);
-        if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("edit_user_course");
-            mv.addObject(COURSEUSER, courseUserDto);
-            return mv;
-        }
-        courseService.editCourseUser(courseUserDto);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
-
-//    @PostMapping(path = "/edit/{courseId}/{userId}")
-//    public ResponseEntity<CourseUserDto> updateCourseUser(@RequestBody CourseUserDto courseUserDto, @PathVariable Long courseId, @PathVariable Long userId) {
-//        courseUserDto.setUserId(userId);
-//        courseUserDto.setCourseId(courseId);
-//        return ResponseEntity.ok(courseService.editCourseUser(courseUserDto));
-//    }
-
-    @GetMapping(path = "{courseId}/{userId}")
-    public ResponseEntity<CourseUserDto> getCourseUser(@PathVariable Long courseId, @PathVariable Long userId) {
-        return ResponseEntity.ok(courseService.getCourseUserEntity(courseId, userId));
     }
 
     /**
@@ -163,7 +204,6 @@ public class CourseController {
         courseService.saveCourse(course);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
-
     /**
      * Delete course (soft deletion)
      *
@@ -176,52 +216,6 @@ public class CourseController {
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
     /**
-     * Remove user from course
-     *
-     * @param courseId  courseId
-     * @param studentId userId
-     * @return ModelAndView
-     */
-    @GetMapping("/users/{courseId}/{studentId}")
-    ModelAndView removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
-        ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-        courseService.removeUserFromCourse(studentId, courseId);
-        return mv;
-    }
-
-    /**
-     * Retrieve user assign to course view
-     *
-     * @param userId user id
-     * @return ModelAndView
-     */
-    @GetMapping("/course/assign/{userId}")
-    public ModelAndView assignCourseView(@PathVariable("userId") Long userId, CourseUserDto courseUserDto) {
-        ModelAndView mv = new ModelAndView("assign_course_to_user");
-        UserDto user = userService.getUserById(userId);
-        courseUserDto.setUserId(user.getId());
-        mv.addObject("courseUserDto", courseUserDto);
-        mv.addObject(COURSES, courseService.filterCourses(new CourseCriteria()));
-        return mv;
-    }
-
-
-    /**
-     * Assigns to course
-     *
-     * @return ModelAndView
-     */
-    @PostMapping("/courses/assign-user")
-    public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
-        ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-        modelAndView.addObject("courseUserDto", courseUserDto);
-        courseUserDto.setCreatedDate(LocalDate.now());
-        courseUserDto.setModifiedDate(LocalDate.now());
-        courseService.assignUserToCourse(courseUserDto);
-        return modelAndView;
-    }
-
-    /**
      * Retrieve form of course creation
      *
      * @param course courseDto
@@ -233,6 +227,13 @@ public class CourseController {
         mv.addObject(COURSE, course);
         return mv;
     }
+
+
+
+
+
+
+
 
     @PostMapping(value = "/exportToExcel")
     public ResponseEntity<Resource> exportToExcel(@Nullable @RequestBody CourseCriteria criteria) {
