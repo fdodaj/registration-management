@@ -169,9 +169,19 @@
                 </table>
 
             </div>
-        </div>
-    </div>
 
+        </div>
+
+    </div>
+    <button class="btn btn-primary" id="exportToPdf" type="button">
+        export to PDF
+    </button>
+    <button class="btn btn-primary" id="exportToCvs" type="button">
+        export to CVS
+    </button>
+    <button class="btn btn-primary" id="exportToExcel" type="button">
+        export to EXCEL
+    </button>
 </div>
 
 <script>
@@ -203,6 +213,26 @@
 
             window.location.replace(studentPage)
 
+        }
+    )
+
+    let exportToPdfButton = document.getElementById('exportToPdf');
+    let exportToCvsButton = document.getElementById('exportToCvs');
+    let exportToExcelButton = document.getElementById('exportToExcel');
+
+    exportToPdfButton.addEventListener("click", () => {
+            let url = window.location.toString();
+            window.location = url.replace(/all/, 'course-user/exportToPdf')
+        }
+    )
+    exportToCvsButton.addEventListener("click", () => {
+            let url = window.location.toString();
+            window.location = url.replace(/all/, 'course-user/exportToCvs')
+        }
+    )
+    exportToExcelButton.addEventListener("click", () => {
+            let url = window.location.toString();
+            window.location = url.replace(/all/, 'course-user/exportToExcel')
         }
     )
 

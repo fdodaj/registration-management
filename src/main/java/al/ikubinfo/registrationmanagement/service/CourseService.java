@@ -98,4 +98,8 @@ public interface CourseService {
     byte[] createPdf(CourseCriteria criteria);
     byte[] createExcel(CourseCriteria criteria);
 
+    byte[] createCourseUserCvs(CourseUserCriteria criteria);
+    byte[] createCourseUserPdf(CourseUserCriteria criteria);
+    byte[] createCourseUserExcel(CourseUserCriteria criteria);
+
 }

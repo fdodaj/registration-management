@@ -278,4 +278,58 @@ public class CourseController {
                 .headers(headers)
                 .body(resource);
     }
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping(value = "course-user/exportToExcel")
+    public ResponseEntity<Resource> exportToCourseUserExcel(@Nullable CourseUserCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+
+        resource = new ByteArrayResource(courseService.createCourseUserExcel(criteria));
+        headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
+
+    @GetMapping(value = "course-user/exportToCvs")
+    public ResponseEntity<Resource> exportToCourseUserCvs(@Nullable CourseUserCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+        resource = new ByteArrayResource(courseService.createCourseUserCvs(criteria));
+        headers.setContentType(new MediaType("text", "csv"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
+
+    @GetMapping(value = "course-user/exportToPdf")
+    public ResponseEntity<Resource> exportToPdf(@Nullable CourseUserCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+        resource = new ByteArrayResource(courseService.createCourseUserPdf(criteria));
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
 }
