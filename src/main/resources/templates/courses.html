@@ -112,7 +112,7 @@
     <button class="btn btn-primary" id="exportToCvs" type="button">
         export to CVS
     </button>
-    <button class="btn btn-primary" id="exporttoExcel" type="button">
+    <button class="btn btn-primary" id="exportToExcel" type="button">
         export to EXCEL
     </button>
 </div>
@@ -122,7 +122,7 @@
         let sendBtn = document.getElementById('sendButton');
         let exportToPdfButton = document.getElementById('exportToPdf');
         let exportToCvsButton = document.getElementById('exportToCvs');
-        let exportToExcelButton = document.getElementById('exporttoExcel');
+        let exportToExcelButton = document.getElementById('exportToExcel');
         let coursePage = 'http://localhost:8080/courses'
 
         sendBtn.addEventListener("click", () => {
@@ -136,17 +136,17 @@
 
         exportToPdfButton.addEventListener("click", () => {
             let url = window.location.toString();
-            window.location = url.replace(/courses/, 'exportToPdf')
+            window.location = url.replace(/courses/, 'courses/exportToPdf')
             }
         )
         exportToCvsButton.addEventListener("click", () => {
                 let url = window.location.toString();
-                window.location = url.replace(/courses/, 'exportToCvs')
+                window.location = url.replace(/courses/, 'courses/exportToCvs')
             }
         )
         exportToExcelButton.addEventListener("click", () => {
                 let url = window.location.toString();
-                window.location = url.replace(/courses/, 'exportToExcel')
+                window.location = url.replace(/courses/, 'courses/exportToExcel')
             }
         )
 

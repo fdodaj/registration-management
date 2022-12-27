@@ -235,7 +235,7 @@ public class CourseController {
 
 
 
-    @GetMapping(value = "/exportToExcel")
+    @GetMapping(value = "courses/exportToExcel")
     public ResponseEntity<Resource> exportToExcel(@Nullable CourseCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
@@ -250,7 +250,7 @@ public class CourseController {
                 .body(resource);
     }
 
-    @GetMapping(value = "/exportToCvs")
+    @GetMapping(value = "courses/exportToCvs")
     public ResponseEntity<Resource> exportToCvs(@Nullable CourseCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
@@ -264,7 +264,7 @@ public class CourseController {
                 .body(resource);
     }
 
-    @GetMapping(value = "/exportToPdf")
+    @GetMapping(value = "courses/exportToPdf")
     public ResponseEntity<Resource> exportToPdf(@Nullable CourseCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
