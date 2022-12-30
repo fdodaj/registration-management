@@ -315,7 +315,7 @@ public class CourseServiceImpl implements CourseService {
             doc.close();
         } catch (IOException e) {
             e.getStackTrace();
-            throw new RuntimeException("Non è possibile creare documento pdf");
+            throw new RuntimeException("Cant create PDF!f");
         }
 
         return output.toByteArray();
@@ -330,6 +330,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     public String[] populate(CourseDto dto) {
+        if(dto.getRegistrationStartDate() == null){
+             dto.setRegistrationStartDate(LocalDate.now());
+        }
+        if(dto.getRegistrationEndDate() == null){
+            dto.setRegistrationEndDate(LocalDate.now());
+        }
+//        if(dto.getPrice() == null){
+//            dto.setPrice(0000.0);
+//        }
         return new String[]{
                 dto.getCourseName(),
                 dto.getPrice().toString(),
@@ -479,6 +488,12 @@ public class CourseServiceImpl implements CourseService {
         };
     }
     public String[] populateCourseUser(CourseUserListDto dto) {
+        if (dto.getPricePaid() == null){
+            dto.setPricePaid(0.0);
+        }
+        if (dto.getPriceReduction() == null){
+            dto.setPriceReduction(0.0);
+        }
         return new String[]{
                 dto.getUserDto().getFirstName(),
                 dto.getUserDto().getLastName(),

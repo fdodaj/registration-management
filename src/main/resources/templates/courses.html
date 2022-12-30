@@ -120,9 +120,6 @@
     <script>
 
         let sendBtn = document.getElementById('sendButton');
-        let exportToPdfButton = document.getElementById('exportToPdf');
-        let exportToCvsButton = document.getElementById('exportToCvs');
-        let exportToExcelButton = document.getElementById('exportToExcel');
         let coursePage = 'http://localhost:8080/courses'
 
         sendBtn.addEventListener("click", () => {
@@ -133,6 +130,10 @@
                     window.location.replace(coursePage)
                 }
         )
+
+        let exportToPdfButton = document.getElementById('exportToPdf');
+        let exportToCvsButton = document.getElementById('exportToCvs');
+        let exportToExcelButton = document.getElementById('exportToExcel');
 
         exportToPdfButton.addEventListener("click", () => {
             let url = window.location.toString();
