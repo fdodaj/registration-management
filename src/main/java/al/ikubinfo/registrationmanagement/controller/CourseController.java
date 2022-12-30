@@ -71,7 +71,7 @@ public class CourseController {
             return mv;
         }
         courseService.editCourseUser(courseUserDto);
-        return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+        return new ModelAndView("redirect:/all");
     }
 
     /**
@@ -290,7 +290,7 @@ public class CourseController {
 
 
     @GetMapping(value = "course-user/exportToExcel")
-    public ResponseEntity<Resource> exportToCourseUserExcel(@Nullable CourseUserCriteria criteria) {
+    public ResponseEntity<Resource> exportToCourseUserExcel( CourseUserCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
@@ -305,7 +305,7 @@ public class CourseController {
     }
 
     @GetMapping(value = "course-user/exportToCvs")
-    public ResponseEntity<Resource> exportToCourseUserCvs(@Nullable CourseUserCriteria criteria) {
+    public ResponseEntity<Resource> exportToCourseUserCvs( CourseUserCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
@@ -319,7 +319,7 @@ public class CourseController {
     }
 
     @GetMapping(value = "course-user/exportToPdf")
-    public ResponseEntity<Resource> exportToPdf(@Nullable CourseUserCriteria criteria) {
+    public ResponseEntity<Resource> exportToPdf( CourseUserCriteria criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
