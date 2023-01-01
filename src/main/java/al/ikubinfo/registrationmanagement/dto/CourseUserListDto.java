@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @Data
 public class CourseUserListDto {
+    private CourseUserId id;
     private UserDto userDto;
     private CourseDto courseDto;
     private UserStatusEnum status;

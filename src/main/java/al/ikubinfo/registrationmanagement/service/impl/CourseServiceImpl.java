@@ -109,6 +109,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<CourseUserListDto> getCourseUserListByCourseId(Long courseId) {
+        return courseUserRepository.getCourseUserEntitiesByCourseId(courseId)
+                .stream().map(courseUserConverter::toCourseUserList)
+                .collect(Collectors.toList());
+    }
+
+
+
+    @Override
     public CourseDto getCourseById(Long id) {
 
         return courseRepository.findById(id)
@@ -184,6 +193,8 @@ public class CourseServiceImpl implements CourseService {
                 .map(courseUserConverter::toCourseUserList)
                 .collect(Collectors.toList());
     }
+
+
 
 
     private CourseEntity getCourseEntity(Long id) {

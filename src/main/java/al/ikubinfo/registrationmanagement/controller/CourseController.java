@@ -68,6 +68,9 @@ public class CourseController {
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("edit_user_course");
             mv.addObject(COURSEUSER, courseUserDto);
+            mv.addObject("course", courseService.getCourseById(courseUserDto.getCourseId()));
+            mv.addObject("user", userService.getUserById(courseUserDto.getUserId()));
+
             return mv;
         }
         courseService.editCourseUser(courseUserDto);
@@ -153,6 +156,8 @@ public class CourseController {
         mv.addObject(COURSE, courseService.getCourseById(id));
         mv.addObject("users", courseService.getAllStudentsByCourseId(id));
         mv.addObject("userList", userService.getUnassignedUsers());
+        mv.addObject("userCourseList", courseService.getCourseUserListByCourseId(id));
+
         return mv;
     }
 
@@ -332,4 +337,5 @@ public class CourseController {
                 .headers(headers)
                 .body(resource);
     }
+
 }

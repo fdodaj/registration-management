@@ -89,19 +89,27 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
+                                <th>Reference</th>
+                                <th>Comment</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            <tr th:each="user: ${users}">
-    
+                            <tr th:each="user: ${userCourseList}">
+
                                 <td th:text="${user.userDto.firstName}"></td>
                                 <td th:text="${user.userDto.lastName}"></td>
-    
-                                <td style="text-align: center">
-                                    <a class="btn" th:href="@{/users/{id}(id=${user.userId})}">View</a>
-                                    <a class="btn " th:href="@{/users/{courseId}/{studentId}(courseId=${course.id}, studentId=${user.userId})}">Remove from course </a>
-                                </td>
+                                <td th:text="${user.reference}"></td>
+                                <td th:text="${user.comment}"></td>
+                                <td th:text="${user.status}"></td>
+
+
+
+
+                                <td><a class="btn" th:href="@{/all/{courseId}/{userId}(courseId=${course.id}, userId=${user.userDto.id})} ">Update</a> </td>
+                                <td><a class="btn " th:href="@{/users/{courseId}/{studentId}(courseId=${course.id}, studentId=${user.userDto.id})}">Remove from course </a></td>
+
 
                             </tbody>
                         </table>
@@ -109,14 +117,14 @@
 
 
                 </form>
-    
+
                 <a class="btn btn-danger"
                    th:href="@{/courses}">Back</a>
-    
+
                 <button
                         class="btn btn-success" onclick="myFunction()">assign student
                 </button>
-    
+
                 <div id="myDIV" style="display: none">
                     <div class="card-body">
                         <table class="table table-striped table-bordered" style="background-color: white">
@@ -127,27 +135,27 @@
                                 <th style="text-align: center">Actions</th>
                             </tr>
                             </thead>
-        
+
                             <tbody>
                             <tr th:each="user: ${userList}">
                                 <td th:text="${user.firstName}"></td>
                                 <td th:text="${user.lastName}"></td>
-            
+
                                 <td style="text-align: center">
                                     <a class="btn btn-dark"
                                        th:href="@{/users/{id}(id=${user.id})}">View</a>
-    
+
                                     <a class="btn btn-dark"
                                        th:href="@{/course/assign/{userId}/{courseId} (userId=${user.id},courseId=${course.id}) }">select</a>
                                 </td>
-    
-                              
-                                
+
+
+
                             </tr>
                             </tbody>
-    
+
                         </table>
-        
+
                     </div>
                 </div>
 

@@ -92,6 +92,7 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
 
     public CourseUserListDto toCourseUserList(CourseUserEntity entity) {
         CourseUserListDto dto = new CourseUserListDto();
+        dto.setId(entity.getId());
         dto.setCourseDto(courseConverter.toDto(entity.getCourse()));
         dto.setUserDto(userConverter.toDto(entity.getUser()));
         dto.setStatus(entity.getStatus());

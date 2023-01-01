@@ -22,7 +22,7 @@ public interface CourseService {
 
     CourseUserDto editCourseUser(CourseUserDto courseUserDto);
 
-
+    List<CourseUserListDto> getCourseUserListByCourseId(Long courseId);
 
 
     /**
