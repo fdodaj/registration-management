@@ -12,7 +12,7 @@ public class CourseUserSpecification extends SpecificationBuilder<CourseUserEnti
     @Override
     public Specification<CourseUserEntity> filter(CourseUserCriteria criteria) {
 
-        Specification<CourseUserEntity> specification = Specification.where(null);
+        Specification<CourseUserEntity> specification = Specification.where((null));
 
         if (criteria.getStatus() != null && !criteria.getStatus().getDisplayValue().isEmpty()) {
             specification = specification.and(equalsSpecification("status", criteria.getStatus()));

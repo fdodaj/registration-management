@@ -26,5 +26,7 @@ public class CourseUserCriteria extends BaseCriteria {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate courseStartDateTo;
 
+    private Boolean deleted;
+
 
 }

@@ -139,11 +139,15 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourseById(Long id) {
+        courseUserRepository.getCourseUserEntitiesByCourseCourseName(getCourseById(id).getCourseName()).forEach(e -> e.setDeleted(true));
+
         CourseEntity course = courseRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Course does not exist"));
         course.setDeleted(true);
         courseRepository.save(course);
     }
+
+
 
     @Override
     public CourseUserDto assignUserToCourse(CourseUserDto dto) {

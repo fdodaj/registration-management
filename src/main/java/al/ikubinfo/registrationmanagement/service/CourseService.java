@@ -69,6 +69,8 @@ public interface CourseService {
      * @param dto CourseUserDto
      * @return CourseUserDto
      */
+
+
     CourseUserDto assignUserToCourse(CourseUserDto dto);
 
     CourseUserDto updateCourseUser(CourseUserDto dto);
