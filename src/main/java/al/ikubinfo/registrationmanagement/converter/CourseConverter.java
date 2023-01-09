@@ -17,6 +17,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         CourseDto dto = new CourseDto();
         dto.setId(entity.getId());
         dto.setCourseName(entity.getCourseName());
+        dto.setPrice(entity.getPrice());
         dto.setStatus(entity.getStatus());
         dto.setCourseStartDate(entity.getCourseStartDate());
         dto.setCourseEndDate(entity.getCourseEndDate());
@@ -39,6 +40,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
 
         entity.setCourseStartDate(dto.getCourseStartDate());
         entity.setCourseEndDate(dto.getCourseEndDate());
+        entity.setPrice(dto.getPrice());
         entity.setRegistrationStartDate(dto.getRegistrationStartDate());
         entity.setRegistrationEndDate(dto.getRegistrationEndDate());
         entity.setCourseName(dto.getCourseName());

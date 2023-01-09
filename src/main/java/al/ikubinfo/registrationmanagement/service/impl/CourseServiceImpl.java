@@ -6,10 +6,8 @@ import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
-import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.CourseUserRepository;
-import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
@@ -141,8 +139,10 @@ public class CourseServiceImpl implements CourseService {
     public void deleteCourseById(Long id) {
         courseUserRepository.getCourseUserEntitiesByCourseCourseName(getCourseById(id).getCourseName()).forEach(e -> e.setDeleted(true));
 
+
         CourseEntity course = courseRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Course does not exist"));
+        course.setStatus(CourseStatus.FINISHED);
         course.setDeleted(true);
         courseRepository.save(course);
     }
@@ -151,14 +151,19 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseUserDto assignUserToCourse(CourseUserDto dto) {
+
+
         CourseUserEntity courseUserEntity = courseUserRepository
             .findById(new CourseUserId(dto.getUserId(), dto.getCourseId()))
             .orElse(null);
+
         if (courseUserEntity != null) {
             courseUserEntity.setDeleted(false);
             courseUserRepository.save(courseUserEntity);
             return courseUserConverter.toDto(courseUserEntity);
         } else {
+
+
             dto.setCreatedDate(LocalDate.now());
             dto.setCreatedDate(LocalDate.now());
             courseUserRepository.save(courseUserConverter.toEntity(dto));

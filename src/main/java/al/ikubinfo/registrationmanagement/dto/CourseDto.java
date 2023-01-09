@@ -17,10 +17,9 @@ public class CourseDto {
     @NotBlank(message = "Course name cannot be null")
     private String courseName;
 
-    @NotNull(message = "price can't  be null")
     private Double price;
 
-    @NotNull
+    @NotNull(message = "Please select an status")
     private CourseStatus status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

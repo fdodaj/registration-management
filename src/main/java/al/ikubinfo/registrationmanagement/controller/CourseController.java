@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 @Controller
 public class CourseController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
+    private static final String REDIRECT_TO_ALL_URL = "redirect:/all";
     private static final String COURSES = "courses";
     private static final String COURSE = "course";
 
@@ -101,7 +102,7 @@ public class CourseController {
      */
     @PostMapping("/courses/assign-user")
     public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
-        ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+        ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_ALL_URL);
         modelAndView.addObject("courseUserDto", courseUserDto);
         courseUserDto.setCreatedDate(LocalDate.now());
         courseUserDto.setModifiedDate(LocalDate.now());
@@ -233,13 +234,6 @@ public class CourseController {
         return mv;
     }
 
-
-
-
-
-
-
-
     @GetMapping(value = "courses/exportToExcel")
     public ResponseEntity<Resource> exportToExcel(@Nullable CourseCriteria criteria) {
         ByteArrayResource resource;
@@ -283,15 +277,6 @@ public class CourseController {
                 .headers(headers)
                 .body(resource);
     }
-
-
-
-
-
-
-
-
-
 
 
     @GetMapping(value = "course-user/exportToExcel")

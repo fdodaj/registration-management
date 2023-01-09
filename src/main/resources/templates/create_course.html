@@ -64,39 +64,42 @@
                     </div>
     
                     <div class="form-group">
-                        <label>Course Price </label>
+                        <label>Course price </label>
                         <input class="form-control" name="price" th:field="*{price}" type="number"/>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                     </div>
 
                     <div class="form-group">
-                        <label> Course Registration Start Date </label>
+                        <label> Course registration start date </label>
                         <input class="form-control" name="registrationStartDate" th:field="*{registrationStartDate}" type="date"/>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('registrationStartDate')}" th:errors="*{registrationStartDate}"></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label> Course Registration End Date</label>
+                        <label> Course registration end date</label>
                         <input class="form-control" name="registrationEndDate" th:field="*{registrationEndDate}" type="date"/>
                     </div>
     
                     <div class="form-group">
-                        <label> Course Start Date</label>
+                        <label> Course start date</label>
                         <input class="form-control" name="courseStartDate" th:field="*{courseStartDate}" type="date"/>
                     </div>
 
                     <div class="form-group">
-                        <label> Course End Date</label>
+                        <label> Course end date</label>
                         <input class="form-control" name="courseEndDate" th:field="*{courseEndDate}" type="date"/>
                     </div>
     
                     <div class="form-group ">
-                        <div><label> Status </label></div>
                         <select name="status" th:field="*{status}"  style="text-align: center" class="form-control" >
+                            <option value="" selected hidden>Course status</option>
+
                             <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.CourseStatus).values()}"
                                     th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}" ></option>
                         </select>
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+
                     </div>
                     
     
