@@ -13,14 +13,6 @@ import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria
 import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseUserSpecification;
 import al.ikubinfo.registrationmanagement.service.CourseService;
-import al.ikubinfo.registrationmanagement.service.CustomDataTable;
-import be.quodlibet.boxable.BaseTable;
-import com.opencsv.CSVWriter;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,21 +21,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static com.opencsv.ICSVParser.DEFAULT_ESCAPE_CHARACTER;
-import static com.opencsv.ICSVParser.DEFAULT_SEPARATOR;
-import static com.opencsv.ICSVWriter.DEFAULT_LINE_END;
-import static com.opencsv.ICSVWriter.NO_QUOTE_CHARACTER;
 
 
 @Service

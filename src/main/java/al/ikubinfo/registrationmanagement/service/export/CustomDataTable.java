@@ -1,4 +1,4 @@
-package al.ikubinfo.registrationmanagement.service;
+package al.ikubinfo.registrationmanagement.service.export;
 
 
 import be.quodlibet.boxable.*;

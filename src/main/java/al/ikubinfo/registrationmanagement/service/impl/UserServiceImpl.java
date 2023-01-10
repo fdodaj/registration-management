@@ -1,7 +1,6 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.UserConverter;
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.PasswordDto;
 import al.ikubinfo.registrationmanagement.dto.UserDto;
 import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
@@ -9,19 +8,10 @@ import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.RoleRepository;
 import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
-import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.UserSpecification;
 import al.ikubinfo.registrationmanagement.security.Utils;
-import al.ikubinfo.registrationmanagement.service.CustomDataTable;
 import al.ikubinfo.registrationmanagement.service.UserService;
-import be.quodlibet.boxable.BaseTable;
-import com.opencsv.CSVWriter;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,20 +21,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static com.opencsv.ICSVParser.DEFAULT_ESCAPE_CHARACTER;
-import static com.opencsv.ICSVParser.DEFAULT_SEPARATOR;
-import static com.opencsv.ICSVWriter.DEFAULT_LINE_END;
-import static com.opencsv.ICSVWriter.NO_QUOTE_CHARACTER;
 
 @Service
 public class UserServiceImpl implements UserService {

@@ -1,9 +1,8 @@
-package al.ikubinfo.registrationmanagement.service.impl.export;
+package al.ikubinfo.registrationmanagement.service.export;
 
 import al.ikubinfo.registrationmanagement.dto.CourseUserListDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
-import al.ikubinfo.registrationmanagement.service.CustomDataTable;
 import be.quodlibet.boxable.BaseTable;
 import com.opencsv.CSVWriter;
 import org.apache.pdfbox.pdmodel.PDDocument;
