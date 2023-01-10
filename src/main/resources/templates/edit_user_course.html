@@ -57,12 +57,13 @@
 
 
                     <div class="form-group">
-                        <label> comment </label>
-                        <input class="form-control" name="name" th:field="*{comment}" th:maxlength="35" th:required="required" type="text"/>
+                        <input class="form-control" placeholder="Comment" name="name" th:field="*{comment}" th:maxlength="35" type="text"/>
                     </div>
 
                     <div class="form-group ">
                         <div><label> Status </label></div>
+                        <option value="" selected hidden>Status</option>
+
                         <select name="status" th:field="*{status}" style="text-align: center" class="form-control">
                             <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.UserStatusEnum).values()}"
                                     th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
@@ -70,18 +71,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label> reference </label>
-                        <input class="form-control" th:value="*{reference}" name="reference" th:field="*{reference}" th:maxlength="35" th:required="required" type="text"/>
+                        <input class="form-control" placeholder="Reference" th:value="*{reference}" name="reference" th:field="*{reference}" th:maxlength="35"  type="text"/>
                     </div>
 
                     <div class="form-group">
-                        <label> price paid </label>
-                        <input class="form-control" th:value="*{pricePaid}" name="pricePaid" th:field="*{pricePaid}" th:maxlength="1000" th:required="required" type="number  "/>
+                        <input class="form-control" placeholder="Price paid" th:value="*{pricePaid}" name="pricePaid" th:field="*{pricePaid}" th:maxlength="1000"  type="number  "/>
                     </div>
 
                     <div class="form-group">
-                        <label> price reduction </label>
-                        <input class="form-control" th:value="*{priceReduction}"  name="priceReduction" th:field="*{priceReduction}" th:maxlength="1000" th:required="required" type="number  "/>
+                        <input class="form-control" placeholder="Price reduction" th:value="*{priceReduction}"  name="priceReduction" th:field="*{priceReduction}" th:maxlength="1000"  type="number  "/>
                     </div>
 
 
