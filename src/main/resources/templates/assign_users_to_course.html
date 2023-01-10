@@ -22,7 +22,7 @@
                         <div class="form-group ">
                             <div><label> Status </label></div>
                             <select name="status" th:field="*{status}" style="text-align: center" class="form-control">
-                                <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.UserStatusEnum).values()}"
+                                <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum).values()}"
                                         th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
                             </select>
                         </div>

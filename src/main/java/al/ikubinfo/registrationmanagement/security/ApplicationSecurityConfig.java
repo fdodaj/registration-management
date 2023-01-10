@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.security;
 
-import al.ikubinfo.registrationmanagement.dto.RoleEnum;
+import al.ikubinfo.registrationmanagement.dto.roleDtos.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

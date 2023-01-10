@@ -1,7 +1,7 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.stereotype.Component;
 

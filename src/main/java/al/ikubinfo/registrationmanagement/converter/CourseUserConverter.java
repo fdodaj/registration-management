@@ -1,9 +1,9 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.CourseUserListDto;
-import al.ikubinfo.registrationmanagement.dto.SimplifiedCourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserListDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;

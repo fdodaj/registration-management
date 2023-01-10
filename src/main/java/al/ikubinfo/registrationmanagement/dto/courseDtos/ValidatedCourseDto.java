@@ -1,4 +1,4 @@
-package al.ikubinfo.registrationmanagement.dto;
+package al.ikubinfo.registrationmanagement.dto.courseDtos;
 
 import al.ikubinfo.registrationmanagement.validation.DatesCheck;
 import al.ikubinfo.registrationmanagement.validation.DatesChecks;

@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.*;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.CourseUserService;

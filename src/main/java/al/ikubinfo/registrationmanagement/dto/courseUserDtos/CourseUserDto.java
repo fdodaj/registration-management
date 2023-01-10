@@ -1,5 +1,6 @@
-package al.ikubinfo.registrationmanagement.dto;
+package al.ikubinfo.registrationmanagement.dto.courseUserDtos;
 
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -1,8 +1,8 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.CourseUserConverter;
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.CourseUserListDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserListDto;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
 import al.ikubinfo.registrationmanagement.repository.CourseUserRepository;
@@ -49,7 +49,6 @@ public class CourseUserServiceImpl implements CourseUserService {
         CourseUserEntity currentCourseUserEntity = courseUserConverter.toEntity(getCourseUserEntity(courseUserDto.getCourseId(), courseUserDto.getUserId()));
         CourseUserEntity entity = courseUserConverter.toUpdateCourseUserEntity(courseUserDto, currentCourseUserEntity);
         entity.setCreatedDate(getCourseUserEntity(courseUserDto.getCourseId(), courseUserDto.getUserId()).getCreatedDate());
-
         return courseUserConverter.toDto(courseUserRepository.save(entity));
     }
 

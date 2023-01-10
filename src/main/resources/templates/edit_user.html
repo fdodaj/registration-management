@@ -79,7 +79,7 @@
                         <select name="status" th:field="*{reachForm}"  style="text-align: center" class="form-control" >
                             <option value="" selected hidden>Reach form</option>
 
-                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.ReachFormEnum).values()}"
+                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.userDtos.ReachFormEnum).values()}"
                                     th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}" ></option>
                         </select>
                     </div>

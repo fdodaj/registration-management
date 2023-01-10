@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.repository.criteria;
 
-import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;

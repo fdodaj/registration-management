@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.entity;
 
-import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import lombok.Data;
 import org.hibernate.annotations.*;
 

@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.service.export;
 
-import al.ikubinfo.registrationmanagement.dto.CourseUserListDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserListDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseUserService;
 import be.quodlibet.boxable.BaseTable;

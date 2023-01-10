@@ -1,7 +1,7 @@
 package al.ikubinfo.registrationmanagement.entity;
 
 
-import al.ikubinfo.registrationmanagement.dto.ReachFormEnum;
+import al.ikubinfo.registrationmanagement.dto.userDtos.ReachFormEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;

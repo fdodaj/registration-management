@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.RoleDto;
+import al.ikubinfo.registrationmanagement.dto.roleDtos.RoleDto;
 import al.ikubinfo.registrationmanagement.entity.RoleEntity;
 import org.springframework.stereotype.Component;
 

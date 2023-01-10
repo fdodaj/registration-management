@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.LoginDto;
+import al.ikubinfo.registrationmanagement.dto.authDtos.LoginDto;
 import al.ikubinfo.registrationmanagement.security.TokenProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

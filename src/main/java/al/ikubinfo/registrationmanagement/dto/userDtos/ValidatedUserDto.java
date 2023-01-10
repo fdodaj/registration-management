@@ -1,8 +1,7 @@
-package al.ikubinfo.registrationmanagement.dto;
+package al.ikubinfo.registrationmanagement.dto.userDtos;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
 
 
 @Valid
