@@ -2,11 +2,10 @@ package al.ikubinfo.registrationmanagement.controller;
 
 import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
-import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.CourseUserService;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import al.ikubinfo.registrationmanagement.service.export.CourseExports;
-import al.ikubinfo.registrationmanagement.service.export.CourseUserExports;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -23,15 +22,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 
 @Controller
 public class CourseController {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
-    private static final String REDIRECT_TO_ALL_URL = "redirect:/all";
     private static final String COURSES = "courses";
     private static final String COURSE = "course";
-    private static final String COURSEUSER = "courseUser";
 
     @Autowired
     private CourseService courseService;
@@ -40,88 +36,10 @@ public class CourseController {
     private UserService userService;
 
     @Autowired
-    private CourseUserExports courseUserExports;
+    private CourseUserService courseUserService;
 
     @Autowired
     private CourseExports courseExports;
-
-    @GetMapping("/all")
-    public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
-        Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
-        ModelAndView mv = new ModelAndView("user_course_list");
-        mv.addObject("UserCourseList", userCourseList);
-        return mv;
-    }
-    @GetMapping(path = "{courseId}/{userId}")
-    public ResponseEntity<CourseUserDto> getCourseUser(@PathVariable Long courseId, @PathVariable Long userId) {
-        return ResponseEntity.ok(courseService.getCourseUserEntity(courseId, userId));
-    }
-    @GetMapping("/all/{courseId}/{userId}")
-    public ModelAndView updateCourseUserView(@Valid @PathVariable("courseId")Long courseId, @PathVariable("userId") Long userId) {
-        CourseUserDto courseUserDto = courseService.getCourseUserEntity(courseId, userId);
-        ModelAndView mv = new ModelAndView("edit_user_course");
-        mv.addObject(COURSEUSER, courseUserDto);
-        return mv;
-    }
-    @PostMapping(path = "/edit/{courseId}/{userId}")
-    public ModelAndView updateCourseUser(@ModelAttribute CourseUserDto courseUserDto, BindingResult result, Model model) {
-        model.addAttribute(COURSEUSER, courseUserDto);
-        if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("edit_user_course");
-            mv.addObject(COURSEUSER, courseUserDto);
-            mv.addObject("course", courseService.getCourseById(courseUserDto.getCourseId()));
-            mv.addObject("user", userService.getUserById(courseUserDto.getUserId()));
-
-            return mv;
-        }
-        courseService.editCourseUser(courseUserDto);
-        return new ModelAndView("redirect:/all");
-    }
-
-    /**
-     * Retrieve user assign to course view
-     *
-     * @param userId user id
-     * @return ModelAndView
-     */
-
-    @GetMapping("/course/assign/{userId}")
-    public ModelAndView assignCourseView(@PathVariable("userId") Long userId, CourseUserDto courseUserDto) {
-        ModelAndView mv = new ModelAndView("assign_course_to_user");
-        UserDto user = userService.getUserById(userId);
-        courseUserDto.setUserId(user.getId());
-        mv.addObject("courseUserDto", courseUserDto);
-        mv.addObject(COURSES, courseService.filterCourses(new CourseCriteria()));
-        return mv;
-    }
-
-    /**
-     * Assigns to course
-     *
-     * @return ModelAndView
-     */
-    @PostMapping("/courses/assign-user")
-    public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
-        ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_ALL_URL);
-        modelAndView.addObject("courseUserDto", courseUserDto);
-        courseUserDto.setCreatedDate(LocalDate.now());
-        courseUserDto.setModifiedDate(LocalDate.now());
-        courseService.assignUserToCourse(courseUserDto);
-        return modelAndView;
-    }
-    /**
-     * Remove user from course
-     *
-     * @param courseId  courseId
-     * @param studentId userId
-     * @return ModelAndView
-     */
-    @GetMapping("/users/{courseId}/{studentId}")
-    ModelAndView removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
-        ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-        courseService.removeUserFromCourse(studentId, courseId);
-        return mv;
-    }
 
     /**
      * Get all courses. if criteria is applied, courses are filter accordingly
@@ -149,7 +67,7 @@ public class CourseController {
         mv.addObject(COURSE, courseService.getCourseById(id));
         mv.addObject("users", courseService.getAllStudentsByCourseId(id));
         mv.addObject("userList", userService.getUnassignedUsers());
-        mv.addObject("userCourseList", courseService.getCourseUserListByCourseId(id));
+        mv.addObject("userCourseList", courseUserService.getCourseUserListByCourseId(id));
 
         return mv;
     }
@@ -167,6 +85,7 @@ public class CourseController {
         mv.addObject(COURSE, courseDto);
         return mv;
     }
+
     /**
      * Update course
      *
@@ -174,7 +93,7 @@ public class CourseController {
      * @return ModelAndView
      */
     @PostMapping("/course/{id}")
-    public ModelAndView updateCourse(@Valid @ModelAttribute("course")  CourseDto course, BindingResult result, Model model) {
+    public ModelAndView updateCourse(@Valid @ModelAttribute("course") CourseDto course, BindingResult result, Model model) {
         model.addAttribute(COURSE, course);
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("edit_course");
@@ -202,6 +121,7 @@ public class CourseController {
         courseService.saveCourse(course);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
+
     /**
      * Delete course (soft deletion)
      *
@@ -213,6 +133,7 @@ public class CourseController {
         courseService.deleteCourseById(id);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
+
     /**
      * Retrieve form of course creation
      *
@@ -270,49 +191,5 @@ public class CourseController {
                 .body(resource);
     }
 
-
-    @GetMapping(value = "course-user/exportToExcel")
-    public ResponseEntity<Resource> exportToCourseUserExcel( CourseUserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
-
-
-        resource = new ByteArrayResource(courseUserExports.createCourseUserExcel(criteria));
-        headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-
-    @GetMapping(value = "course-user/exportToCvs")
-    public ResponseEntity<Resource> exportToCourseUserCvs( CourseUserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
-
-        resource = new ByteArrayResource(courseUserExports.createCourseUserCvs(criteria));
-        headers.setContentType(new MediaType("text", "csv"));
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-
-    @GetMapping(value = "course-user/exportToPdf")
-    public ResponseEntity<Resource> exportToPdf( CourseUserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
-
-        resource = new ByteArrayResource(courseUserExports.createCourseUserPdf(criteria));
-        headers.setContentType(MediaType.APPLICATION_PDF);
-
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
 
 }

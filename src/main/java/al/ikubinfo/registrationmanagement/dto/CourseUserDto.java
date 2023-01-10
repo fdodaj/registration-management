@@ -2,7 +2,6 @@ package al.ikubinfo.registrationmanagement.dto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.unbescape.xml.XmlEscape;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;

@@ -1,7 +1,6 @@
 package al.ikubinfo.registrationmanagement.repository;
 
 import al.ikubinfo.registrationmanagement.dto.CourseStatus;
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

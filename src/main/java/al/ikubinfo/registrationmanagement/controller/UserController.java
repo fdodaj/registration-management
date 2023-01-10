@@ -3,6 +3,7 @@ package al.ikubinfo.registrationmanagement.controller;
 import al.ikubinfo.registrationmanagement.dto.*;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.CourseUserService;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import al.ikubinfo.registrationmanagement.service.export.UserExports;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -37,6 +38,9 @@ public class UserController {
 
     @Autowired
     private UserExports userExports;
+
+    @Autowired
+    private CourseUserService courseUserService;
 
 
     /**
@@ -107,7 +111,7 @@ public class UserController {
     public ModelAndView assignUserToCourse(@Valid @ModelAttribute("course") CourseUserDto courseUserDto) {
         ModelAndView modelAndView = new ModelAndView("assign_users_to_course");
         modelAndView.addObject("courseUserDto", courseUserDto);
-        courseService.assignUserToCourse(courseUserDto);
+        courseUserService.assignUserToCourse(courseUserDto);
         return modelAndView;
     }
 

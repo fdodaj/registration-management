@@ -2,7 +2,7 @@ package al.ikubinfo.registrationmanagement.service.export;
 
 import al.ikubinfo.registrationmanagement.dto.CourseUserListDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
-import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.CourseUserService;
 import be.quodlibet.boxable.BaseTable;
 import com.opencsv.CSVWriter;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -30,14 +30,14 @@ import static com.opencsv.ICSVWriter.NO_QUOTE_CHARACTER;
 public class CourseUserExports {
 
     @Autowired
-    private CourseService courseService;
+    private CourseUserService courseUserService;
 
     public byte[] createCourseUserCvs(CourseUserCriteria criteria) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         List<String[]> entries = new ArrayList<>();
         entries.add(getHeaders());
 
-        courseService.getCourseUserList(criteria).getContent().forEach(e -> entries.add(populate(e)));
+        courseUserService.getCourseUserList(criteria).getContent().forEach(e -> entries.add(populate(e)));
 
 
         OutputStreamWriter outputStreamWriter =
@@ -62,7 +62,7 @@ public class CourseUserExports {
 
         List<String[]> entries = new ArrayList<>();
         entries.add(getHeaders());
-        courseService.getCourseUserList(criteria).getContent().forEach(e -> entries.add(populate(e)));
+        courseUserService.getCourseUserList(criteria).getContent().forEach(e -> entries.add(populate(e)));
 
         PDDocument doc = new PDDocument();
         PDPage page = new PDPage();
@@ -127,7 +127,7 @@ public class CourseUserExports {
 
         int rowNum = 1;
 
-        for (CourseUserListDto dto : courseService.getCourseUserList(criteria).getContent()) {
+        for (CourseUserListDto dto : courseUserService.getCourseUserList(criteria).getContent()) {
             Row row = sheet.createRow(rowNum++);
             String[] fields = populate(dto);
             for (int i = 0; i < fields.length; i++)
