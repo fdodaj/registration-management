@@ -1,10 +1,10 @@
 package al.ikubinfo.registrationmanagement.controller;
 
 import al.ikubinfo.registrationmanagement.dto.*;
-import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
+import al.ikubinfo.registrationmanagement.service.impl.export.UserExports;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -34,6 +34,9 @@ public class UserController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private UserExports userExports;
 
 
     /**
@@ -210,7 +213,7 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
 
-        resource = new ByteArrayResource(userService.createPdf(criteria));
+        resource = new ByteArrayResource(userExports.createPdf(criteria));
         headers.setContentType(MediaType.APPLICATION_PDF);
 
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
@@ -225,7 +228,7 @@ public class UserController {
         String fileName = "users_excel";
 
 
-        resource = new ByteArrayResource(userService.createExcel(criteria));
+        resource = new ByteArrayResource(userExports.createExcel(criteria));
         headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
         return ResponseEntity.ok()
@@ -239,7 +242,7 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         String fileName = "users_cvs";
 
-        resource = new ByteArrayResource(userService.createCsv(criteria));
+        resource = new ByteArrayResource(userExports.createCsv(criteria));
         headers.setContentType(new MediaType("text", "csv"));
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
         return ResponseEntity.ok()

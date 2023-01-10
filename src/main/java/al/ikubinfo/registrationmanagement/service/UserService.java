@@ -62,9 +62,5 @@ public interface UserService {
 
      UserDto changePassword(PasswordDto passwordDto);
 
-    byte[] createPdf(UserCriteria criteria);
-    byte[] createCsv(UserCriteria criteria);
-
-    byte[] createExcel(UserCriteria criteria);
 
 }

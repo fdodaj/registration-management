@@ -5,13 +5,14 @@ import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.UserService;
+import al.ikubinfo.registrationmanagement.service.impl.export.CourseExports;
+import al.ikubinfo.registrationmanagement.service.impl.export.CourseUserExports;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -23,8 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class CourseController {
@@ -32,18 +31,19 @@ public class CourseController {
     private static final String REDIRECT_TO_ALL_URL = "redirect:/all";
     private static final String COURSES = "courses";
     private static final String COURSE = "course";
-
     private static final String COURSEUSER = "courseUser";
-
-    public static final String PDF = "PDF";
-    public static final String CSV = "CSV";
-    public static final String EXCEL = "EXCEL";
 
     @Autowired
     private CourseService courseService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CourseUserExports courseUserExports;
+
+    @Autowired
+    private CourseExports courseExports;
 
     @GetMapping("/all")
     public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
@@ -122,14 +122,6 @@ public class CourseController {
         courseService.removeUserFromCourse(studentId, courseId);
         return mv;
     }
-
-
-
-
-
-
-
-
 
     /**
      * Get all courses. if criteria is applied, courses are filter accordingly
@@ -241,7 +233,7 @@ public class CourseController {
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
 
 
-        resource = new ByteArrayResource(courseService.createExcel(criteria));
+        resource = new ByteArrayResource(courseExports.createExcel(criteria));
         headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
         return ResponseEntity.ok()
@@ -255,7 +247,7 @@ public class CourseController {
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
 
-        resource = new ByteArrayResource(courseService.createCsv(criteria));
+        resource = new ByteArrayResource(courseExports.createCsv(criteria));
         headers.setContentType(new MediaType("text", "csv"));
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
         return ResponseEntity.ok()
@@ -269,7 +261,7 @@ public class CourseController {
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
 
-        resource = new ByteArrayResource(courseService.createPdf(criteria));
+        resource = new ByteArrayResource(courseExports.createPdf(criteria));
         headers.setContentType(MediaType.APPLICATION_PDF);
 
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
@@ -286,7 +278,7 @@ public class CourseController {
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
 
 
-        resource = new ByteArrayResource(courseService.createCourseUserExcel(criteria));
+        resource = new ByteArrayResource(courseUserExports.createCourseUserExcel(criteria));
         headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
         return ResponseEntity.ok()
@@ -300,7 +292,7 @@ public class CourseController {
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
 
-        resource = new ByteArrayResource(courseService.createCourseUserCvs(criteria));
+        resource = new ByteArrayResource(courseUserExports.createCourseUserCvs(criteria));
         headers.setContentType(new MediaType("text", "csv"));
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
         return ResponseEntity.ok()
@@ -314,7 +306,7 @@ public class CourseController {
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
 
-        resource = new ByteArrayResource(courseService.createCourseUserPdf(criteria));
+        resource = new ByteArrayResource(courseUserExports.createCourseUserPdf(criteria));
         headers.setContentType(MediaType.APPLICATION_PDF);
 
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");

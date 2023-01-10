@@ -91,17 +91,8 @@ public interface CourseService {
      */
     List<SimplifiedCourseUserDto> getAllStudentsByCourseId(Long courseId);
 
-
     List<CourseUserListDto> getCourseUserList();
 
     CourseUserDto getCourseUserEntity(Long courseId, Long userId);
-
-    byte[] createCsv(CourseCriteria criteria);
-    byte[] createPdf(CourseCriteria criteria);
-    byte[] createExcel(CourseCriteria criteria);
-
-    byte[] createCourseUserCvs(CourseUserCriteria criteria);
-    byte[] createCourseUserPdf(CourseUserCriteria criteria);
-    byte[] createCourseUserExcel(CourseUserCriteria criteria);
 
 }
