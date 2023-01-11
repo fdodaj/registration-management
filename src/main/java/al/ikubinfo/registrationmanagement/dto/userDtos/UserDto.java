@@ -1,5 +1,6 @@
 package al.ikubinfo.registrationmanagement.dto.userDtos;
 
+import al.ikubinfo.registrationmanagement.dto.BaseDto;
 import al.ikubinfo.registrationmanagement.dto.roleDtos.RoleDto;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
 import lombok.Data;
@@ -9,9 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class UserDto {
-
-    private Long id;
+public class UserDto extends BaseDto {
 
     private String firstName;
 

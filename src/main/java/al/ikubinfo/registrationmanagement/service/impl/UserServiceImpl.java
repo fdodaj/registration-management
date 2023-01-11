@@ -4,6 +4,7 @@ import al.ikubinfo.registrationmanagement.converter.UserConverter;
 import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
+import al.ikubinfo.registrationmanagement.entity.BaseEntity;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.RoleRepository;
 import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
@@ -11,6 +12,7 @@ import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.UserSpecification;
 import al.ikubinfo.registrationmanagement.security.Utils;
+import al.ikubinfo.registrationmanagement.service.ExportUtilities;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ExportUtilities<UserCriteria, UserEntity, UserRepository, UserSpecification> implements UserService  {
 
 
     @Autowired
@@ -45,6 +47,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    protected UserServiceImpl(UserRepository repository, UserSpecification specificationBuilder) {
+        super(repository, specificationBuilder);
+    }
 
     @Override
     public Page<UserDto> filterUsers(UserCriteria criteria) {
@@ -115,6 +121,24 @@ public class UserServiceImpl implements UserService {
 
     private boolean authenticate(UserEntity user, String password) {
         return bCryptPasswordEncoder.matches(password, user.getPassword());
+    }
+
+
+    @Override
+    public String[] getHeaders() {
+        return new String[]{
+                "Emer", "Mbiemer", "Email", "Numer telefoni", "Referimi"
+        };    }
+
+    @Override
+    public String[] populate(UserEntity entity) {
+        return new String[]{
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getEmail(),
+                entity.getPhoneNumber(),
+                entity.getReachForm().toString(),
+        };
     }
 
 

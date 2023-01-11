@@ -6,10 +6,12 @@ import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
+import al.ikubinfo.registrationmanagement.repository.specification.UserSpecification;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.CourseUserService;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import al.ikubinfo.registrationmanagement.service.export.UserExports;
+import al.ikubinfo.registrationmanagement.service.impl.UserServiceImpl;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -30,12 +32,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class UserController {
+public class UserController extends ControllerTemplate<UserDto, UserCriteria, UserServiceImpl> {
     private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/users";
     private static final String USERS = "users";
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private CourseService courseService;
@@ -45,6 +47,10 @@ public class UserController {
 
     @Autowired
     private CourseUserService courseUserService;
+
+    public UserController(UserServiceImpl service) {
+        super(service);
+    }
 
 
     /**
@@ -215,46 +221,32 @@ public class UserController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/users/exportToPdf")
-    public ResponseEntity<Resource> exportToPdf(@Nullable UserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+//    @GetMapping(value = "/users/exportToPdf")
+//    public ResponseEntity<Resource> exportToExcel(@Nullable UserCriteria criteria) {
+//        ByteArrayResource resource;
+//        HttpHeaders headers = new HttpHeaders();
+//        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+//
+//        resource = new ByteArrayResource(userExports.createPdf(criteria));
+//        headers.setContentType(MediaType.APPLICATION_PDF);
+//
+//        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
+//        return ResponseEntity.ok()
+//                .headers(headers)
+//                .body(resource);
+//    }
 
-        resource = new ByteArrayResource(userExports.createPdf(criteria));
-        headers.setContentType(MediaType.APPLICATION_PDF);
-
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-    @GetMapping(value = "users/exportToExcel")
-    public ResponseEntity<Resource> exportToExcel(@Nullable UserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = "users_excel";
-
-
-        resource = new ByteArrayResource(userExports.createExcel(criteria));
-        headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-
-    @GetMapping(value = "users/exportToCvs")
-    public ResponseEntity<Resource> exportToCvs(@Nullable UserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = "users_cvs";
-
-        resource = new ByteArrayResource(userExports.createCsv(criteria));
-        headers.setContentType(new MediaType("text", "csv"));
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
+//    @GetMapping(value = "users/exportToCvs")
+//    public ResponseEntity<Resource> exportToCvs(@Nullable UserCriteria criteria) {
+//        ByteArrayResource resource;
+//        HttpHeaders headers = new HttpHeaders();
+//        String fileName = "users_cvs";
+//
+//        resource = new ByteArrayResource(userExports.createCsv(criteria));
+//        headers.setContentType(new MediaType("text", "csv"));
+//        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
+//        return ResponseEntity.ok()
+//                .headers(headers)
+//                .body(resource);
+//    }
 }
