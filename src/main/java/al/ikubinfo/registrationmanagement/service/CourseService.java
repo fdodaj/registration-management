@@ -1,8 +1,9 @@
 package al.ikubinfo.registrationmanagement.service;
 
-import al.ikubinfo.registrationmanagement.dto.*;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
-import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -16,8 +17,6 @@ public interface CourseService {
      * @return CourseDto
      */
     Page<CourseDto> filterCourses(CourseCriteria criteria);
-
-    Page<CourseUserListDto> getCourseUserList(CourseUserCriteria criteria);
 
     /**
      * Retrieve course details
@@ -57,23 +56,6 @@ public interface CourseService {
      */
     void deleteCourseById(Long courseId);
 
-    /**
-     * Assign user to course
-     *
-     * @param dto CourseUserDto
-     * @return CourseUserDto
-     */
-    CourseUserDto assignUserToCourse(CourseUserDto dto);
-
-    CourseUserDto updateCourseUser(CourseUserDto dto);
-
-    /**
-     * Remove user from course
-     *
-     * @param userId   user id
-     * @param courseId course ic
-     */
-    void removeUserFromCourse(Long userId, Long courseId);
 
     /**
      * Retrieve course details
@@ -83,6 +65,4 @@ public interface CourseService {
      */
     List<SimplifiedCourseUserDto> getAllStudentsByCourseId(Long courseId);
 
-
-    List<CourseUserListDto> getCourseUserList();
 }

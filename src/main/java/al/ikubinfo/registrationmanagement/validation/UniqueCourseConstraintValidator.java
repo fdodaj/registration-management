@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.validation;
 
-import al.ikubinfo.registrationmanagement.dto.CourseStatus;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import org.springframework.beans.BeanWrapperImpl;

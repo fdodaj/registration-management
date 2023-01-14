@@ -1,7 +1,7 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +17,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         CourseDto dto = new CourseDto();
         dto.setId(entity.getId());
         dto.setCourseName(entity.getCourseName());
+        dto.setPrice(entity.getPrice());
         dto.setStatus(entity.getStatus());
         dto.setCourseStartDate(entity.getCourseStartDate());
         dto.setCourseEndDate(entity.getCourseEndDate());
@@ -39,6 +40,7 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
 
         entity.setCourseStartDate(dto.getCourseStartDate());
         entity.setCourseEndDate(dto.getCourseEndDate());
+        entity.setPrice(dto.getPrice());
         entity.setRegistrationStartDate(dto.getRegistrationStartDate());
         entity.setRegistrationEndDate(dto.getRegistrationEndDate());
         entity.setCourseName(dto.getCourseName());

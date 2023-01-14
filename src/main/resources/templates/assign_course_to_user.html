@@ -20,18 +20,25 @@
     
     
                         <div class="form-group ">
-                            <div><label> Status </label></div>
-                            <select name="status" th:field="*{status}" style="text-align: center" class="form-control">
-                                <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.UserStatusEnum).values()}"
+                            <select name="status" th:field="*{status}"class="form-control">
+                                <option value="" selected hidden>Select status</option>
+
+                                <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum).values()}"
                                         th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
                             </select>
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+
                         </div>
                         
                         <div class="form-group ">
                             <select th:field="*{courseId}" class="form-control">
+                                <option value="" selected hidden>Select Course</option>
+
                                 <option th:each="course : ${courses}"
                                         th:value="${course.id}" th:text="${course.courseName}">
                             </select>
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('courseId')}" th:errors="*{courseId}"></div>
+
                         </div>
     
                         <div class="form-group">
@@ -41,25 +48,23 @@
     
                        
                         <div class="form-group">
-                            <label>Price Paid </label>
-                            <input class="form-control" name="pricePaid" placeholder="comment" th:field="*{pricePaid}"
+                            <input class="form-control" name="pricePaid" placeholder="Price paid" th:field="*{pricePaid}"
                                    type="number"/>
                         </div>
         
                         <div class="form-group">
-                            <label> Price Reduction</label>
-                            <input class="form-control" name="priceReduction" placeholder="pricePaid"
+                            <input class="form-control" name="priceReduction" placeholder="Price reduction"
                                    th:field="*{priceReduction}" type="number"/>
                         </div>
     
     
                         <div class="form-group">
-                            <input class="form-control" name="reference" placeholder="reference" th:field="*{reference}"
+                            <input class="form-control" name="reference" placeholder="Reference" th:field="*{reference}"
                                    type="text"/>
                         </div>
     
                         <div class="form-group">
-                            <input class="form-control" name="comment" placeholder="comment" th:field="*{comment}"
+                            <input class="form-control" name="comment" placeholder="Comment" th:field="*{comment}"
                                    type="text"/>
                         </div>
     

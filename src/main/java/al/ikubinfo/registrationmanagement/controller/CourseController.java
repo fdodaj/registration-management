@@ -1,19 +1,25 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.*;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
-import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.CourseUserService;
 import al.ikubinfo.registrationmanagement.service.UserService;
+import al.ikubinfo.registrationmanagement.service.export.CourseExports;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -24,15 +30,17 @@ public class CourseController {
     private static final String COURSES = "courses";
     private static final String COURSE = "course";
 
-    public static final String PDF = "PDF";
-    public static final String CSV = "CSV";
-    public static final String EXCEL = "EXCEL";
-
     @Autowired
     private CourseService courseService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CourseUserService courseUserService;
+
+    @Autowired
+    private CourseExports courseExports;
 
     /**
      * Get all courses. if criteria is applied, courses are filter accordingly
@@ -48,15 +56,6 @@ public class CourseController {
         return mv;
     }
 
-    @GetMapping("/all")
-    public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
-        Page<CourseUserListDto> userCourseList = courseService.getCourseUserList(criteria);
-        ModelAndView mv = new ModelAndView("user_course_list");
-        mv.addObject("UserCourseList", userCourseList);
-        return mv;
-    }
-
-
     /**
      * Retrieve course details
      *
@@ -69,6 +68,8 @@ public class CourseController {
         mv.addObject(COURSE, courseService.getCourseById(id));
         mv.addObject("users", courseService.getAllStudentsByCourseId(id));
         mv.addObject("userList", userService.getUnassignedUsers());
+        mv.addObject("userCourseList", courseUserService.getCourseUserListByCourseId(id));
+
         return mv;
     }
 
@@ -93,7 +94,7 @@ public class CourseController {
      * @return ModelAndView
      */
     @PostMapping("/course/{id}")
-    public ModelAndView updateCourse(@Valid @ModelAttribute("course")  CourseDto course, BindingResult result, Model model) {
+    public ModelAndView updateCourse(@Valid @ModelAttribute("course") CourseDto course, BindingResult result, Model model) {
         model.addAttribute(COURSE, course);
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("edit_course");
@@ -133,49 +134,6 @@ public class CourseController {
         courseService.deleteCourseById(id);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
-    /**
-     * Remove user from course
-     *
-     * @param courseId  courseId
-     * @param studentId userId
-     * @return ModelAndView
-     */
-    @GetMapping("/users/{courseId}/{studentId}")
-    ModelAndView removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
-        ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-        courseService.removeUserFromCourse(studentId, courseId);
-        return mv;
-    }
-
-    /**
-     * Retrieve user assign to course view
-     *
-     * @param userId user id
-     * @return ModelAndView
-     */
-    @GetMapping("/course/assign/{userId}")
-    public ModelAndView assignCourseView(@PathVariable("userId") Long userId, CourseUserDto courseUserDto) {
-        ModelAndView mv = new ModelAndView("assign_course_to_user");
-        UserDto user = userService.getUserById(userId);
-        courseUserDto.setUserId(user.getId());
-        mv.addObject("courseUserDto", courseUserDto);
-        mv.addObject(COURSES, courseService.filterCourses(new CourseCriteria()));
-        return mv;
-    }
-
-
-    /**
-     * Assigns to course
-     *
-     * @return ModelAndView
-     */
-    @PostMapping("/courses/assign-user")
-    public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
-        ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-        modelAndView.addObject("courseUserDto", courseUserDto);
-        courseService.assignUserToCourse(courseUserDto);
-        return modelAndView;
-    }
 
     /**
      * Retrieve form of course creation
@@ -190,11 +148,49 @@ public class CourseController {
         return mv;
     }
 
-//    @GetMapping("/all")
-//    public ResponseEntity<List<CourseUserListDto>> getCourseUserList() {
-//        return new ResponseEntity<>(courseService.getCourseUserList(), HttpStatus.OK);
-//    }
+    @GetMapping(value = "courses/exportToExcel")
+    public ResponseEntity<Resource> exportToExcel(@Nullable CourseCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
 
+
+        resource = new ByteArrayResource(courseExports.createExcel(criteria));
+        headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
+
+    @GetMapping(value = "courses/exportToCvs")
+    public ResponseEntity<Resource> exportToCvs(@Nullable CourseCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+        resource = new ByteArrayResource(courseExports.createCsv(criteria));
+        headers.setContentType(new MediaType("text", "csv"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
+
+    @GetMapping(value = "courses/exportToPdf")
+    public ResponseEntity<Resource> exportToPdf(@Nullable CourseCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+        resource = new ByteArrayResource(courseExports.createPdf(criteria));
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
 
 
 }

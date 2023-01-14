@@ -1,15 +1,19 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.CourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.CourseUserListDto;
-import al.ikubinfo.registrationmanagement.dto.SimplifiedCourseUserDto;
-import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserListDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
+import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
+import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class CourseUserConverter implements BidirectionalConverter<CourseUserDto, CourseUserEntity> {
@@ -35,6 +39,9 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
         dto.setReference(entity.getReference());
         dto.setPricePaid(entity.getPricePaid());
         dto.setPriceReduction(entity.getPriceReduction());
+        dto.setStatus(entity.getStatus());
+        dto.setCreatedDate(entity.getCreatedDate());
+        dto.setModifiedDate(LocalDate.now());
         return dto;
     }
 
@@ -68,16 +75,24 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
 
     public CourseUserEntity toUpdateCourseUserEntity(CourseUserDto dto, CourseUserEntity entity) {
         entity.setId(new CourseUserId(dto.getUserId(), dto.getCourseId()));
+        UserEntity user = userRepository.findById(dto.getUserId()).orElseThrow(null);
+        CourseEntity course = courseRepository.findById(dto.getCourseId()).orElseThrow(null);
+
+        entity.setUser(user);
+        entity.setCourse(course);
         entity.setPriceReduction(dto.getPriceReduction());
         entity.setPricePaid(dto.getPricePaid());
         entity.setComment(dto.getComment());
         entity.setStatus(dto.getStatus());
         entity.setReference(dto.getReference());
+        entity.setCreatedDate(dto.getCreatedDate());
+        entity.setModifiedDate(dto.getModifiedDate());
         return entity;
     }
 
     public CourseUserListDto toCourseUserList(CourseUserEntity entity) {
         CourseUserListDto dto = new CourseUserListDto();
+        dto.setId(entity.getId());
         dto.setCourseDto(courseConverter.toDto(entity.getCourse()));
         dto.setUserDto(userConverter.toDto(entity.getUser()));
         dto.setStatus(entity.getStatus());

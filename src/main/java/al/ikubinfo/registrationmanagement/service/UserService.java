@@ -1,8 +1,8 @@
 package al.ikubinfo.registrationmanagement.service;
 
-import al.ikubinfo.registrationmanagement.dto.PasswordDto;
-import al.ikubinfo.registrationmanagement.dto.UserDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
+import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import org.springframework.data.domain.Page;
 
@@ -59,6 +59,7 @@ public interface UserService {
 
     List<UserDto> getUnassignedUsers();
 
-
      UserDto changePassword(PasswordDto passwordDto);
+
+
 }

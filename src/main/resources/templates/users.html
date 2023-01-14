@@ -84,25 +84,34 @@
             <td style="text-align: center">
                 <a class="btn btn-dark"
                    th:href="@{/users/{id}(id=${user.id})}">View</a>
-    
+
                 <a class="btn btn-primary"
                    th:href="@{/users/edit/{id}(id=${user.id})}">Update</a>
-    
+
                 <a class="btn btn-danger"
                    onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
                    th:data-confirm-delete="|Are you sure you want to delete this user |"
                    th:href="@{/users/delete/{id}(id=${user.id})} ">
                     Delete</a>
-    
+
                 <a class="btn btn-primary"
                    th:href="@{course/assign/{id}(id=${user.id})} ">Assign to course</a>
             </td>
         </tr>
         </tbody>
-
     </table>
-    
-   
+
+    <button class="btn btn-primary" id="exportToPdf" type="button">
+        export to PDF
+    </button>
+    <button class="btn btn-primary" id="exportToCvs" type="button">
+        export to CVS
+    </button>
+    <button class="btn btn-primary" id="exportToExcel" type="button">
+        export to EXCEL
+    </button>
+
+
 </div>
 <script>
     let sendBtn = document.getElementById('sendButton');
@@ -122,7 +131,27 @@
 
         }
     )
-    
+
+    let exportToPdfButton = document.getElementById('exportToPdf');
+    let exportToCvsButton = document.getElementById('exportToCvs');
+    let exportToExcelButton = document.getElementById('exportToExcel');
+
+    exportToPdfButton.addEventListener("click", () => {
+            let url = window.location.toString();
+            window.location = url.replace(/users/, 'users/exportToPdf')
+        }
+    )
+    exportToCvsButton.addEventListener("click", () => {
+            let url = window.location.toString();
+            window.location = url.replace(/users/, 'users/exportToCvs')
+        }
+    )
+    exportToExcelButton.addEventListener("click", () => {
+            let url = window.location.toString();
+            window.location = url.replace(/users/, 'users/exportToExcel')
+        }
+    )
+
 </script>
 </body>
 </html>

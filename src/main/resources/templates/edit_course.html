@@ -22,7 +22,19 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/courses}">Student Management</a>
+                <a class="nav-link" th:href="@{/all}">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/users}">Student Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/courses}">Course Management</a>
+            </li>
+            <li class="nav-item" style="margin-left: 250px; padding-left: 250px">
+                <a class="nav-link" th:href="@{/signout}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/change_password}">Change Password</a>
             </li>
         </ul>
     </div>
@@ -48,33 +60,36 @@
                     </div>
 
                     <div class="form-group">
-                        <label> course registration date </label>
+                        <label> Course registration start date </label>
                         <input class="form-control" name="registrationStartDate" th:field="*{registrationStartDate}" type="date"/>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('registrationStartDate')}" th:errors="*{registrationStartDate}"></div>
                     </div>
 
                     <div class="form-group">
-                        <label> course registration end date</label>
+                        <label> Course registration end date</label>
                         <input class="form-control" name="registrationEndDate" th:field="*{registrationEndDate}" type="date"/>
                     </div>
     
                     <div class="form-group">
-                        <label> course start date</label>
+                        <label> Course start date</label>
                         <input class="form-control" name="courseStartDate" th:field="*{courseStartDate}" type="date"/>
                     </div>
     
     
                     <div class="form-group">
-                        <label> course end date</label>
+                        <label> Course end date</label>
                         <input class="form-control" name="courseEndDate" th:field="*{courseEndDate}" type="date"/>
                     </div>
-    
+
                     <div class="form-group ">
-                        <div><label> Status </label></div>
-                        <select class="form-control" name="status" style="text-align: center" th:field="*{status}">
-                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.CourseStatus).values()}"
-                                    th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
+                        <select name="status" th:field="*{status}"  style="text-align: center" class="form-control" >
+                            <option value="" selected hidden>Course status</option>
+
+                            <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus).values()}"
+                                    th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}" ></option>
                         </select>
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+
                     </div>
     
                     <div class="box-footer">

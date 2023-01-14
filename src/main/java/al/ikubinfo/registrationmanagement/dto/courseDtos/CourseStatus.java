@@ -1,4 +1,4 @@
-package al.ikubinfo.registrationmanagement.dto;
+package al.ikubinfo.registrationmanagement.dto.courseDtos;
 
 public enum CourseStatus {
 

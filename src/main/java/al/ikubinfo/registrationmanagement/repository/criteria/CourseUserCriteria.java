@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.repository.criteria;
 
-import al.ikubinfo.registrationmanagement.dto.UserStatusEnum;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,6 +25,8 @@ public class CourseUserCriteria extends BaseCriteria {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate courseStartDateTo;
+
+    private Boolean deleted;
 
 
 }

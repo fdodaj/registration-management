@@ -1,10 +1,11 @@
-package al.ikubinfo.registrationmanagement.dto;
+package al.ikubinfo.registrationmanagement.dto.userDtos;
 
 
 public enum UserStatusEnum {
 
     REGISTERED("REGISTERED"),
     INTERESTED("INTERESTED"),
+
     PAID("PAID");
 
     private final String displayValue;

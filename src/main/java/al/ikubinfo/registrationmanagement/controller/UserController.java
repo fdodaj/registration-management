@@ -1,13 +1,25 @@
 package al.ikubinfo.registrationmanagement.controller;
 
-import al.ikubinfo.registrationmanagement.dto.*;
+import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.CourseUserService;
 import al.ikubinfo.registrationmanagement.service.UserService;
+import al.ikubinfo.registrationmanagement.service.export.UserExports;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +39,12 @@ public class UserController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private UserExports userExports;
+
+    @Autowired
+    private CourseUserService courseUserService;
 
 
     /**
@@ -97,8 +115,22 @@ public class UserController {
     public ModelAndView assignUserToCourse(@Valid @ModelAttribute("course") CourseUserDto courseUserDto) {
         ModelAndView modelAndView = new ModelAndView("assign_users_to_course");
         modelAndView.addObject("courseUserDto", courseUserDto);
-        courseService.assignUserToCourse(courseUserDto);
+        courseUserService.assignUserToCourse(courseUserDto);
         return modelAndView;
+    }
+
+    /**
+     * Retrieve user edition view
+     *
+     * @param id user id
+     * @return ModelAndView
+     */
+    @GetMapping("/users/edit/{id}")
+    public ModelAndView updateUserView(@PathVariable("id") Long id) {
+        UserDto userDto = userService.getUserById(id);
+        ModelAndView mv = new ModelAndView("edit_user");
+        mv.addObject("user", userDto);
+        return mv;
     }
 
     /**
@@ -117,20 +149,6 @@ public class UserController {
         }
         userService.updateUser(user);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
-    }
-
-    /**
-     * Retrieve user edition view
-     *
-     * @param id user id
-     * @return ModelAndView
-     */
-    @GetMapping("/users/edit/{id}")
-    public ModelAndView updateUserView(@PathVariable("id") Long id) {
-        UserDto userDto = userService.getUserById(id);
-        ModelAndView mv = new ModelAndView("edit_user");
-        mv.addObject("user", userDto);
-        return mv;
     }
 
 
@@ -197,11 +215,46 @@ public class UserController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @RequestMapping("/")
-    public void handleRequest() {
-        throw new RuntimeException("test exception");
+    @GetMapping(value = "/users/exportToPdf")
+    public ResponseEntity<Resource> exportToPdf(@Nullable UserCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
+
+        resource = new ByteArrayResource(userExports.createPdf(criteria));
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
+    @GetMapping(value = "users/exportToExcel")
+    public ResponseEntity<Resource> exportToExcel(@Nullable UserCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = "users_excel";
+
+
+        resource = new ByteArrayResource(userExports.createExcel(criteria));
+        headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
     }
 
+    @GetMapping(value = "users/exportToCvs")
+    public ResponseEntity<Resource> exportToCvs(@Nullable UserCriteria criteria) {
+        ByteArrayResource resource;
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = "users_cvs";
 
-
+        resource = new ByteArrayResource(userExports.createCsv(criteria));
+        headers.setContentType(new MediaType("text", "csv"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
 }

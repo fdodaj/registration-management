@@ -1,9 +1,9 @@
 package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.UserConverter;
-import al.ikubinfo.registrationmanagement.dto.PasswordDto;
-import al.ikubinfo.registrationmanagement.dto.UserDto;
-import al.ikubinfo.registrationmanagement.dto.ValidatedUserDto;
+import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.RoleRepository;
 import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
@@ -55,11 +55,9 @@ public class UserServiceImpl implements UserService {
                 .map(userConverter::toDto);
     }
 
-
     @Override
     public UserDto getUserById(Long id) {
         return userConverter.toDto(getStudentEntity(id));
-
     }
 
     @Override
@@ -76,14 +74,12 @@ public class UserServiceImpl implements UserService {
         return userConverter.toDto(userRepository.save(userEntity));
     }
 
-
     @Override
     public void deleteUserById(Long id) {
         UserEntity student = getStudentEntity(id);
         student.setDeleted(true);
         userRepository.save(student);
     }
-
 
     public UserEntity getStudentEntity(Long id) {
         return userRepository.findById(id)
@@ -108,8 +104,8 @@ public class UserServiceImpl implements UserService {
 
     public UserDto changePassword(PasswordDto passwordDto) {
         UserEntity user = userRepository
-        .findByEmail(Utils.getCurrentEmail().orElseThrow(null))
-        .orElseThrow(() -> new RuntimeException("User not found"));
+                .findByEmail(Utils.getCurrentEmail().orElseThrow(null))
+                .orElseThrow(() -> new RuntimeException("User not found"));
         if (!authenticate(user, passwordDto.getCurrentPassword())) {
             throw new AccessDeniedException("Access denied. Cannot change password");
         }

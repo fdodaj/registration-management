@@ -1,5 +1,6 @@
-package al.ikubinfo.registrationmanagement.dto;
+package al.ikubinfo.registrationmanagement.dto.courseDtos;
 
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,10 +18,9 @@ public class CourseDto {
     @NotBlank(message = "Course name cannot be null")
     private String courseName;
 
-    @NotNull(message = "price can't  be null")
     private Double price;
 
-    @NotNull
+    @NotNull(message = "Please select an status")
     private CourseStatus status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

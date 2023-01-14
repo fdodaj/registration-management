@@ -1,6 +1,6 @@
 package al.ikubinfo.registrationmanagement.entity;
 
-import al.ikubinfo.registrationmanagement.dto.CourseStatus;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;

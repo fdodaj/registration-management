@@ -1,7 +1,7 @@
 package al.ikubinfo.registrationmanagement;
 
-import al.ikubinfo.registrationmanagement.dto.CourseStatus;
-import al.ikubinfo.registrationmanagement.dto.ReachFormEnum;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus;
+import al.ikubinfo.registrationmanagement.dto.userDtos.ReachFormEnum;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.RoleEntity;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
@@ -81,7 +81,7 @@ class Tests {
         course.setCourseEndDate(LocalDate.of(2022, 2, 11));
         course.setRegistrationStartDate(LocalDate.of(2022, 1, 10));
         course.setRegistrationEndDate(LocalDate.of(2022, 2, 11));
-        course.setPrice(123);
+        course.setPrice(123.0);
         course.setStatus(CourseStatus.READY_TO_START);
         course.setCreatedDate(LocalDate.now());
         course.setModifiedDate(LocalDate.now());

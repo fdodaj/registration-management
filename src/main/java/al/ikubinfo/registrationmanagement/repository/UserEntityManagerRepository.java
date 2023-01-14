@@ -3,7 +3,6 @@ package al.ikubinfo.registrationmanagement.repository;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
