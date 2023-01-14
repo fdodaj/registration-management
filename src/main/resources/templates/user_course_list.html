@@ -15,7 +15,7 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 
     <!-- Brand -->
-    <a class="navbar-brand" href="/courses">Student Management System</a>
+    <a class="navbar-brand" href="/course-user/all">Student Management System</a>
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" data-target="#collapsibleNavbar" data-toggle="collapse" type="button">
@@ -26,13 +26,13 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/all}">All</a>
+                <a class="nav-link" th:href="@{/course-user/all}">All</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/users}">Student Management</a>
+                <a class="nav-link" th:href="@{/user/all}">Student Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/courses}">Course Management</a>
+                <a class="nav-link" th:href="@{/course/all}">Course Management</a>
             </li>
             <li class="nav-item" style="margin-left: 250px; padding-left: 250px">
                 <a class="nav-link" th:href="@{/signout}">Logout</a>
@@ -125,7 +125,7 @@
 
                         <td>
                             <nobr><a style="text-decoration: none; color: black"
-                                     th:href="@{/users/{id}(id=${course.userDto.id})}"
+                                     th:href="@{/user/{id}(id=${course.userDto.id})}"
                                      th:text="${course.userDto.firstName} + '  ' + ${course.userDto.lastName}"></a>
                             </nobr>
                         </td>
@@ -159,7 +159,7 @@
                         <td th:text="${course.priceReduction}"></td>
                         <td style="text-align: center">
                             <a class="btn btn-primary"
-                               th:href="@{/all/{courseId}/{userId} (courseId=${course.getCourseDto().getId()},userId=${course.getUserDto().getId()} )}">Update</a>
+                               th:href="@{/course-user/update/{courseId}/{userId} (courseId=${course.getCourseDto().getId()},userId=${course.getUserDto().getId()} )}">Update</a>
                         </td>
 
 
@@ -186,7 +186,7 @@
 
 <script>
     let sendBtn = document.getElementById('sendButton');
-    let studentPage = 'http://localhost:8080/all'
+    let studentPage = 'http://localhost:8080/course-user/all'
 
 
     sendBtn.addEventListener("click", () => {
@@ -222,17 +222,17 @@
 
     exportToPdfButton.addEventListener("click", () => {
             let url = window.location.toString();
-            window.location = url.replace(/all/, 'course-user/exportToPdf')
+            window.location = url.replace(/all/, 'exportToPdf')
         }
     )
     exportToCvsButton.addEventListener("click", () => {
             let url = window.location.toString();
-            window.location = url.replace(/all/, 'course-user/exportToCvs')
+            window.location = url.replace(/all/, 'exportToCvs')
         }
     )
     exportToExcelButton.addEventListener("click", () => {
             let url = window.location.toString();
-            window.location = url.replace(/all/, 'course-user/exportToExcel')
+            window.location = url.replace(/all/, 'exportToExcel')
         }
     )
 

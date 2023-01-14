@@ -1,7 +1,5 @@
 package al.ikubinfo.registrationmanagement.dto.userDtos;
 
-import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
-
 public enum ReachFormEnum {
 
     EMPLOYEE("EMPLOYEE"),

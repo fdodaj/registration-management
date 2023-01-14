@@ -59,7 +59,7 @@ public interface UserService {
 
     List<UserDto> getUnassignedUsers();
 
-     UserDto changePassword(PasswordDto passwordDto);
+    UserDto changePassword(PasswordDto passwordDto);
 
 
 }

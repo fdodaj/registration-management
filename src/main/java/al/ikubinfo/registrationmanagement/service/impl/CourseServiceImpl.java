@@ -13,6 +13,7 @@ import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseUserSpecification;
 import al.ikubinfo.registrationmanagement.service.CourseService;
+import al.ikubinfo.registrationmanagement.service.ServiceTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,12 +22,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Service
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl
+        extends ServiceTemplate<CourseCriteria, CourseEntity, CourseRepository, CourseSpecification>
+        implements CourseService {
 
     @Autowired
     CourseSpecification courseSpecification;
@@ -41,6 +46,10 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
     @Autowired
     private CourseUserRepository courseUserRepository;
+
+    protected CourseServiceImpl(CourseRepository repository, CourseSpecification specificationBuilder) {
+        super(repository, specificationBuilder);
+    }
 
     @Override
     public Page<CourseDto> filterCourses(CourseCriteria criteria) {
@@ -97,6 +106,33 @@ public class CourseServiceImpl implements CourseService {
     private CourseEntity getCourseEntity(Long id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
+    }
+
+    @Override
+    public String[] getHeaders() {
+        return new String[]{
+                "Emri i kursit", "Cmimi", "statusi", "fillimi i regjistrimit", "mbarimi i regjistrimit"
+        };
+    }
+
+    @Override
+    public String[] populate(CourseEntity entity) {
+        if (entity.getRegistrationStartDate() == null) {
+            entity.setRegistrationStartDate(LocalDate.now());
+        }
+        if (entity.getRegistrationEndDate() == null) {
+            entity.setRegistrationEndDate(LocalDate.now());
+        }
+        if (entity.getPrice() == null) {
+            entity.setPrice((double) 0000);
+        }
+        return new String[]{
+                entity.getCourseName(),
+                entity.getPrice().toString(),
+                entity.getStatus().name(),
+                entity.getRegistrationStartDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                entity.getRegistrationEndDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+        };
     }
 }
 

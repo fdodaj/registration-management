@@ -1,5 +1,6 @@
 package al.ikubinfo.registrationmanagement.dto.courseUserDtos;
 
+import al.ikubinfo.registrationmanagement.dto.BaseDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
-public class CourseUserDto {
+public class CourseUserDto extends BaseDto {
 
     @NotNull(message = "User is required")
     private Long userId;
@@ -16,17 +17,14 @@ public class CourseUserDto {
     @NotNull(message = "Course is required")
     private Long courseId;
 
-    @NotNull(message = "Status is required")
     private UserStatusEnum status;
 
     private String reference;
 
     private String comment;
 
-    @NotNull(message = "Please enter a price paid")
     private Double pricePaid;
 
-    @NotNull(message = "Please enter price reduction")
     private Double priceReduction;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

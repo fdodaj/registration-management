@@ -20,7 +20,7 @@ public class UserEntityManagerRepository {
         return query.getResultList();
     }
 
-    public  List<UserEntity> getAllUnassignedUsers() {
+    public List<UserEntity> getAllUnassignedUsers() {
         TypedQuery<UserEntity> query = entityManager
                 .createQuery("select u from UserEntity u  where u.id not in (select distinct cu.id.userId  from CourseUserEntity cu where cu.deleted=false )", UserEntity.class);
         return query.getResultList();

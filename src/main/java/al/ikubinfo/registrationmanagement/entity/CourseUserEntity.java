@@ -2,11 +2,11 @@ package al.ikubinfo.registrationmanagement.entity;
 
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import lombok.Data;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "course_user")
 @Where(clause = "deleted = false")
-public class CourseUserEntity extends BaseEntity{
+public class CourseUserEntity extends BaseEntity {
 
     @EmbeddedId
     private CourseUserId id;

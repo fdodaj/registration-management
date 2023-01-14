@@ -2,14 +2,13 @@ package al.ikubinfo.registrationmanagement.repository;
 
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface CourseUserRepository extends JpaRepository<CourseUserEntity, CourseUserId>, JpaSpecificationExecutor<CourseUserEntity> {
+public interface CourseUserRepository extends BaseJpaRepository<CourseUserEntity> {
 
     CourseUserEntity findByIdCourseIdAndIdUserId(Long courseId, Long userId);
 
@@ -20,4 +19,5 @@ public interface CourseUserRepository extends JpaRepository<CourseUserEntity, Co
     List<CourseUserEntity> getCourseUserEntitiesByCourseCourseName(String courseName);
 
 
+    Optional<CourseUserEntity> findById(CourseUserId courseUserId);
 }

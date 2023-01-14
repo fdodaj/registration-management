@@ -13,6 +13,7 @@ public class RegistrationManagementApplication extends SpringBootServletInitiali
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(RegistrationManagementApplication.class);
     }
+
     public static void main(String[] args) {
         SpringApplication.run(RegistrationManagementApplication.class, args);
     }

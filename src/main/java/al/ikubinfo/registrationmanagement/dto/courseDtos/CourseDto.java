@@ -1,5 +1,6 @@
 package al.ikubinfo.registrationmanagement.dto.courseDtos;
 
+import al.ikubinfo.registrationmanagement.dto.BaseDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,9 +12,7 @@ import java.util.List;
 
 
 @Data
-public class CourseDto {
-
-    private Long id;
+public class CourseDto extends BaseDto {
 
     @NotBlank(message = "Course name cannot be null")
     private String courseName;

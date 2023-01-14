@@ -13,7 +13,6 @@
     <!-- Brand -->
     <a class="navbar-brand" href="#">Student Management System</a>
 
-
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" data-target="#collapsibleNavbar" data-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
@@ -23,13 +22,13 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/all}">All</a>
+                <a class="nav-link" th:href="@{/course-user/all}">All</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/users}">Student Management</a>
+                <a class="nav-link" th:href="@{/user/all}">Student Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/courses}">Course Management</a>
+                <a class="nav-link" th:href="@{/course/all}">Course Management</a>
             </li>
             <li class="nav-item" style="margin-left: 250px; padding-left: 250px">
                 <a class="nav-link" th:href="@{/signout}">Logout</a>
@@ -106,10 +105,12 @@
                                 <td th:text="${user.status}"></td>
 
 
-
-
-                                <td><a class="btn" th:href="@{/all/{courseId}/{userId}(courseId=${course.id}, userId=${user.userDto.id})} ">Update</a> </td>
-                                <td><a class="btn " th:href="@{/users/{courseId}/{studentId}(courseId=${course.id}, studentId=${user.userDto.id})}">Remove from course </a></td>
+                                <td><a class="btn"
+                                       th:href="@{/course-user/update/{courseId}/{userId}(courseId=${course.id}, userId=${user.userDto.id})} ">Update</a>
+                                </td>
+                                <td><a class="btn "
+                                       th:href="@{/course-user/remove/{courseId}/{studentId}(courseId=${course.id}, studentId=${user.userDto.id})}">Remove
+                                    from course </a></td>
 
 
                             </tbody>
@@ -119,8 +120,7 @@
 
                 </form>
 
-                <a class="btn btn-danger"
-                   th:href="@{/courses}">Back</a>
+                <button class="btn btn-danger" onclick="history.back()">Back</button>
 
                 <button
                         class="btn btn-success" onclick="myFunction()">assign student
@@ -144,12 +144,11 @@
 
                                 <td style="text-align: center">
                                     <a class="btn btn-dark"
-                                       th:href="@{/users/{id}(id=${user.id})}">View</a>
+                                       th:href="@{/user/{id}(id=${user.id})}">View</a>
 
                                     <a class="btn btn-dark"
-                                       th:href="@{/course/assign/{userId}/{courseId} (userId=${user.id},courseId=${course.id}) }">select</a>
+                                       th:href="@{/user/course/assign/{userId}/{courseId} (userId=${user.id},courseId=${course.id}) }">select</a>
                                 </td>
-
 
 
                             </tr>

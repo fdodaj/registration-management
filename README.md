@@ -1,10 +1,11 @@
 # Registration management
 
-The program should manage the registrations of those interested in the academy courses. 
+The program should manage the registrations of those interested in the academy courses.
 It consists in creating three interfaces.
-  - add course
-  - new entry
-  - search and modification of registration data
+
+- add course
+- new entry
+- search and modification of registration data
 
 The main interface will serve to add a new course for which registrations are open.
 

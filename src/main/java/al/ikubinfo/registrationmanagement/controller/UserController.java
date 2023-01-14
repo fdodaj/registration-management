@@ -8,18 +8,11 @@ import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.CourseUserService;
-import al.ikubinfo.registrationmanagement.service.UserService;
-import al.ikubinfo.registrationmanagement.service.export.UserExports;
-import org.apache.commons.lang3.RandomStringUtils;
+import al.ikubinfo.registrationmanagement.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,21 +23,24 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class UserController {
-    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/users";
+@RequestMapping("user")
+public class UserController extends ControllerTemplate<UserDto, UserCriteria, UserServiceImpl> {
+    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/user/all";
     private static final String USERS = "users";
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private CourseService courseService;
 
-    @Autowired
-    private UserExports userExports;
 
     @Autowired
     private CourseUserService courseUserService;
+
+    public UserController(UserServiceImpl service) {
+        super(service);
+    }
 
 
     /**
@@ -53,7 +49,7 @@ public class UserController {
      * @param criteria filter object
      * @return ModelAndView -> users filtered list
      */
-    @GetMapping("/users")
+    @GetMapping("/all")
     public ModelAndView listUsers(@Valid UserCriteria criteria) {
         Page<UserDto> users = userService.filterUsers(criteria);
         ModelAndView mv = new ModelAndView(USERS);
@@ -67,7 +63,7 @@ public class UserController {
      * @param id user id
      * @return ModelAndView with users details
      */
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ModelAndView getUserById(@Valid @PathVariable Long id) {
         ModelAndView mv = new ModelAndView("user_details");
         mv.addObject("user", userService.getUserById(id));
@@ -80,7 +76,7 @@ public class UserController {
      * @param user user dto
      * @return ModelAndView
      */
-    @GetMapping("/users/new")
+    @GetMapping("/new")
     public ModelAndView retrieveNewUserView(@Valid UserDto user) {
         ModelAndView mv = new ModelAndView("create_user");
         mv.addObject("user", user);
@@ -93,7 +89,7 @@ public class UserController {
      * @param user user dto
      * @return ModelAndView
      */
-    @PostMapping("/users")
+    @PostMapping("/save")
     public ModelAndView saveUser(@Valid @ModelAttribute("user") ValidatedUserDto user, BindingResult result, Model model) {
         model.addAttribute("user", user);
         if (result.hasErrors()) {
@@ -109,14 +105,14 @@ public class UserController {
      * Assigns user to course
      *
      * @param courseUserDto courseUserDto
-     * @return  ModelAndView
+     * @return ModelAndView
      */
-    @PostMapping("/users/assign-course")
+    @PostMapping("/assign-course")
     public ModelAndView assignUserToCourse(@Valid @ModelAttribute("course") CourseUserDto courseUserDto) {
         ModelAndView modelAndView = new ModelAndView("assign_users_to_course");
         modelAndView.addObject("courseUserDto", courseUserDto);
         courseUserService.assignUserToCourse(courseUserDto);
-        return modelAndView;
+        return new ModelAndView("redirect:/course-user/all");
     }
 
     /**
@@ -125,7 +121,7 @@ public class UserController {
      * @param id user id
      * @return ModelAndView
      */
-    @GetMapping("/users/edit/{id}")
+    @GetMapping("/edit/{id}")
     public ModelAndView updateUserView(@PathVariable("id") Long id) {
         UserDto userDto = userService.getUserById(id);
         ModelAndView mv = new ModelAndView("edit_user");
@@ -139,7 +135,7 @@ public class UserController {
      * @param user updated dto
      * @return ModelAndView
      */
-    @PostMapping("/users/{id}")
+    @PostMapping("/{id}")
     public ModelAndView updateUser(@Valid @ModelAttribute("user") ValidatedUserDto user, BindingResult result, Model model) {
         model.addAttribute("user", user);
         if (result.hasErrors()) {
@@ -158,21 +154,19 @@ public class UserController {
      * @param id user id
      * @return ModelAndView homepage
      */
-    @GetMapping("/users/delete/{id}")
+    @GetMapping("/delete/{id}")
     public ModelAndView deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
         return new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
     }
 
 
-
     /**
      * Retrieve assign user to course view
      *
-     * @param userId userId
-     * @param courseId  courseId
+     * @param userId        userId
+     * @param courseId      courseId
      * @param courseUserDto courseUserDto
-     *
      * @return ModelAndView
      */
     @GetMapping("/course/assign/{userId}/{courseId}")
@@ -190,19 +184,20 @@ public class UserController {
     }
 
     @GetMapping("/change_password")
-    public ModelAndView getChangePasswordView(PasswordDto passwordDto){
+    public ModelAndView getChangePasswordView(PasswordDto passwordDto) {
         ModelAndView mv = new ModelAndView("change_password");
         mv.addObject("passwordDto", passwordDto);
         return mv;
     }
 
-    @PostMapping( "/changePassword")
+    @PostMapping("/changePassword")
     public ModelAndView changePassword(PasswordDto passwordDto) {
         ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
         userService.changePassword(passwordDto);
         mv.addObject("passwordData", passwordDto);
         return mv;
     }
+
     /**
      * Get users with PAID courses using EntityManager
      * For testing purposes
@@ -213,48 +208,5 @@ public class UserController {
     public ResponseEntity<List<UserDto>> listUsersUsingEntityManager() {
         List<UserDto> list = userService.getUsersEM();
         return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/users/exportToPdf")
-    public ResponseEntity<Resource> exportToPdf(@Nullable UserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
-
-        resource = new ByteArrayResource(userExports.createPdf(criteria));
-        headers.setContentType(MediaType.APPLICATION_PDF);
-
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-    @GetMapping(value = "users/exportToExcel")
-    public ResponseEntity<Resource> exportToExcel(@Nullable UserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = "users_excel";
-
-
-        resource = new ByteArrayResource(userExports.createExcel(criteria));
-        headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-
-    @GetMapping(value = "users/exportToCvs")
-    public ResponseEntity<Resource> exportToCvs(@Nullable UserCriteria criteria) {
-        ByteArrayResource resource;
-        HttpHeaders headers = new HttpHeaders();
-        String fileName = "users_cvs";
-
-        resource = new ByteArrayResource(userExports.createCsv(criteria));
-        headers.setContentType(new MediaType("text", "csv"));
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
     }
 }

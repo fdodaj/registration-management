@@ -1,8 +1,10 @@
-package al.ikubinfo.registrationmanagement.service.export;
+package al.ikubinfo.registrationmanagement.service;
 
-import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
-import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
-import al.ikubinfo.registrationmanagement.service.UserService;
+import al.ikubinfo.registrationmanagement.entity.BaseEntity;
+import al.ikubinfo.registrationmanagement.repository.BaseJpaRepository;
+import al.ikubinfo.registrationmanagement.repository.criteria.BaseCriteria;
+import al.ikubinfo.registrationmanagement.repository.specification.SpecificationBuilder;
+import al.ikubinfo.registrationmanagement.service.export.CustomDataTable;
 import be.quodlibet.boxable.BaseTable;
 import com.opencsv.CSVWriter;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -10,8 +12,8 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,18 +28,28 @@ import static com.opencsv.ICSVParser.DEFAULT_SEPARATOR;
 import static com.opencsv.ICSVWriter.DEFAULT_LINE_END;
 import static com.opencsv.ICSVWriter.NO_QUOTE_CHARACTER;
 
-@Service
-public class UserExports {
+public abstract class ServiceTemplate<
+        C extends BaseCriteria,
+        E extends BaseEntity,
+        R extends BaseJpaRepository<E>,
+        S extends SpecificationBuilder<E, C>> {
+    protected final R repository;
 
-    @Autowired
-    private UserService userService;
+    protected final S specificationBuilder;
 
-    public byte[] createPdf(UserCriteria criteria) {
+
+    protected ServiceTemplate(@NonNull R repository,
+                              @NonNull S specificationBuilder) {
+        this.repository = repository;
+        this.specificationBuilder = specificationBuilder;
+    }
+
+    public byte[] createPdf(C criteria) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         List<String[]> entries = new ArrayList<>();
         entries.add(getHeaders());
-        userService.filterUsers(criteria).getContent().forEach(e -> entries.add(populate(e)));
+        getExportList(criteria).forEach(entity -> entries.add(populate(entity)));
 
         PDDocument doc = new PDDocument();
         PDPage page = new PDPage();
@@ -65,18 +77,41 @@ public class UserExports {
             doc.close();
         } catch (IOException e) {
             e.getStackTrace();
-            throw new RuntimeException("Can't create PDF!");
+            throw new RuntimeException("Cant create Pdf");
         }
 
         return output.toByteArray();
     }
 
-    public byte[] createExcel(UserCriteria criteria) {
+    public byte[] createCsv(@Nullable C criteria) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        List<String[]> entries = new ArrayList<>();
+        entries.add(getHeaders());
+        getExportList(criteria).forEach(entity -> entries.add(populate(entity)));
+
+        OutputStreamWriter outputStreamWriter =
+                new OutputStreamWriter(Objects.requireNonNull(stream), StandardCharsets.UTF_8);
+        try (CSVWriter writer = new CSVWriter(outputStreamWriter,
+                DEFAULT_SEPARATOR,
+                NO_QUOTE_CHARACTER,
+                DEFAULT_ESCAPE_CHARACTER,
+                DEFAULT_LINE_END)) {
+
+            writer.writeAll(entries);
+            outputStreamWriter.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stream.toByteArray();
+    }
+
+    public byte[] createExcel(@Nullable C criteria) {
 
         Workbook workbook = new XSSFWorkbook();
         String[] headers = getHeaders();
         CreationHelper createHelper = workbook.getCreationHelper();
-        Sheet sheet = workbook.createSheet( "course sheet");
+        Sheet sheet = workbook.createSheet("course sheet");
         Font headerFont = workbook.createFont();
         headerFont.setBold(true);
         headerFont.setFontHeightInPoints((short) 13);
@@ -102,9 +137,9 @@ public class UserExports {
 
         int rowNum = 1;
 
-        for (UserDto dto : userService.filterUsers(criteria).getContent()) {
+        for (E entity : getExportList(criteria)) {
             Row row = sheet.createRow(rowNum++);
-            String[] fields = populate(dto);
+            String[] fields = populate(entity);
             for (int i = 0; i < fields.length; i++)
                 row.createCell(i).setCellValue(fields[i]);
         }
@@ -121,52 +156,26 @@ public class UserExports {
 
             byteArrayOutputStream.close();
         } catch (Exception e) {
-            throw new RuntimeException("Cant create EXCEL");
+            throw new RuntimeException("Cant create Excel");
         }
 
         return byteArrayOutputStream.toByteArray();
 
     }
 
-    public byte[] createCsv(UserCriteria criteria) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        List<String[]> entries = new ArrayList<>();
-        entries.add(getHeaders());
+    public abstract String[] getHeaders();
 
-        userService.filterUsers(criteria).getContent().forEach(e -> entries.add(populate(e)));
+    public abstract String[] populate(E entity);
 
-
-        OutputStreamWriter outputStreamWriter =
-                new OutputStreamWriter(Objects.requireNonNull(stream), StandardCharsets.UTF_8);
-        try (CSVWriter writer = new CSVWriter(outputStreamWriter,
-                DEFAULT_SEPARATOR,
-                NO_QUOTE_CHARACTER,
-                DEFAULT_ESCAPE_CHARACTER,
-                DEFAULT_LINE_END)) {
-
-            writer.writeAll(entries);
-            outputStreamWriter.flush();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    protected List<E> getExportList(@Nullable C criteria) {
+        if (criteria != null) {
+            criteria.setOrderBy(null);
+            criteria.setSortDirection(null);
         }
-        return stream.toByteArray();
-    }
 
-    public String[] getHeaders() {
-        return new String[]{
-                "Emer", "Mbiemer", "Email", "Numer telefoni", "Referimi"
-        };
-    }
+        return (criteria != null)
+                ? repository.findAll(specificationBuilder.filter(criteria))
+                : repository.findAll();
 
-
-    public String[] populate(UserDto dto) {
-        return new String[]{
-                dto.getFirstName(),
-                dto.getLastName(),
-                dto.getEmail(),
-                dto.getPhoneNumber(),
-                dto.getReachForm().toString(),
-        };
     }
 }

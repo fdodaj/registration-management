@@ -2,7 +2,7 @@ CREATE TABLE course
 (
     id                      serial PRIMARY KEY,
     course_name             VARCHAR(50) NOT NULL,
-    price                   INTEGER     ,
+    price                   INTEGER,
     status                  VARCHAR(50) NOT NULL,
     course_start_date       TIMESTAMP,
     course_end_date         TIMESTAMP,

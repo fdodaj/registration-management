@@ -22,7 +22,4 @@ public interface CourseUserService {
     CourseUserDto getCourseUserEntity(Long courseId, Long userId);
 
 
-
-
-
 }

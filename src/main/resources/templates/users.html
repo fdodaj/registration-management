@@ -22,13 +22,13 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/all}">All</a>
+                <a class="nav-link" th:href="@{/course-user/all}">All</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/users}">Student Management</a>
+                <a class="nav-link" th:href="@{/user/all}">Student Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/courses}">Course Management</a>
+                <a class="nav-link" th:href="@{/course/all}">Course Management</a>
             </li>
             <li class="nav-item" style="margin-left: 250px; padding-left: 250px">
                 <a class="nav-link" th:href="@{/signout}">Logout</a>
@@ -48,8 +48,7 @@
 
     <div class="input-group d-flex justify-content-end mb-2">
         <div class="col-lg-6">
-            <a class="btn btn-primary btn-sm mb-1" th:href="@{/users/new}"> Add Student</a>
-            <a class="btn btn-success btn-sm mb-1" th:href="@{/users}">Home</a>
+            <a class="btn btn-success" th:href="@{/user/new}"> Add Student</a>
         </div>
 
         <div class="form-outline">
@@ -83,19 +82,19 @@
 
             <td style="text-align: center">
                 <a class="btn btn-dark"
-                   th:href="@{/users/{id}(id=${user.id})}">View</a>
+                   th:href="@{/user/{id}(id=${user.id})}">View</a>
 
                 <a class="btn btn-primary"
-                   th:href="@{/users/edit/{id}(id=${user.id})}">Update</a>
+                   th:href="@{/user/edit/{id}(id=${user.id})}">Update</a>
 
                 <a class="btn btn-danger"
                    onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
                    th:data-confirm-delete="|Are you sure you want to delete this user |"
-                   th:href="@{/users/delete/{id}(id=${user.id})} ">
+                   th:href="@{/user/delete/{id}(id=${user.id})} ">
                     Delete</a>
 
                 <a class="btn btn-primary"
-                   th:href="@{course/assign/{id}(id=${user.id})} ">Assign to course</a>
+                   th:href="@{/course-user/course/assign/{id}(id=${user.id})} ">Assign to course</a>
             </td>
         </tr>
         </tbody>
@@ -115,7 +114,7 @@
 </div>
 <script>
     let sendBtn = document.getElementById('sendButton');
-    let studentPage = 'http://localhost:8080/users'
+    let studentPage = 'http://localhost:8080/user/all'
 
 
     sendBtn.addEventListener("click", () => {
@@ -138,17 +137,17 @@
 
     exportToPdfButton.addEventListener("click", () => {
             let url = window.location.toString();
-            window.location = url.replace(/users/, 'users/exportToPdf')
+            window.location = url.replace(/all/, 'exportToPdf')
         }
     )
     exportToCvsButton.addEventListener("click", () => {
             let url = window.location.toString();
-            window.location = url.replace(/users/, 'users/exportToCvs')
+            window.location = url.replace(/all/, 'exportToCvs')
         }
     )
     exportToExcelButton.addEventListener("click", () => {
             let url = window.location.toString();
-            window.location = url.replace(/users/, 'users/exportToExcel')
+            window.location = url.replace(/all/, 'exportToExcel')
         }
     )
 

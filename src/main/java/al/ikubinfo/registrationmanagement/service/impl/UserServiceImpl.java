@@ -11,6 +11,7 @@ import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.UserSpecification;
 import al.ikubinfo.registrationmanagement.security.Utils;
+import al.ikubinfo.registrationmanagement.service.ServiceTemplate;
 import al.ikubinfo.registrationmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, UserRepository, UserSpecification> implements UserService {
 
 
     @Autowired
@@ -45,6 +46,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    protected UserServiceImpl(UserRepository repository, UserSpecification specificationBuilder) {
+        super(repository, specificationBuilder);
+    }
 
     @Override
     public Page<UserDto> filterUsers(UserCriteria criteria) {
@@ -115,6 +120,25 @@ public class UserServiceImpl implements UserService {
 
     private boolean authenticate(UserEntity user, String password) {
         return bCryptPasswordEncoder.matches(password, user.getPassword());
+    }
+
+
+    @Override
+    public String[] getHeaders() {
+        return new String[]{
+                "Emer", "Mbiemer", "Email", "Numer telefoni", "Referimi"
+        };
+    }
+
+    @Override
+    public String[] populate(UserEntity entity) {
+        return new String[]{
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getEmail(),
+                entity.getPhoneNumber(),
+                entity.getReachForm().toString(),
+        };
     }
 
 
