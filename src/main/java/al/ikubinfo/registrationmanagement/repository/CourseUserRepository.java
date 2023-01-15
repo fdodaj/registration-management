@@ -14,9 +14,12 @@ public interface CourseUserRepository extends BaseJpaRepository<CourseUserEntity
 
     List<CourseUserEntity> getByIdCourseId(Long courseId);
 
+
+
     List<CourseUserEntity> getCourseUserEntitiesByCourseId(Long courseId);
 
     List<CourseUserEntity> getCourseUserEntitiesByCourseCourseName(String courseName);
+    List<CourseUserEntity> getCourseUserEntitiesByUserId(Long userId);
 
 
     Optional<CourseUserEntity> findById(CourseUserId courseUserId);

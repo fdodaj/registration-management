@@ -5,6 +5,7 @@ import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
+import al.ikubinfo.registrationmanagement.repository.CourseUserRepository;
 import al.ikubinfo.registrationmanagement.repository.RoleRepository;
 import al.ikubinfo.registrationmanagement.repository.UserEntityManagerRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
@@ -37,6 +38,9 @@ public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, U
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CourseUserRepository courseUserRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -82,6 +86,7 @@ public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, U
     @Override
     public void deleteUserById(Long id) {
         UserEntity student = getStudentEntity(id);
+        courseUserRepository.getCourseUserEntitiesByUserId(id).forEach(e -> e.setDeleted(true));
         student.setDeleted(true);
         userRepository.save(student);
     }
