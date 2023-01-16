@@ -69,6 +69,7 @@
             <th style="text-align: center">Last Name</th>
             <th style="text-align: center">Phone Number</th>
             <th style="text-align: center">Email</th>
+            <th style="text-align: center">Assigned?</th>
             <th style="text-align: center">Actions</th>
         </tr>
         </thead>
@@ -79,6 +80,8 @@
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.phoneNumber}"></td>
             <td th:text="${user.email}"></td>
+            <td th:text="${user.assigned}"></td>
+
 
             <td style="text-align: center">
                 <a class="btn btn-dark"
@@ -95,10 +98,15 @@
 
                 <a class="btn btn-primary"
                    th:href="@{/course-user/course/assign/{id}(id=${user.id})} ">Assign to course</a>
+
+            </span>
+
             </td>
+
         </tr>
         </tbody>
     </table>
+
 
     <button class="btn btn-primary" id="exportToPdf" type="button">
         export to PDF

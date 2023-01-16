@@ -11,5 +11,6 @@ CREATE TABLE users
     created_date  TIMESTAMP   NOT NULL,
     modified_date TIMESTAMP   NOT NULL,
     user_role     INTEGER     NOT NULL,
+    is_assigned   BOOLEAN     NOT NULL,
     deleted       BOOLEAN     NOT NULL
 );

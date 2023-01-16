@@ -31,6 +31,8 @@ public class UserDto extends BaseDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate modifiedDate;
 
+    private boolean isAssigned;
+
     private RoleDto role;
 
     private List<CourseDto> courses;

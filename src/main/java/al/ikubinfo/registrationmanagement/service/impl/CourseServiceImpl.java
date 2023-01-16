@@ -35,9 +35,6 @@ public class CourseServiceImpl
 
     @Autowired
     CourseSpecification courseSpecification;
-
-    @Autowired
-    private CourseUserSpecification courseUserSpecification;
     @Autowired
     private CourseConverter converter;
     @Autowired

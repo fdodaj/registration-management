@@ -8,6 +8,7 @@ import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
 import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.CourseUserRepository;
+import al.ikubinfo.registrationmanagement.repository.UserRepository;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
@@ -38,6 +39,8 @@ public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, C
     @Autowired
     private CourseUserRepository courseUserRepository;
 
+    @Autowired
+    private UserRepository userRepository;
     protected CourseUserServiceImpl(CourseUserRepository repository, CourseUserSpecification specificationBuilder) {
         super(repository, specificationBuilder);
     }
@@ -79,6 +82,7 @@ public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, C
         } else {
             dto.setCreatedDate(LocalDate.now());
             dto.setCreatedDate(LocalDate.now());
+            userRepository.getById(dto.getUserId()).set_assigned(true);
             courseUserRepository.save(courseUserConverter.toEntity(dto));
             return courseUserConverter.toDto(courseUserConverter.toEntity(dto));
         }
@@ -93,6 +97,8 @@ public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, C
     @Override
     public void removeUserFromCourse(Long userId, Long courseId) {
         CourseUserEntity entity = courseUserRepository.findByIdCourseIdAndIdUserId(courseId, userId);
+        userRepository.getById(userId).set_assigned(false);
+
         entity.setDeleted(true);
         courseUserRepository.save(entity);
     }

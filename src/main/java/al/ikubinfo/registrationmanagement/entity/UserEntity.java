@@ -53,10 +53,14 @@ public class UserEntity extends BaseEntity {
     @Column(name = "reach_form")
     private ReachFormEnum reachForm;
 
+    @Column(name = "is_assigned")
+    private boolean is_assigned;
+
     @ManyToOne
     @JoinColumn(name = "user_role")
     @JsonIgnore
     private RoleEntity role;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourseUserEntity> userCourses = new ArrayList<>();

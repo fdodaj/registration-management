@@ -24,6 +24,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setEmail(dto.getEmail());
         entity.setBirthDate(dto.getBirthDate());
         entity.setReachForm(dto.getReachForm());
+        entity.set_assigned(dto.isAssigned());
         entity.setRole(roleConverter.toEntity(dto.getRole()));
         return entity;
     }
@@ -37,6 +38,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
+        entity.set_assigned(dto.isAssigned());
         entity.setRole(roleConverter.toEntity(dto.getRole()));
         return entity;
     }
@@ -56,6 +58,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         dto.setModifiedDate(entity.getModifiedDate());
         entity.setBirthDate(dto.getBirthDate());
         entity.setReachForm(dto.getReachForm());
+        entity.set_assigned(entity.is_assigned());
         return dto;
     }
 
@@ -65,6 +68,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
         entity.setReachForm(dto.getReachForm());
+        entity.set_assigned(dto.isAssigned());
         return entity;
     }
 
