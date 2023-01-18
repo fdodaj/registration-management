@@ -53,7 +53,7 @@ public class AuthController {
         try {
             generateToken(login.getEmail(), login.getPassword());
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("redirect:/user/all");
+            modelAndView.setViewName("redirect:/users");
             return modelAndView;
         } catch (Exception e) {
             ObjectError error = new ObjectError(LOGIN, "Invalid Email or Password");

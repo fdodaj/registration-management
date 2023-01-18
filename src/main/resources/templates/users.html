@@ -25,7 +25,7 @@
                 <a class="nav-link" th:href="@{/course-user/all}">All</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/all}">Student Management</a>
+                <a class="nav-link" th:href="@{/users}">Student Management</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/courses}">Course Management</a>
@@ -34,7 +34,7 @@
                 <a class="nav-link" th:href="@{/signout}">Logout</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/change_password}">Change Password</a>
+                <a class="nav-link" th:href="@{users/new-password-form}">Change Password</a>
             </li>
         </ul>
     </div>
@@ -48,7 +48,7 @@
 
     <div class="input-group d-flex justify-content-end mb-2">
         <div class="col-lg-6">
-            <a class="btn btn-success" th:href="@{/user/new}"> Add Student</a>
+            <a class="btn btn-success" th:href="@{/users/creation-form}"> Add Student</a>
         </div>
 
         <div class="form-outline">
@@ -85,21 +85,21 @@
 
             <td style="text-align: center">
                 <a class="btn btn-dark"
-                   th:href="@{/user/{id}(id=${user.id})}">View</a>
+                   th:href="@{/users/{id}(id=${user.id})}">View</a>
 
                 <a class="btn btn-primary"
-                   th:href="@{/user/edit/{id}(id=${user.id})}">Update</a>
+                   th:href="@{/users/edit-form/{id}(id=${user.id})}">Update</a>
 
                 <a class="btn btn-danger"
                    onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
                    th:data-confirm-delete="|Are you sure you want to delete this user |"
-                   th:href="@{/user/delete/{id}(id=${user.id})} ">
+                   th:href="@{/users/delete/{id}(id=${user.id})} ">
                     Delete</a>
 
                 <a class="btn btn-primary"
                    th:href="@{/course-user/course/assign/{id}(id=${user.id})} ">Assign to course</a>
 
-            </span>
+                </span>
 
             </td>
 
@@ -122,7 +122,7 @@
 </div>
 <script>
     let sendBtn = document.getElementById('sendButton');
-    let studentPage = 'http://localhost:8080/user/all'
+    let studentPage = 'http://localhost:8080/users'
 
 
     sendBtn.addEventListener("click", () => {
@@ -144,18 +144,19 @@
     let exportToExcelButton = document.getElementById('exportToExcel');
 
     exportToPdfButton.addEventListener("click", () => {
-            let url = window.location.toString();
-            window.location = url.replace(/all/, 'exportToPdf')
+            let url = 'http://localhost:8080/users'
+            window.location.replace(url + '/exportToPdf')
         }
     )
     exportToCvsButton.addEventListener("click", () => {
-            let url = window.location.toString();
-            window.location = url.replace(/all/, 'exportToCvs')
+            let url = 'http://localhost:8080/users'
+            window.location.replace(url + '/exportToCvs')
         }
     )
     exportToExcelButton.addEventListener("click", () => {
-            let url = window.location.toString();
-            window.location = url.replace(/all/, 'exportToExcel')
+            let url = 'http://localhost:8080/users'
+            window.location.replace(url + '/exportToExcel')
+
         }
     )
 

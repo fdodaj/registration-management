@@ -23,18 +23,15 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("users")
 public class UserController extends ControllerTemplate<UserDto, UserCriteria, UserServiceImpl> {
-    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/user/all";
+    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/users";
     private static final String USERS = "users";
 
     @Autowired
     private UserServiceImpl userService;
-
     @Autowired
     private CourseService courseService;
-
-
     @Autowired
     private CourseUserService courseUserService;
 
@@ -49,7 +46,7 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
      * @param criteria filter object
      * @return ModelAndView -> users filtered list
      */
-    @GetMapping("/all")
+    @GetMapping()
     public ModelAndView listUsers(@Valid UserCriteria criteria) {
         Page<UserDto> users = userService.filterUsers(criteria);
         ModelAndView mv = new ModelAndView(USERS);
@@ -76,7 +73,7 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
      * @param user user dto
      * @return ModelAndView
      */
-    @GetMapping("/new")
+    @GetMapping("/creation-form")
     public ModelAndView retrieveNewUserView(@Valid UserDto user) {
         ModelAndView mv = new ModelAndView("create_user");
         mv.addObject("user", user);
@@ -89,7 +86,7 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
      * @param user user dto
      * @return ModelAndView
      */
-    @PostMapping("/save")
+    @PostMapping()
     public ModelAndView saveUser(@Valid @ModelAttribute("user") ValidatedUserDto user, BindingResult result, Model model) {
         model.addAttribute("user", user);
         if (result.hasErrors()) {
@@ -121,7 +118,7 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
      * @param id user id
      * @return ModelAndView
      */
-    @GetMapping("/edit/{id}")
+    @GetMapping("/edit-form/{id}")
     public ModelAndView updateUserView(@PathVariable("id") Long id) {
         UserDto userDto = userService.getUserById(id);
         ModelAndView mv = new ModelAndView("edit_user");
@@ -183,7 +180,7 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
         return mv;
     }
 
-    @GetMapping("/change_password")
+    @GetMapping("/new-password-form")
     public ModelAndView getChangePasswordView(PasswordDto passwordDto) {
         ModelAndView mv = new ModelAndView("change_password");
         mv.addObject("passwordDto", passwordDto);

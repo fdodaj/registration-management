@@ -25,7 +25,7 @@
                 <a class="nav-link" th:href="@{/course-user/all}">All</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/all}">Student Management</a>
+                <a class="nav-link" th:href="@{/users}">Student Management</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/courses}">Course Management</a>
@@ -34,7 +34,7 @@
                 <a class="nav-link" th:href="@{/signout}">Logout</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/change_password}">Change Password</a>
+                <a class="nav-link" th:href="@{users/new-password-form}">Change Password</a>
             </li>
         </ul>
     </div>
@@ -46,7 +46,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Create New Student </h1>
             <div class="card-body">
-                <form method="POST" th:action="@{/user/save}" th:object="${user}">
+                <form method="POST" th:action="@{/users}" th:object="${user}">
 
                     <div class="form-group">
                         <input class="form-control" name="name" placeholder="First name" th:field="*{firstName}"

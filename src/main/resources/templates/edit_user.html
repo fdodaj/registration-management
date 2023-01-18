@@ -25,7 +25,7 @@
                 <a class="nav-link" th:href="@{/course-user/all}">All</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/all}">Student Management</a>
+                <a class="nav-link" th:href="@{/users}">Student Management</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/courses}">Course Management</a>
@@ -34,7 +34,7 @@
                 <a class="nav-link" th:href="@{/signout}">Logout</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/change_password}">Change Password</a>
+                <a class="nav-link" th:href="@{/c}">Change Password</a>
             </li>
         </ul>
     </div>
@@ -45,13 +45,13 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h3 style="text-align: center">
-                <tr class="text-center " th:action="@{/user/{id} (id=${user.id})}" th:object="${user}">
+                <tr class="text-center " th:action="@{/users/{id} (id=${user.id})}" th:object="${user}">
                     <td th:text="*{firstName + ' ' + lastName}">1</td>
 
                 </tr>
             </h3>
             <div class="card-body">
-                <form method="POST" th:action="@{/user/{id} (id=${user.id})}" th:object="${user}">
+                <form method="POST" th:action="@{/users/{id} (id=${user.id})}" th:object="${user}">
                     <div class="form-group">
                         <input class="form-control" placeholder="First name" name="name" th:field="*{firstName}"
                                th:maxlength="35" type="text"/>
