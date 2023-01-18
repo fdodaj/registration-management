@@ -18,9 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("course")
+@RequestMapping("courses")
 public class CourseController extends ControllerTemplate<CourseDto, CourseCriteria, CourseServiceImpl> {
-    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/course/all";
+    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
     private static final String COURSES = "courses";
     private static final String COURSE = "course";
 
@@ -43,7 +43,7 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
      * @param criteria filter object
      * @return ModelAndView -> courses filtered list
      */
-    @GetMapping("/all")
+    @GetMapping()
     public ModelAndView listCourses(@Valid CourseCriteria criteria) {
         Page<CourseDto> courseDtos = courseService.filterCourses(criteria);
         ModelAndView mv = new ModelAndView(COURSES);
@@ -68,19 +68,6 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
         return mv;
     }
 
-    /**
-     * Retrieve course edition view
-     *
-     * @param id course id
-     * @return ModelAndView
-     */
-    @GetMapping("/edit/{id}")
-    public ModelAndView updateCourseView(@Valid @PathVariable("id") Long id) {
-        CourseDto courseDto = courseService.getCourseById(id);
-        ModelAndView mv = new ModelAndView("edit_course");
-        mv.addObject(COURSE, courseDto);
-        return mv;
-    }
 
     /**
      * Update course
@@ -106,7 +93,7 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
      * @param course CourseDto
      * @return ModelAndView
      */
-    @PostMapping("/save")
+    @PostMapping()
     public ModelAndView saveCourse(@Valid @ModelAttribute("course") ValidatedCourseDto course, BindingResult result, Model model) {
         model.addAttribute(COURSE, course);
         if (result.hasErrors()) {
@@ -131,12 +118,27 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
     }
 
     /**
+     * Retrieve course edition view
+     *
+     * @param id course id
+     * @return ModelAndView
+     */
+    @GetMapping("/edit-form/{id}")
+    public ModelAndView updateCourseView(@Valid @PathVariable("id") Long id) {
+        CourseDto courseDto = courseService.getCourseById(id);
+        ModelAndView mv = new ModelAndView("edit_course");
+        mv.addObject(COURSE, courseDto);
+        return mv;
+    }
+
+
+    /**
      * Retrieve form of course creation
      *
      * @param course courseDto
      * @return ModelAndView
      */
-    @GetMapping("/new")
+    @GetMapping("/creation-form")
     public ModelAndView retrieveNewCourseView(@Valid CourseDto course, BindingResult result) {
         ModelAndView mv = new ModelAndView("create_course");
         mv.addObject(COURSE, course);

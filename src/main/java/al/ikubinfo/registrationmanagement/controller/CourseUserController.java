@@ -23,7 +23,7 @@ import java.time.LocalDate;
 @Controller
 @RequestMapping("course-user")
 public class CourseUserController extends ControllerTemplate<CourseUserDto, CourseUserCriteria, CourseUserServiceImpl> {
-    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/course/all";
+    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
     private static final String REDIRECT_TO_ALL_URL = "redirect:/course-user/all";
     private static final String COURSES = "courses";
     private static final String COURSEUSER = "courseUser";
