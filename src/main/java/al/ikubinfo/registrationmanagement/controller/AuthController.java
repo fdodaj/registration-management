@@ -14,17 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
-
-
 @Controller
 public class AuthController {
-
     private static final String LOGIN = "login";
 
     private final TokenProvider tokenProvider;
-
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     public AuthController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
@@ -32,8 +27,12 @@ public class AuthController {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    // Login form
-
+    /**
+     * User login view
+     *
+     * @param login  loginDto
+     * @return ModelAndView
+     */
     @GetMapping("/login")
     public ModelAndView login(@Valid LoginDto login, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView("/login");
@@ -41,13 +40,24 @@ public class AuthController {
         return modelAndView;
     }
 
-    // Login form with error
+    /**
+     * User login error view
+     *
+     * @param  model model
+     * @return String
+     */
     @GetMapping("/login-error.html")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
         return "login.html";
     }
 
+    /**
+     * User login request
+     *
+     * @param login  email, password
+     * @return ModelAndView
+     */
     @PostMapping(value = "/login")
     public ModelAndView authorize(@ModelAttribute("login") LoginDto login, BindingResult result, Model model) {
         try {
@@ -64,6 +74,12 @@ public class AuthController {
         }
     }
 
+    /**
+     * Generates one time user token
+     *
+     * @param username username
+     * @param password password
+     */
     public void generateToken(String username, String password) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,
                 password);
@@ -73,6 +89,11 @@ public class AuthController {
         tokenProvider.setJwt(token);
     }
 
+    /**
+     * Destroys previously created token
+     *
+     * @return ModelAndView
+     */
     @GetMapping(value = "/signout")
     public ModelAndView logout() {
         tokenProvider.clearToken();

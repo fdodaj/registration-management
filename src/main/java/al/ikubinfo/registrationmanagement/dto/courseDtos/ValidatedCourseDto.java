@@ -3,10 +3,7 @@ package al.ikubinfo.registrationmanagement.dto.courseDtos;
 import al.ikubinfo.registrationmanagement.validation.DatesCheck;
 import al.ikubinfo.registrationmanagement.validation.DatesChecks;
 import al.ikubinfo.registrationmanagement.validation.UniqueCourseValidation;
-
 import javax.validation.Valid;
-
-
 @Valid
 @UniqueCourseValidation(
         courseName = "courseName",

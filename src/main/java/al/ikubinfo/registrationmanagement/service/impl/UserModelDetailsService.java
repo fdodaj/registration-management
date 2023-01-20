@@ -16,10 +16,8 @@ import java.util.Optional;
 
 @Component("userDetailsService")
 public class UserModelDetailsService implements UserDetailsService {
-
     @Autowired
     private UserRepository userRepository;
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {

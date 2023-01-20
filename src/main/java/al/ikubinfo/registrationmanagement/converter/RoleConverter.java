@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RoleConverter implements BidirectionalConverter<RoleDto, RoleEntity> {
-
-
     @Override
     public RoleDto toDto(RoleEntity entity) {
         RoleDto dto = new RoleDto();
@@ -18,7 +16,6 @@ public class RoleConverter implements BidirectionalConverter<RoleDto, RoleEntity
         dto.setModifiedDate(entity.getModifiedDate());
         return dto;
     }
-
     @Override
     public RoleEntity toEntity(RoleDto dto) {
         RoleEntity entity = new RoleEntity();

@@ -4,14 +4,11 @@ import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-
 @Entity
 @Data
 @Where(clause = "deleted = false")
@@ -45,7 +42,6 @@ public class CourseEntity extends BaseEntity {
     @Column(name = "registration_start_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate registrationStartDate;
-
 
     @Column(name = "registration_end_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

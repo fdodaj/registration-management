@@ -3,9 +3,7 @@ package al.ikubinfo.registrationmanagement.repository.criteria;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import lombok.Data;
-
 import java.time.LocalDate;
-
 @Data
 public class CourseCriteria extends BaseCriteria {
 
@@ -20,6 +18,5 @@ public class CourseCriteria extends BaseCriteria {
     private LocalDate registrationStartPeriod;
 
     private LocalDate registrationEndPeriod;
-
 
 }

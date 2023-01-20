@@ -2,7 +2,6 @@ package al.ikubinfo.registrationmanagement.repository.criteria;
 
 import lombok.Data;
 import org.springframework.data.domain.Sort;
-
 @Data
 public class BaseCriteria {
     private Long id;

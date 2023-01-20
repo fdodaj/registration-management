@@ -6,12 +6,8 @@ import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 public class UserConverter implements BidirectionalConverter<UserDto, UserEntity> {
-
     @Autowired
     private RoleConverter roleConverter;
 
@@ -31,7 +27,6 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
 
     public UserEntity toValidatedUserEntity(ValidatedUserDto dto) {
         UserEntity entity = new UserEntity();
-
         entity.setBirthDate(dto.getBirthDate());
         entity.setReachForm(dto.getReachForm());
         entity.setFirstName(dto.getFirstName());
@@ -42,7 +37,6 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.setRole(roleConverter.toEntity(dto.getRole()));
         return entity;
     }
-
 
     @Override
     public UserDto toDto(UserEntity entity) {
@@ -71,10 +65,4 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         entity.set_assigned(dto.isAssigned());
         return entity;
     }
-
-    public List<UserDto> toStudentDtoList(List<UserEntity> entities) {
-        return entities.stream().map(this::toDto).collect(Collectors.toList());
-    }
-
-
 }

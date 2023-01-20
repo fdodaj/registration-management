@@ -22,14 +22,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, UserRepository, UserSpecification> implements UserService {
-
-
     @Autowired
     private UserConverter userConverter;
 
@@ -145,6 +142,4 @@ public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, U
                 entity.getReachForm().toString(),
         };
     }
-
-
 }

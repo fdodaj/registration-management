@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
 
 @Controller
@@ -26,7 +25,6 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
 
     @Autowired
     private CourseService courseService;
-
     @Autowired
     private UserService userService;
 
@@ -64,10 +62,8 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
         mv.addObject("users", courseService.getAllStudentsByCourseId(id));
         mv.addObject("userList", userService.getUnassignedUsers());
         mv.addObject("userCourseList", courseUserService.getCourseUserListByCourseId(id));
-
         return mv;
     }
-
 
     /**
      * Update course
@@ -130,7 +126,6 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
         mv.addObject(COURSE, courseDto);
         return mv;
     }
-
 
     /**
      * Retrieve form of course creation

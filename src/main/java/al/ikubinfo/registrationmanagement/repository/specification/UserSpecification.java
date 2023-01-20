@@ -1,11 +1,9 @@
 package al.ikubinfo.registrationmanagement.repository.specification;
 
-
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-
 @Component
 public class UserSpecification extends SpecificationBuilder<UserEntity, UserCriteria> {
     @Override
@@ -24,7 +22,6 @@ public class UserSpecification extends SpecificationBuilder<UserEntity, UserCrit
         if (criteria.getCourse() != null) {
             specification = specification.and(equalsSpecification("course", criteria.getCourse()));
         }
-
         return specification;
     }
 }

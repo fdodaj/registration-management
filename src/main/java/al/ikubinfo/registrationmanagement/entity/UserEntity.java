@@ -1,12 +1,10 @@
 package al.ikubinfo.registrationmanagement.entity;
 
-
 import al.ikubinfo.registrationmanagement.dto.userDtos.ReachFormEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -48,7 +46,6 @@ public class UserEntity extends BaseEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    //    @Size(max = 50)
     @Enumerated(EnumType.STRING)
     @Column(name = "reach_form")
     private ReachFormEnum reachForm;
@@ -60,7 +57,6 @@ public class UserEntity extends BaseEntity {
     @JoinColumn(name = "user_role")
     @JsonIgnore
     private RoleEntity role;
-
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourseUserEntity> userCourses = new ArrayList<>();

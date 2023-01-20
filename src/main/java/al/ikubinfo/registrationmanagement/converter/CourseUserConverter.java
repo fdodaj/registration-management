@@ -77,7 +77,6 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
         entity.setId(new CourseUserId(dto.getUserId(), dto.getCourseId()));
         UserEntity user = userRepository.findById(dto.getUserId()).orElseThrow(null);
         CourseEntity course = courseRepository.findById(dto.getCourseId()).orElseThrow(null);
-
         entity.setUser(user);
         entity.setCourse(course);
         entity.setPriceReduction(dto.getPriceReduction());

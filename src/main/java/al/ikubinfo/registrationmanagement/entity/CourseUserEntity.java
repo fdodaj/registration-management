@@ -5,11 +5,9 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-
 @Data
 @Entity
 @Table(name = "course_user")
@@ -55,11 +53,9 @@ public class CourseUserEntity extends BaseEntity {
 
     @Column(name = "deleted")
     private boolean deleted;
-
     public CourseUserEntity() {
         super();
     }
-
     @Override
     public int hashCode() {
         return super.hashCode();

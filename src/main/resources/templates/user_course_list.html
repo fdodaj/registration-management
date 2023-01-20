@@ -159,7 +159,7 @@
                         <td th:text="${course.priceReduction}"></td>
                         <td style="text-align: center">
                             <a class="btn btn-primary"
-                               th:href="@{/course-user/update/{courseId}/{userId} (courseId=${course.getCourseDto().getId()},userId=${course.getUserDto().getId()} )}">Update</a>
+                               th:href="@{/course-user/edit-form/{courseId}/{userId} (courseId=${course.getCourseDto().getId()},userId=${course.getUserDto().getId()} )}">Update</a>
                         </td>
 
 

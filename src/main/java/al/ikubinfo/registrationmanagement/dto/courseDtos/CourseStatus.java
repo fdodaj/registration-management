@@ -1,7 +1,5 @@
 package al.ikubinfo.registrationmanagement.dto.courseDtos;
-
 public enum CourseStatus {
-
     READY_TO_START("READY_TO_START"),
     IN_PROGRESS("IN_PROGRESS"),
     FINISHED("FINISHED");

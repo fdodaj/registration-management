@@ -4,14 +4,11 @@ import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class CourseConverter implements BidirectionalConverter<CourseDto, CourseEntity> {
-
-
     @Override
     public CourseDto toDto(CourseEntity entity) {
         CourseDto dto = new CourseDto();
@@ -28,8 +25,6 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setPrice(entity.getPrice());
         return dto;
     }
-
-
     @Override
     public CourseEntity toEntity(CourseDto dto) {
         return toEntity((ValidatedCourseDto) dto);
@@ -37,7 +32,6 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
 
     public CourseEntity toEntity(ValidatedCourseDto dto) {
         CourseEntity entity = new CourseEntity();
-
         entity.setCourseStartDate(dto.getCourseStartDate());
         entity.setCourseEndDate(dto.getCourseEndDate());
         entity.setPrice(dto.getPrice());

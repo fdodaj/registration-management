@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 @ControllerAdvice
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -32,14 +31,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ErrorResponse(STUDENT_DELETED, "This student has been deleted");
     }
 
-
     @ExceptionHandler(AccessDeniedException.class)  //handle this exception
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public String accessDenied(final AccessDeniedException ex) {
-//        model.addAttribute("errorMessage", throwable.getMessage()); //custom message to render in HTML
-        return "redirect:/login";  //the html page in resources/templates folder
+        return "redirect:/login";
     }
-
 
     @Data
     public static class ErrorResponse {

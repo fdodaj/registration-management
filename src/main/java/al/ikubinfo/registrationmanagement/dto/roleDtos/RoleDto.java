@@ -2,13 +2,10 @@ package al.ikubinfo.registrationmanagement.dto.roleDtos;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-
 @Data
 public class RoleDto {
-
     @NotNull
     private Long id;
 

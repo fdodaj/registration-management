@@ -26,10 +26,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Service
 public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, CourseUserEntity, CourseUserRepository, CourseUserSpecification> implements CourseUserService {
-
     @Autowired
     CourseSpecification courseSpecification;
     @Autowired
@@ -38,7 +36,6 @@ public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, C
     private CourseUserConverter courseUserConverter;
     @Autowired
     private CourseUserRepository courseUserRepository;
-
     @Autowired
     private UserRepository userRepository;
     protected CourseUserServiceImpl(CourseUserRepository repository, CourseUserSpecification specificationBuilder) {

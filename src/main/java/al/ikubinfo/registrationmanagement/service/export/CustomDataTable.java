@@ -1,13 +1,11 @@
 package al.ikubinfo.registrationmanagement.service.export;
 
-
 import be.quodlibet.boxable.*;
 import be.quodlibet.boxable.line.LineStyle;
 import be.quodlibet.boxable.utils.FontUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;

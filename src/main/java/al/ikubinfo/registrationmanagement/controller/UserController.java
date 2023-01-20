@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -180,6 +179,13 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
         return mv;
     }
 
+
+    /**
+     * Get change password view
+     *
+     * @param passwordDto passwordDto
+     * @return ModelAndView
+     */
     @GetMapping("/new-password-form")
     public ModelAndView getChangePasswordView(PasswordDto passwordDto) {
         ModelAndView mv = new ModelAndView("change_password");
@@ -187,6 +193,12 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
         return mv;
     }
 
+    /**
+     * Change user password
+     *
+     * @param passwordDto old password, new password
+     * @return ModelAndView
+     */
     @PostMapping("/changePassword")
     public ModelAndView changePassword(PasswordDto passwordDto) {
         ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);

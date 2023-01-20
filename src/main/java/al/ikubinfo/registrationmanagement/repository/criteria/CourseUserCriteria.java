@@ -4,11 +4,9 @@ import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;
-
 @Getter
 @Setter
 public class CourseUserCriteria extends BaseCriteria {
@@ -27,6 +25,4 @@ public class CourseUserCriteria extends BaseCriteria {
     private LocalDate courseStartDateTo;
 
     private Boolean deleted;
-
-
 }

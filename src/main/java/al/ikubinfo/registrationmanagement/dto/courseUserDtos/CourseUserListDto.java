@@ -5,9 +5,7 @@ import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
 import lombok.Data;
-
 import java.time.LocalDate;
-
 @Data
 public class CourseUserListDto {
     private CourseUserId id;

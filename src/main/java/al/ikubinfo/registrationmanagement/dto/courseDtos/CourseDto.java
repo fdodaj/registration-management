@@ -4,16 +4,13 @@ import al.ikubinfo.registrationmanagement.dto.BaseDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @Data
 public class CourseDto extends BaseDto {
-
     @NotBlank(message = "Course name cannot be null")
     private String courseName;
 

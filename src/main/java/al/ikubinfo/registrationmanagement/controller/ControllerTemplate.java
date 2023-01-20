@@ -22,6 +22,12 @@ public abstract class ControllerTemplate<
 
     protected final S service;
 
+    /**
+     * Exports the criteria data into a excel file
+     *
+     * @param criteria
+     * @return ResponseEntity
+     */
     @GetMapping(value = "exportToExcel")
     public ResponseEntity<Resource> export(@Nullable C criteria) {
         ByteArrayResource resource;
@@ -33,16 +39,19 @@ public abstract class ControllerTemplate<
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(resource);
-
-
     }
 
+    /**
+     * Exports the criteria data into a cvs file
+     *
+     * @param criteria
+     * @return ResponseEntity
+     */
     @GetMapping(value = "exportToCvs")
     public ResponseEntity<Resource> exportToCvs(@Nullable C criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
-
         resource = new ByteArrayResource(service.createCsv(criteria));
         headers.setContentType(new MediaType("text", "csv"));
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".csv\"");
@@ -51,15 +60,19 @@ public abstract class ControllerTemplate<
                 .body(resource);
     }
 
+    /**
+     * Exports the criteria data into a pdf file
+     *
+     * @param criteria
+     * @return ResponseEntity
+     */
     @GetMapping(value = "exportToPdf")
     public ResponseEntity<Resource> exportToPdf(@Nullable C criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
         String fileName = RandomStringUtils.randomAlphanumeric(17).toUpperCase();
-
         resource = new ByteArrayResource(service.createPdf(criteria));
         headers.setContentType(MediaType.APPLICATION_PDF);
-
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".pdf\"");
         return ResponseEntity.ok()
                 .headers(headers)

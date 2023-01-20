@@ -16,27 +16,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Autowired
     private JWTFilter jwtFilter;
-
     @Autowired
     private JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
     @Autowired
     private JwtAuthenticationEntryPoint authenticationErrorHandler;
-
-    // Configure BCrypt password encoder
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -48,13 +41,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
-    // Configure security settings
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -67,16 +57,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and().headers().frameOptions().sameOrigin()
 
-
                 // create no session
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/**").hasAuthority(RoleEnum.ADMIN.name())
-
                 .anyRequest().authenticated();
-
-
     }
 }
 
