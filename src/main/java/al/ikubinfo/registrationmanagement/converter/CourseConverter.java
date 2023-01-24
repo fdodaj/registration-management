@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.converter;
 
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.UpdateCourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,20 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setPrice(entity.getPrice());
         return dto;
     }
+    public UpdateCourseDto toUpdateCourseDto(CourseEntity entity) {
+        UpdateCourseDto dto = new UpdateCourseDto();
+        dto.setId(entity.getId());
+        dto.setCourseName(entity.getCourseName());
+        dto.setPrice(entity.getPrice());
+        dto.setStatus(entity.getStatus());
+        dto.setCourseStartDate(entity.getCourseStartDate());
+        dto.setCourseEndDate(entity.getCourseEndDate());
+        dto.setRegistrationStartDate(entity.getRegistrationStartDate());
+        dto.setRegistrationEndDate(entity.getRegistrationEndDate());
+        dto.setPrice(entity.getPrice());
+        return dto;
+    }
+
     @Override
     public CourseEntity toEntity(CourseDto dto) {
         return toEntity((ValidatedCourseDto) dto);
@@ -44,12 +59,13 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
     }
 
 
-    public CourseEntity toUpdateCourseEntity(CourseDto dto, CourseEntity entity) {
+    public CourseEntity toUpdateCourseEntity(UpdateCourseDto dto, CourseEntity entity) {
         entity.setId(dto.getId());
         entity.setCourseStartDate(dto.getCourseStartDate());
         entity.setCourseEndDate(dto.getCourseEndDate());
         entity.setRegistrationStartDate(dto.getRegistrationStartDate());
         entity.setRegistrationEndDate(dto.getRegistrationEndDate());
+        entity.setCreatedDate(entity.getCreatedDate());
         entity.setCourseName(dto.getCourseName());
         entity.setStatus(dto.getStatus());
         entity.setPrice(dto.getPrice());

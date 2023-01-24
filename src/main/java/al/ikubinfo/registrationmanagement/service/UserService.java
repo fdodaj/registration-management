@@ -1,6 +1,8 @@
 package al.ikubinfo.registrationmanagement.service;
 
 import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.NewUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
@@ -33,7 +35,7 @@ public interface UserService {
      * @param student ValidatedUserDto
      * @return UserDto
      */
-    UserDto saveUser(ValidatedUserDto student);
+    UserDto saveUser(NewUserDto user);
 
     /**
      * Update user
@@ -41,7 +43,7 @@ public interface UserService {
      * @param student ValidatedUserDto
      * @return UserDto
      */
-    UserDto updateUser(ValidatedUserDto student);
+    UserDto updateUser(UpdateUserDto user);
 
     /**
      * Delete user

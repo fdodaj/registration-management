@@ -11,6 +11,8 @@ import al.ikubinfo.registrationmanagement.service.UserService;
 import al.ikubinfo.registrationmanagement.service.impl.CourseUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,22 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.time.LocalDate;
 
-@Controller
+@RestController
 @RequestMapping("course-user")
 public class CourseUserController extends ControllerTemplate<CourseUserDto, CourseUserCriteria, CourseUserServiceImpl> {
-    private static final String REDIRECT_TO_HOMEPAGE_URL = "redirect:/courses";
-    private static final String REDIRECT_TO_ALL_URL = "redirect:/course-user/all";
-    private static final String COURSES = "courses";
-    private static final String COURSEUSER = "courseUser";
-
     @Autowired
     private CourseUserService courseUserService;
-
-    @Autowired
-    private CourseService courseService;
-    @Autowired
-    private UserService userService;
-
     public CourseUserController(CourseUserServiceImpl service) {
         super(service);
     }
@@ -45,12 +36,9 @@ public class CourseUserController extends ControllerTemplate<CourseUserDto, Cour
      * @param criteria
      * @return ModelAndView
      */
-    @GetMapping("/all")
-    public ModelAndView getCourseUserList(@Valid CourseUserCriteria criteria) {
-        Page<CourseUserListDto> userCourseList = courseUserService.getCourseUserList(criteria);
-        ModelAndView mv = new ModelAndView("user_course_list");
-        mv.addObject("UserCourseList", userCourseList);
-        return mv;
+    @PostMapping("/filter")
+    public ResponseEntity<Page<CourseUserListDto>> getCourseUserList(@RequestBody CourseUserCriteria criteria) {
+        return new ResponseEntity<>(courseUserService.getCourseUserList(criteria), HttpStatus.OK);
     }
 
     /**
@@ -60,51 +48,9 @@ public class CourseUserController extends ControllerTemplate<CourseUserDto, Cour
      * @return ModelAndView
      */
     @PostMapping(path = "/edit/{courseId}/{userId}")
-    public ModelAndView updateCourseUser(@ModelAttribute CourseUserDto courseUserDto, BindingResult result, Model model) {
-        model.addAttribute(COURSEUSER, courseUserDto);
-        if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("edit_user_course");
-            mv.addObject(COURSEUSER, courseUserDto);
-            mv.addObject("course", courseService.getCourseById(courseUserDto.getCourseId()));
-            mv.addObject("user", userService.getUserById(courseUserDto.getUserId()));
-            return mv;
-        }
-        courseUserService.editCourseUser(courseUserDto);
-        return new ModelAndView(REDIRECT_TO_ALL_URL);
+    public ResponseEntity<CourseUserDto> updateCourseUser(@RequestBody CourseUserDto courseUserDto) {
+        return new ResponseEntity<>(courseUserService.editCourseUser(courseUserDto), HttpStatus.OK);
     }
-
-    /**
-     * Retrieve course-user edition view
-     *
-     * @param courseId courseId
-     * @param userId    userId
-     * @return ModelAndView
-     */
-    @GetMapping("/edit-form/{courseId}/{userId}")
-    public ModelAndView updateCourseUserView(@Valid @PathVariable("courseId") Long courseId, @PathVariable("userId") Long userId) {
-        CourseUserDto courseUserDto = courseUserService.getCourseUserEntity(courseId, userId);
-        ModelAndView mv = new ModelAndView("edit_user_course");
-        mv.addObject(COURSEUSER, courseUserDto);
-        return mv;
-    }
-
-    /**
-     * Retrieve course assignation to user  view
-     *
-     * @param userId userId
-     * @param courseUserDto courseUserDto
-     * @return ModelAndView
-     */
-    @GetMapping("/course/assign/{userId}")
-    public ModelAndView assignCourseView(@PathVariable("userId") Long userId, CourseUserDto courseUserDto) {
-        ModelAndView mv = new ModelAndView("assign_course_to_user");
-        UserDto user = userService.getUserById(userId);
-        courseUserDto.setUserId(user.getId());
-        mv.addObject("courseUserDto", courseUserDto);
-        mv.addObject(COURSES, courseService.filterCourses(new CourseCriteria()));
-        return mv;
-    }
-
     /**
      * Assign user to course
      *
@@ -112,13 +58,11 @@ public class CourseUserController extends ControllerTemplate<CourseUserDto, Cour
      * @return ModelAndView
      */
     @PostMapping("/assign-user")
-    public ModelAndView assignUserToCourse(CourseUserDto courseUserDto) {
-        ModelAndView modelAndView = new ModelAndView(REDIRECT_TO_ALL_URL);
-        modelAndView.addObject("courseUserDto", courseUserDto);
+    public ResponseEntity<Void> assignUserToCourse(@RequestBody CourseUserDto courseUserDto) {
         courseUserDto.setCreatedDate(LocalDate.now());
         courseUserDto.setModifiedDate(LocalDate.now());
         courseUserService.assignUserToCourse(courseUserDto);
-        return modelAndView;
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     /**
@@ -129,9 +73,8 @@ public class CourseUserController extends ControllerTemplate<CourseUserDto, Cour
      * @return ModelAndView
      */
     @GetMapping("/remove/{courseId}/{studentId}")
-    ModelAndView removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
-        ModelAndView mv = new ModelAndView(REDIRECT_TO_HOMEPAGE_URL);
+    public ResponseEntity<Void> removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
         courseUserService.removeUserFromCourse(studentId, courseId);
-        return mv;
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

@@ -2,6 +2,9 @@ package al.ikubinfo.registrationmanagement.service.impl;
 
 import al.ikubinfo.registrationmanagement.converter.UserConverter;
 import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
+import al.ikubinfo.registrationmanagement.dto.roleDtos.RoleEnum;
+import al.ikubinfo.registrationmanagement.dto.userDtos.NewUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
@@ -22,6 +25,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,18 +68,24 @@ public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, U
 
     @Override
     public UserDto getUserById(Long id) {
+        UserEntity userEntity = getStudentEntity(id);
+        userEntity.setUserCourses(courseUserRepository.getCourseUserEntitiesByUserId(id));
         return userConverter.toDto(getStudentEntity(id));
     }
 
     @Override
-    public UserDto saveUser(ValidatedUserDto dto) {
-        UserEntity userEntity = userConverter.toValidatedUserEntity(dto);
-        userEntity.setRole(roleRepository.findByName("STUDENT"));
+    public UserDto saveUser(NewUserDto dto) {
+        UserEntity userEntity = userConverter.toNewUserEntity(dto);
+        userEntity.set_assigned(Boolean.FALSE);
+        userEntity.setModifiedDate(LocalDate.now());
+        userEntity.setCreatedDate(LocalDate.now());
+        userEntity.setDeleted(Boolean.FALSE);
+        userEntity.setRole(roleRepository.findByName(RoleEnum.STUDENT.toString()));
         return userConverter.toDto(userRepository.save(userEntity));
     }
 
     @Override
-    public UserDto updateUser(ValidatedUserDto student) {
+    public UserDto updateUser(UpdateUserDto student) {
         UserEntity currentEntity = getStudentEntity(student.getId());
         UserEntity userEntity = userConverter.toUpdateStudentEntity(student, currentEntity);
         return userConverter.toDto(userRepository.save(userEntity));

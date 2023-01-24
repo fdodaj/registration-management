@@ -49,7 +49,6 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
         SimplifiedCourseUserDto dto = new SimplifiedCourseUserDto();
         dto.setUserId(entity.getId().getUserId());
         dto.setCourseDto(courseConverter.toDto(entity.getCourse()));
-        dto.setUserDto(userConverter.toDto(entity.getUser()));
         dto.setStatus(entity.getStatus());
         return dto;
     }

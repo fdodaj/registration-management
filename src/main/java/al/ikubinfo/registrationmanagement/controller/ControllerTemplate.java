@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @AllArgsConstructor
 public abstract class ControllerTemplate<
@@ -28,7 +29,7 @@ public abstract class ControllerTemplate<
      * @param criteria
      * @return ResponseEntity
      */
-    @GetMapping(value = "exportToExcel")
+    @PostMapping(value = "exportToExcel")
     public ResponseEntity<Resource> export(@Nullable C criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
@@ -47,7 +48,7 @@ public abstract class ControllerTemplate<
      * @param criteria
      * @return ResponseEntity
      */
-    @GetMapping(value = "exportToCvs")
+    @PostMapping(value = "exportToCvs")
     public ResponseEntity<Resource> exportToCvs(@Nullable C criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();
@@ -66,7 +67,7 @@ public abstract class ControllerTemplate<
      * @param criteria
      * @return ResponseEntity
      */
-    @GetMapping(value = "exportToPdf")
+    @PostMapping(value = "exportToPdf")
     public ResponseEntity<Resource> exportToPdf(@Nullable C criteria) {
         ByteArrayResource resource;
         HttpHeaders headers = new HttpHeaders();

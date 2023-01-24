@@ -4,6 +4,7 @@ import al.ikubinfo.registrationmanagement.converter.CourseConverter;
 import al.ikubinfo.registrationmanagement.converter.CourseUserConverter;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.UpdateCourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
@@ -53,8 +54,10 @@ public class CourseServiceImpl
     }
 
     @Override
-    public CourseDto updateCourse(CourseDto courseDto) {
+    public CourseDto updateCourse(UpdateCourseDto courseDto) {
         CourseEntity currentEntity = getCourseEntity(courseDto.getId());
+        currentEntity.setModifiedDate(LocalDate.now());
+        currentEntity.setCourseUsers(courseUserRepository.getCourseUserEntitiesByCourseId(courseDto.getId()));
         CourseEntity entity = converter.toUpdateCourseEntity(courseDto, currentEntity);
         return converter.toDto(courseRepository.save(entity));
     }
