@@ -5,6 +5,7 @@ import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserListDto;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.NewUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.SimplifiedUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
@@ -69,6 +70,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
 
     @Override
     public UserDto toDto(UserEntity entity) {
+        CourseUserConverter courseUserConverter = new CourseUserConverter();
         UserDto dto = new UserDto();
         dto.setId(entity.getId());
         dto.setFirstName(entity.getFirstName());
@@ -81,6 +83,19 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         dto.setModifiedDate(entity.getModifiedDate());
         dto.setAssigned(entity.is_assigned());
         dto.setReachForm(entity.getReachForm());
+        dto.setRole(roleConverter.toDto(entity.getRole()));
+        dto.setUserCourses(courseUserConverter.toCourseUserDtoList(entity.getUserCourses()));
+        return dto;
+    }
+    public SimplifiedUserDto toSimplifiedUserDto(UserEntity entity) {
+        SimplifiedUserDto dto = new SimplifiedUserDto();
+        dto.setFirstName(entity.getFirstName());
+        dto.setLastName(entity.getLastName());
+        dto.setPhoneNumber(entity.getPhoneNumber());
+        dto.setEmail(entity.getEmail());
+        dto.setReachForm(entity.getReachForm());
+        dto.setBirthDate(entity.getBirthDate());
+        dto.setReachForm(entity.getReachForm());
         return dto;
     }
 
@@ -92,4 +107,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         return entity;
     }
 
+    public List<UserDto> toUserDtoList(List<UserEntity> entities) {
+        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    }
 }

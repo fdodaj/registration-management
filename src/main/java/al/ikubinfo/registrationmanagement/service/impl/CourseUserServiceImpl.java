@@ -3,13 +3,10 @@ package al.ikubinfo.registrationmanagement.service.impl;
 import al.ikubinfo.registrationmanagement.converter.CourseUserConverter;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserListDto;
-import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
-import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.CourseUserRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
-import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseUserSpecification;
@@ -90,6 +87,7 @@ public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, C
         return courseUserConverter.toDto(courseUserRepository.findById(new CourseUserId(userId, courseId))
                 .orElseThrow(() -> new RuntimeException("Course user relation was not found")));
     }
+
 
     @Override
     public void removeUserFromCourse(Long userId, Long courseId) {

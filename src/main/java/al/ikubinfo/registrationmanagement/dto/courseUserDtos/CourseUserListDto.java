@@ -1,6 +1,8 @@
 package al.ikubinfo.registrationmanagement.dto.courseUserDtos;
 
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.SimplifiedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.SimplifiedUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
@@ -9,8 +11,8 @@ import java.time.LocalDate;
 @Data
 public class CourseUserListDto {
     private CourseUserId id;
-    private UserDto userDto;
-    private CourseDto courseDto;
+    private SimplifiedUserDto userDto;
+    private SimplifiedCourseDto courseDto;
     private UserStatusEnum status;
     private String reference;
     private String comment;

@@ -77,4 +77,5 @@ public class CourseUserController extends ControllerTemplate<CourseUserDto, Cour
         courseUserService.removeUserFromCourse(studentId, courseId);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
 }

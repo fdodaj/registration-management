@@ -1,17 +1,26 @@
 package al.ikubinfo.registrationmanagement.converter;
 
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.SimplifiedCourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.UpdateCourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.SimplifiedUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.entity.CourseEntity;
+import al.ikubinfo.registrationmanagement.service.UserService;
+import al.ikubinfo.registrationmanagement.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Component
 public class CourseConverter implements BidirectionalConverter<CourseDto, CourseEntity> {
+
     @Override
     public CourseDto toDto(CourseEntity entity) {
+        CourseUserConverter converter =new CourseUserConverter();
         CourseDto dto = new CourseDto();
         dto.setId(entity.getId());
         dto.setCourseName(entity.getCourseName());
@@ -23,6 +32,20 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
         dto.setRegistrationEndDate(entity.getRegistrationEndDate());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setModifiedDate(entity.getModifiedDate());
+        dto.setPrice(entity.getPrice());
+        dto.setCourseStudents(converter.toCourseUserDtoList(entity.getCourseUsers()));
+        return dto;
+    }
+
+    public SimplifiedCourseDto toSimplifiedUserDto(CourseEntity entity) {
+        SimplifiedCourseDto dto = new SimplifiedCourseDto();
+        dto.setCourseName(entity.getCourseName());
+        dto.setPrice(entity.getPrice());
+        dto.setStatus(entity.getStatus());
+        dto.setCourseStartDate(entity.getCourseStartDate());
+        dto.setCourseEndDate(entity.getCourseEndDate());
+        dto.setRegistrationStartDate(entity.getRegistrationStartDate());
+        dto.setRegistrationEndDate(entity.getRegistrationEndDate());
         dto.setPrice(entity.getPrice());
         return dto;
     }
@@ -75,6 +98,5 @@ public class CourseConverter implements BidirectionalConverter<CourseDto, Course
     public List<CourseDto> toCourseDtoList(List<CourseEntity> entities) {
         return entities.stream().map(this::toDto).collect(Collectors.toList());
     }
-
 
 }

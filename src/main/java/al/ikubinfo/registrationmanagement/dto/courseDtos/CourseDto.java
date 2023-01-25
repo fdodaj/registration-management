@@ -1,6 +1,7 @@
 package al.ikubinfo.registrationmanagement.dto.courseDtos;
 
 import al.ikubinfo.registrationmanagement.dto.BaseDto;
+import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,5 +39,5 @@ public class CourseDto extends BaseDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate modifiedDate;
 
-    private List<UserDto> courseStudents;
+    private List<SimplifiedCourseUserDto> courseStudents;
 }

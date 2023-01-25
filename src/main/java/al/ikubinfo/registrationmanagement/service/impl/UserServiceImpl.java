@@ -68,8 +68,6 @@ public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, U
 
     @Override
     public UserDto getUserById(Long id) {
-        UserEntity userEntity = getStudentEntity(id);
-        userEntity.setUserCourses(courseUserRepository.getCourseUserEntitiesByUserId(id));
         return userConverter.toDto(getStudentEntity(id));
     }
 

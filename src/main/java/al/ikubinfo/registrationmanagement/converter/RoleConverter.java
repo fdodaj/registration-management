@@ -16,6 +16,7 @@ public class RoleConverter implements BidirectionalConverter<RoleDto, RoleEntity
         dto.setModifiedDate(entity.getModifiedDate());
         return dto;
     }
+
     @Override
     public RoleEntity toEntity(RoleDto dto) {
         RoleEntity entity = new RoleEntity();
