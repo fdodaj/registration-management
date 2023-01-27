@@ -1,7 +1,6 @@
 package al.ikubinfo.registrationmanagement.converter;
 
-import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
-import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.*;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,16 +24,28 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         return entity;
     }
 
-    public UserEntity toValidatedUserEntity(ValidatedUserDto dto) {
+
+
+    public SimplifiedUserDto toSimplifiedUserDto(UserEntity entity) {
+        SimplifiedUserDto dto = new SimplifiedUserDto();
+        dto.setId(entity.getId());
+        dto.setFirstName(entity.getFirstName());
+        dto.setLastName(entity.getLastName());
+        dto.setPhoneNumber(entity.getPhoneNumber());
+        dto.setEmail(entity.getEmail());
+        dto.setReachForm(entity.getReachForm());
+        dto.setBirthDate(entity.getBirthDate());
+        dto.setReachForm(entity.getReachForm());
+        return dto;
+    }
+    public UserEntity toNewUserEntity(NewUserDto dto) {
         UserEntity entity = new UserEntity();
-        entity.setBirthDate(dto.getBirthDate());
-        entity.setReachForm(dto.getReachForm());
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
-        entity.set_assigned(dto.isAssigned());
-        entity.setRole(roleConverter.toEntity(dto.getRole()));
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setReachForm(dto.getReachForm());
         return entity;
     }
 
@@ -56,13 +67,13 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         return dto;
     }
 
-    public UserEntity toUpdateStudentEntity(ValidatedUserDto dto, UserEntity entity) {
+    public UserEntity toUpdateStudentEntity(UpdateUserDto dto, UserEntity entity) {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setEmail(dto.getEmail());
+        entity.setBirthDate(dto.getBirthDate());
         entity.setReachForm(dto.getReachForm());
-        entity.set_assigned(dto.isAssigned());
         return entity;
     }
 }

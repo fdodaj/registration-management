@@ -1,7 +1,8 @@
 package al.ikubinfo.registrationmanagement.controller;
 
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.NewCourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.UpdateCourseDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.CourseUserService;
@@ -72,7 +73,7 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
      * @return ModelAndView
      */
     @PostMapping("/{id}")
-    public ModelAndView updateCourse(@Valid @ModelAttribute("course") CourseDto course, BindingResult result, Model model) {
+    public ModelAndView updateCourse(@Valid @ModelAttribute("course") UpdateCourseDto course, BindingResult result, Model model) {
         model.addAttribute(COURSE, course);
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("edit_course");
@@ -90,7 +91,7 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
      * @return ModelAndView
      */
     @PostMapping()
-    public ModelAndView saveCourse(@Valid @ModelAttribute("course") ValidatedCourseDto course, BindingResult result, Model model) {
+    public ModelAndView saveCourse(@Valid @ModelAttribute("course") NewCourseDto course, BindingResult result, Model model) {
         model.addAttribute(COURSE, course);
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("create_course");

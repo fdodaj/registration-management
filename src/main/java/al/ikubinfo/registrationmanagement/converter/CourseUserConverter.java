@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CourseUserConverter implements BidirectionalConverter<CourseUserDto, CourseUserEntity> {
@@ -48,8 +50,8 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
     public SimplifiedCourseUserDto toSimplifiedDto(CourseUserEntity entity) {
         SimplifiedCourseUserDto dto = new SimplifiedCourseUserDto();
         dto.setUserId(entity.getId().getUserId());
-        dto.setCourseDto(courseConverter.toDto(entity.getCourse()));
-        dto.setUserDto(userConverter.toDto(entity.getUser()));
+        dto.setStudentName(entity.getUser().getFirstName() + " " + entity.getUser().getLastName());
+        dto.setCourseName(entity.getCourse().getCourseName());
         dto.setStatus(entity.getStatus());
         return dto;
     }
@@ -92,8 +94,8 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
     public CourseUserListDto toCourseUserList(CourseUserEntity entity) {
         CourseUserListDto dto = new CourseUserListDto();
         dto.setId(entity.getId());
-        dto.setCourseDto(courseConverter.toDto(entity.getCourse()));
-        dto.setUserDto(userConverter.toDto(entity.getUser()));
+        dto.setCourseDto(courseConverter.toSimplifiedCourseDto(entity.getCourse()));
+        dto.setUserDto(userConverter.toSimplifiedUserDto(entity.getUser()));
         dto.setStatus(entity.getStatus());
         dto.setReference(entity.getReference());
         dto.setComment(entity.getComment());
@@ -102,5 +104,9 @@ public class CourseUserConverter implements BidirectionalConverter<CourseUserDto
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setModifiedDate(entity.getModifiedDate());
         return dto;
+    }
+
+    public List<SimplifiedCourseUserDto> toCourseUserDtoList(List<CourseUserEntity> entities) {
+        return entities.stream().map(this::toSimplifiedDto).collect(Collectors.toList());
     }
 }

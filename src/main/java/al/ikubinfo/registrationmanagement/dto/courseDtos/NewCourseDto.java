@@ -1,17 +1,40 @@
 package al.ikubinfo.registrationmanagement.dto.courseDtos;
 
 import al.ikubinfo.registrationmanagement.dto.BaseDto;
-import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
+import al.ikubinfo.registrationmanagement.validation.DatesCheck;
+import al.ikubinfo.registrationmanagement.validation.DatesChecks;
+import al.ikubinfo.registrationmanagement.validation.UniqueCourseValidation;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class CourseDto extends BaseDto {
+@Valid
+@UniqueCourseValidation(
+        courseName = "courseName",
+        registrationStartDate = "registrationStartDate"
+)
+
+@DatesChecks(value = {
+        @DatesCheck(
+                first = "courseStartDate",
+                second = "courseEndDate",
+                message = "courseStartDate must be before courseEndDate"
+        ),
+
+        @DatesCheck(
+                first = "registrationStartDate",
+                second = "registrationEndDate",
+                message = "registrationStartDate must be before registrationEndDate"
+        )
+})
+public class NewCourseDto extends BaseDto {
     @NotBlank(message = "Course name cannot be null")
     private String courseName;
 
@@ -39,5 +62,5 @@ public class CourseDto extends BaseDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate modifiedDate;
 
-    private List<SimplifiedCourseUserDto> courseStudents;
+    private List<UserDto> courseStudents;
 }

@@ -1,8 +1,9 @@
 package al.ikubinfo.registrationmanagement.service;
 
 import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.NewUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
-import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import org.springframework.data.domain.Page;
 
@@ -30,18 +31,18 @@ public interface UserService {
     /**
      * Save user/student
      *
-     * @param student ValidatedUserDto
+     * @param user ValidatedUserDto
      * @return UserDto
      */
-    UserDto saveUser(ValidatedUserDto student);
+    UserDto saveUser(NewUserDto user);
 
     /**
      * Update user
      *
-     * @param student ValidatedUserDto
+     * @param user ValidatedUserDto
      * @return UserDto
      */
-    UserDto updateUser(ValidatedUserDto student);
+    UserDto updateUser(UpdateUserDto user);
 
     /**
      * Delete user

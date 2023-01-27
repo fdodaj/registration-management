@@ -3,8 +3,9 @@ package al.ikubinfo.registrationmanagement.controller;
 import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.NewUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
-import al.ikubinfo.registrationmanagement.dto.userDtos.ValidatedUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.UserCriteria;
 import al.ikubinfo.registrationmanagement.service.CourseService;
 import al.ikubinfo.registrationmanagement.service.CourseUserService;
@@ -86,7 +87,7 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
      * @return ModelAndView
      */
     @PostMapping()
-    public ModelAndView saveUser(@Valid @ModelAttribute("user") ValidatedUserDto user, BindingResult result, Model model) {
+    public ModelAndView saveUser(@Valid @ModelAttribute("user") NewUserDto user, BindingResult result, Model model) {
         model.addAttribute("user", user);
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("create_user");
@@ -132,7 +133,7 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
      * @return ModelAndView
      */
     @PostMapping("/{id}")
-    public ModelAndView updateUser(@Valid @ModelAttribute("user") ValidatedUserDto user, BindingResult result, Model model) {
+    public ModelAndView updateUser(@Valid @ModelAttribute("user") UpdateUserDto user, BindingResult result, Model model) {
         model.addAttribute("user", user);
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("edit_user");

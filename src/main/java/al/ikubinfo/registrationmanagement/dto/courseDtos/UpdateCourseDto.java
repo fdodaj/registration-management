@@ -1,18 +1,18 @@
 package al.ikubinfo.registrationmanagement.dto.courseDtos;
 
 import al.ikubinfo.registrationmanagement.dto.BaseDto;
-import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class CourseDto extends BaseDto {
-    @NotBlank(message = "Course name cannot be null")
+public class UpdateCourseDto extends BaseDto {
+
     private String courseName;
 
     private Double price;
@@ -33,11 +33,4 @@ public class CourseDto extends BaseDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate registrationEndDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createdDate;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate modifiedDate;
-
-    private List<SimplifiedCourseUserDto> courseStudents;
 }

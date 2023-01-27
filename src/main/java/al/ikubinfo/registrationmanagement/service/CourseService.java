@@ -1,7 +1,8 @@
 package al.ikubinfo.registrationmanagement.service;
 
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseDto;
-import al.ikubinfo.registrationmanagement.dto.courseDtos.ValidatedCourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.NewCourseDto;
+import al.ikubinfo.registrationmanagement.dto.courseDtos.UpdateCourseDto;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.SimplifiedCourseUserDto;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,7 @@ public interface CourseService {
      * @param course CourseDto
      * @return
      */
-    CourseDto saveCourse(ValidatedCourseDto course);
+    CourseDto saveCourse(NewCourseDto course);
 
     /**
      * Update course
@@ -47,7 +48,7 @@ public interface CourseService {
      * @param courseDto course dto
      * @return CourseDto
      */
-    CourseDto updateCourse(CourseDto courseDto);
+    CourseDto updateCourse(UpdateCourseDto courseDto);
 
     /**
      * Delete course
