@@ -7,6 +7,28 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           rel="stylesheet">
+
+    <style>
+        .pageNumber {
+            align-content: center;
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #000;
+        }
+        .forward, .back {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #000;
+            display: inline-block;
+            margin: 0 10px;
+        }
+    </style>
 </head>
 <body style="background-color: #9fbab3">
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -104,6 +126,17 @@
         </tbody>
 
     </table>
+    <div id="pageNumber">
+        <a class="back" href="#">&laquo;</a>
+        <a class="pageNumber" href="#">0</a>
+        <a class="pageNumber" href="#">1</a>
+        <a class="pageNumber" href="#">2</a>
+        <a class="pageNumber" href="#">3</a>
+        <a class="pageNumber" href="#">4</a>
+        <a class="forward" href="#">&raquo;</a>
+    </div>
+
+    <hr>
     <button class="btn btn-primary" id="exportToPdf" type="button">
         export to PDF
     </button>
@@ -154,6 +187,36 @@
         }
     )
 
+    const pageNumberLinks = document.querySelectorAll('.pageNumber');
+    const backButton = document.querySelector('.back');
+    const forwardButton = document.querySelector('.forward');
+
+    let currentPage = 0;
+
+    pageNumberLinks.forEach(link => {
+        link.addEventListener('click', event => {
+            currentPage = parseInt(event.target.textContent, 10);
+            updateURL();
+        });
+    });
+
+    backButton.addEventListener('click', event => {
+        if (currentPage > 0) {
+            currentPage--;
+            updateURL();
+        }
+    });
+
+    forwardButton.addEventListener('click', event => {
+        if (currentPage < 4) {
+            currentPage++;
+            updateURL();
+        }
+    });
+
+    function updateURL() {
+        window.location.href = `http://localhost:8080/courses?pageNumber=${currentPage}`;
+    }
 </script>
 </body>
 </html>
