@@ -53,6 +53,7 @@ public class CourseUserEntity extends BaseEntity {
 
     @Column(name = "deleted")
     private boolean deleted;
+
     public CourseUserEntity() {
         super();
     }

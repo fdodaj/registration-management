@@ -63,7 +63,7 @@ public class UserConverter implements BidirectionalConverter<UserDto, UserEntity
         dto.setModifiedDate(entity.getModifiedDate());
         entity.setBirthDate(dto.getBirthDate());
         entity.setReachForm(dto.getReachForm());
-        entity.set_assigned(entity.is_assigned());
+        dto.setAssigned(entity.is_assigned());
         return dto;
     }
 
