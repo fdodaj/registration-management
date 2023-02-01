@@ -50,6 +50,7 @@ public class CourseUserController extends ControllerTemplate<CourseUserDto, Cour
         Page<CourseUserListDto> userCourseList = courseUserService.getCourseUserList(criteria);
         ModelAndView mv = new ModelAndView("user_course_list");
         mv.addObject("UserCourseList", userCourseList);
+        mv.addObject("courseUserCount", courseUserService.getCourseUserCount());
         return mv;
     }
 

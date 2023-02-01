@@ -9,28 +9,23 @@
           rel="stylesheet">
 
     <style>
-        .pageNumber {
-            align-content: center;
+        .pagination-button {
+            background-color: #333;
+            border: 1px solid #333;
+            color: #fff;
+            cursor: pointer;
             display: inline-block;
-            margin: 0 10px;
-            padding: 10px 15px;
-            background-color: #ddd;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #000;
+            padding: 8px 16px;
+            text-align: center;
         }
-        .forward, .back {
+
+        .pagination-button:hover {
             background-color: #fff;
-            border-radius: 5px;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: #000;
-            display: inline-block;
-            margin: 0 10px;
+            color: #333;
         }
     </style>
 </head>
-<body style="background-color: #9fbab3">
+<body onload="generatePaginationButtons(courseCount)" style="background-color: #9fbab3">
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 
     <!-- Brand -->
@@ -126,15 +121,10 @@
         </tbody>
 
     </table>
-    <div id="pageNumber">
-        <a class="back" href="#">&laquo;</a>
-        <a class="pageNumber" href="#">0</a>
-        <a class="pageNumber" href="#">1</a>
-        <a class="pageNumber" href="#">2</a>
-        <a class="pageNumber" href="#">3</a>
-        <a class="pageNumber" href="#">4</a>
-        <a class="forward" href="#">&raquo;</a>
-    </div>
+    <div id="pagination-container"></div>
+    <script th:inline="javascript">
+        const courseCount = [[${courseCount}]];
+    </script>
 
     <hr>
     <button class="btn btn-primary" id="exportToPdf" type="button">
@@ -185,6 +175,21 @@
             window.location.replace(url + '/exportToExcel')
         }
     )
+
+    function generatePaginationButtons(userCount) {
+        const pageSize = 10;
+        const buttonCount = Math.ceil(userCount / pageSize);
+        const paginationContainer = document.getElementById("pagination-container");
+        for (let i = 0; i < buttonCount; i++) {
+            const button = document.createElement("button");
+            button.classList.add("pagination-button");
+            button.innerHTML = (i+1).toString();
+            button.onclick = () => {
+                window.location.href = `/courses?pageNumber=${i}`;
+            };
+            paginationContainer.appendChild(button);
+        }
+    }
 </script>
 </body>
 </html>

@@ -15,6 +15,8 @@ public interface CourseUserService {
 
     CourseUserDto editCourseUser(CourseUserDto courseUserDto);
 
+    Long getCourseUserCount();
+
     CourseUserDto assignUserToCourse(CourseUserDto dto);
 
     void removeUserFromCourse(Long userId, Long courseId);

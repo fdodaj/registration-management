@@ -47,6 +47,7 @@ public class CourseController extends ControllerTemplate<CourseDto, CourseCriter
         Page<CourseDto> courseDtos = courseService.filterCourses(criteria);
         ModelAndView mv = new ModelAndView(COURSES);
         mv.addObject(COURSES, courseDtos);
+        mv.addObject("courseCount", courseService.getCourseCount());
         return mv;
     }
 

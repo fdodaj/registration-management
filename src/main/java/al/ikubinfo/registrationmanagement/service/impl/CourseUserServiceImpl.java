@@ -61,6 +61,11 @@ public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, C
     }
 
     @Override
+    public Long getCourseUserCount() {
+        return courseUserRepository.count();
+    }
+
+    @Override
     public List<CourseUserListDto> getCourseUserListByCourseId(Long courseId) {
         return courseUserRepository.getCourseUserEntitiesByCourseId(courseId)
                 .stream().map(courseUserConverter::toCourseUserList)

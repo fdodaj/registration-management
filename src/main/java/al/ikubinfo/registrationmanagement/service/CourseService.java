@@ -42,6 +42,8 @@ public interface CourseService {
      */
     CourseDto saveCourse(NewCourseDto course);
 
+    Long getCourseCount();
+
     /**
      * Update course
      *

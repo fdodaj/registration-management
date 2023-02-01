@@ -78,6 +78,11 @@ public class CourseServiceImpl
     }
 
     @Override
+    public Long getCourseCount() {
+        return courseRepository.count();
+    }
+
+    @Override
     public void deleteCourseById(Long id) {
         courseUserRepository.getCourseUserEntitiesByCourseCourseName(getCourseById(id).getCourseName()).forEach(e -> e.setDeleted(true));
         CourseEntity course = courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course does not exist"));
