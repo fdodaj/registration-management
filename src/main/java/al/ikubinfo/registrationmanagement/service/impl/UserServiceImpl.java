@@ -70,6 +70,7 @@ public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, U
         return userConverter.toDto(getStudentEntity(id));
     }
 
+
     @Override
     public UserDto saveUser(NewUserDto dto) {
         UserEntity userEntity = userConverter.toNewUserEntity(dto);
@@ -79,6 +80,11 @@ public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, U
         userEntity.setDeleted(Boolean.FALSE);
         userEntity.setRole(roleRepository.findByName(RoleEnum.STUDENT.toString()));
         return userConverter.toDto(userRepository.save(userEntity));
+    }
+
+    @Override
+    public Long countUsers() {
+        return userRepository.count();
     }
 
     @Override

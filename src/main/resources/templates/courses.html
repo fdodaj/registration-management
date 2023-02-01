@@ -162,6 +162,7 @@
         }
     )
 
+
     let exportToPdfButton = document.getElementById('exportToPdf');
     let exportToCvsButton = document.getElementById('exportToCvs');
     let exportToExcelButton = document.getElementById('exportToExcel');
@@ -182,41 +183,8 @@
     exportToExcelButton.addEventListener("click", () => {
             let url = 'http://localhost:8080/courses'
             window.location.replace(url + '/exportToExcel')
-
-
         }
     )
-
-    const pageNumberLinks = document.querySelectorAll('.pageNumber');
-    const backButton = document.querySelector('.back');
-    const forwardButton = document.querySelector('.forward');
-
-    let currentPage = 0;
-
-    pageNumberLinks.forEach(link => {
-        link.addEventListener('click', event => {
-            currentPage = parseInt(event.target.textContent, 10);
-            updateURL();
-        });
-    });
-
-    backButton.addEventListener('click', event => {
-        if (currentPage > 0) {
-            currentPage--;
-            updateURL();
-        }
-    });
-
-    forwardButton.addEventListener('click', event => {
-        if (currentPage < 4) {
-            currentPage++;
-            updateURL();
-        }
-    });
-
-    function updateURL() {
-        window.location.href = `http://localhost:8080/courses?pageNumber=${currentPage}`;
-    }
 </script>
 </body>
 </html>

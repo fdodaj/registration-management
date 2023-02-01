@@ -51,6 +51,7 @@ public class UserController extends ControllerTemplate<UserDto, UserCriteria, Us
         Page<UserDto> users = userService.filterUsers(criteria);
         ModelAndView mv = new ModelAndView(USERS);
         mv.addObject(USERS, users);
+        mv.addObject("userCount", userService.countUsers());
         return mv;
     }
 

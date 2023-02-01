@@ -36,6 +36,7 @@ public interface UserService {
      */
     UserDto saveUser(NewUserDto user);
 
+    Long countUsers();
     /**
      * Update user
      *
