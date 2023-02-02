@@ -4,6 +4,7 @@ import al.ikubinfo.registrationmanagement.converter.UserConverter;
 import al.ikubinfo.registrationmanagement.dto.authDtos.PasswordDto;
 import al.ikubinfo.registrationmanagement.dto.roleDtos.RoleEnum;
 import al.ikubinfo.registrationmanagement.dto.userDtos.NewUserDto;
+import al.ikubinfo.registrationmanagement.dto.userDtos.ReachFormEnum;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UpdateUserDto;
 import al.ikubinfo.registrationmanagement.dto.userDtos.UserDto;
 import al.ikubinfo.registrationmanagement.entity.UserEntity;
@@ -148,12 +149,16 @@ public class UserServiceImpl extends ServiceTemplate<UserCriteria, UserEntity, U
 
     @Override
     public String[] populate(UserEntity entity) {
+        String reachForm = "";
+        if (entity.getReachForm() != null) {
+            reachForm = entity.getReachForm().toString();
+        }
         return new String[]{
                 entity.getFirstName(),
                 entity.getLastName(),
                 entity.getEmail(),
                 entity.getPhoneNumber(),
-                entity.getReachForm().toString(),
+                reachForm
         };
     }
 }

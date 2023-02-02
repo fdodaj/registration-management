@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="ISO-8859-1">
     <title>Student Management System</title>
@@ -70,6 +70,7 @@
         <div class="col-lg-6">
             <a class="btn btn-success" th:href="@{/users/creation-form}"> Add Student</a>
         </div>
+
         <div class="form-outline mx-2">
             <input class="form-control" id="first_name" name="firstName" placeholder="First Name" type="search"/>
         </div>
@@ -80,7 +81,6 @@
         <button class="btn btn-primary" id="sendButton" type="button">
             Search
         </button>
-
     </div>
 
     <table class="table table-striped table-bordered" style="background-color: white">
@@ -145,29 +145,6 @@
 
 </div>
 <script>
-    let sendBtn = document.getElementById('sendButton');
-    let studentPage = 'http://localhost:8080/users'
-
-
-    sendBtn.addEventListener("click", () => {
-            studentPage = document.getElementById('first_name').value !== ""
-                ? studentPage + `?firstName=` + document.getElementById('first_name').value
-                : studentPage + `?`;
-
-            studentPage = document.getElementById('last_name').value !== ""
-                ? studentPage + `&lastName=` + document.getElementById('last_name').value
-                : studentPage;
-
-            studentPage = document.getElementById('pageNumber').value !== ""
-                ? studentPage + `&pageNumber=` + document.getElementById('pageNumber').value
-                : studentPage;
-
-
-            window.location.replace(studentPage)
-
-        }
-    )
-
     let exportToPdfButton = document.getElementById('exportToPdf');
     let exportToCvsButton = document.getElementById('exportToCvs');
     let exportToExcelButton = document.getElementById('exportToExcel');
@@ -203,6 +180,29 @@
             paginationContainer.appendChild(button);
         }
     }
+
+
+    let sendBtn = document.getElementById('sendButton');
+    let studentPage = 'http://localhost:8080/users'
+
+
+    sendBtn.addEventListener("click", () => {
+            studentPage = document.getElementById('first_name').value !== ""
+                ? studentPage + `?firstName=` + document.getElementById('first_name').value
+                : studentPage + `?`;
+
+            studentPage = document.getElementById('last_name').value !== ""
+                ? studentPage + `&lastName=` + document.getElementById('last_name').value
+                : studentPage;
+
+            studentPage = document.getElementById('pageNumber').value !== ""
+                ? studentPage + `&pageNumber=` + document.getElementById('pageNumber').value
+                : studentPage;
+
+            window.location.replace(studentPage)
+
+        }
+    )
 
 
 </script>

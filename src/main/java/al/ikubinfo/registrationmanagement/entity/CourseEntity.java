@@ -2,6 +2,8 @@ package al.ikubinfo.registrationmanagement.entity;
 
 import al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
@@ -10,7 +12,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
-@Data
+@Getter
+@Setter
 @Where(clause = "deleted = false")
 @Table(name = "course")
 public class CourseEntity extends BaseEntity {

@@ -33,7 +33,7 @@
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" data-target="#collapsibleNavbar" data-toggle="collapse" type="button">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>`
     </button>
 
     <!-- Navbar links -->
@@ -67,8 +67,6 @@
     <div class="input-group d-flex justify-content-end mb-2 flex-row">
         <div class="col-lg-8">
             <a class="btn btn-success" th:href="@{/courses/creation-form}"> Add course</a>
-
-
         </div>
 
         <div class="form-outline">
@@ -183,7 +181,7 @@
         for (let i = 0; i < buttonCount; i++) {
             const button = document.createElement("button");
             button.classList.add("pagination-button");
-            button.innerHTML = (i+1).toString();
+            button.innerHTML = (i + 1).toString();
             button.onclick = () => {
                 window.location.href = `/courses?pageNumber=${i}`;
             };

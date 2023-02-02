@@ -3,13 +3,10 @@ package al.ikubinfo.registrationmanagement.service.impl;
 import al.ikubinfo.registrationmanagement.converter.CourseUserConverter;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserDto;
 import al.ikubinfo.registrationmanagement.dto.courseUserDtos.CourseUserListDto;
-import al.ikubinfo.registrationmanagement.entity.CourseEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserEntity;
 import al.ikubinfo.registrationmanagement.entity.CourseUserId;
-import al.ikubinfo.registrationmanagement.repository.CourseRepository;
 import al.ikubinfo.registrationmanagement.repository.CourseUserRepository;
 import al.ikubinfo.registrationmanagement.repository.UserRepository;
-import al.ikubinfo.registrationmanagement.repository.criteria.CourseCriteria;
 import al.ikubinfo.registrationmanagement.repository.criteria.CourseUserCriteria;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseSpecification;
 import al.ikubinfo.registrationmanagement.repository.specification.CourseUserSpecification;
@@ -26,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, CourseUserEntity, CourseUserRepository, CourseUserSpecification> implements CourseUserService {
     @Autowired
@@ -38,6 +36,7 @@ public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, C
     private CourseUserRepository courseUserRepository;
     @Autowired
     private UserRepository userRepository;
+
     protected CourseUserServiceImpl(CourseUserRepository repository, CourseUserSpecification specificationBuilder) {
         super(repository, specificationBuilder);
     }
@@ -120,19 +119,27 @@ public class CourseUserServiceImpl extends ServiceTemplate<CourseUserCriteria, C
         if (entity.getPriceReduction() == null) {
             entity.setPriceReduction(0.0);
         }
+        String courseStartDate = "";
+        if (entity.getCourse().getCourseStartDate() != null) {
+            courseStartDate = entity.getCourse().getCourseStartDate().toString();
+        }
+        String courseEndDate = "";
+        if (entity.getCourse().getCourseEndDate() != null) {
+            courseEndDate = entity.getCourse().getCourseEndDate().toString();
+        }
 
         return new String[]{entity.getUser().getFirstName(),
-               entity.getUser().getLastName(),
-               entity.getUser().getEmail(),
-               entity.getUser().getPhoneNumber(),
-               entity.getCourse().getCourseName(),
-               entity.getCourse().getCourseStartDate().toString(),
-               entity.getCourse().getCourseEndDate().toString(),
-               entity.getCourse().getStatus().toString(),
-               entity.getComment(),
-               entity.getReference(),
-               entity.getPricePaid().toString(),
-               entity.getPriceReduction().toString()
+                entity.getUser().getLastName(),
+                entity.getUser().getEmail(),
+                entity.getUser().getPhoneNumber(),
+                entity.getCourse().getCourseName(),
+                courseStartDate,
+                courseEndDate,
+                entity.getCourse().getStatus().toString(),
+                entity.getComment(),
+                entity.getReference(),
+                entity.getPricePaid().toString(),
+                entity.getPriceReduction().toString()
         };
     }
 }
