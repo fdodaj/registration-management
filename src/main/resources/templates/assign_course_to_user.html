@@ -20,8 +20,8 @@
 
 
                     <div class="form-group ">
-                        <select name="status" th:field="*{status}"   th:required="required" class="form-control">
-                            <option value="" selected hidden>Select status</option>
+                        <select name="* status" th:field="*{status}"   th:required="required" class="form-control">
+                            <option value="" selected hidden>* Select status</option>
 
                             <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.userDtos.UserStatusEnum).values()}"
                                     th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>
@@ -33,7 +33,7 @@
 
                     <div class="form-group ">
                         <select th:field="*{courseId}" class="form-control" th:required="required">
-                            <option value="" selected hidden>Select Course</option>
+                            <option value="" selected hidden>* Select Course</option>
 
                             <option th:each="course : ${courses}"
                                     th:value="${course.id}" th:text="${course.courseName}">

@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Course name </label>
+                        <label>* Course name </label>
                         <input class="form-control" name="courseName" th:field="*{courseName}" type="text"/>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('courseName')}"
                              th:errors="*{courseName}"></div>
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Course registration start date </label>
+                        <label>* Course registration start date </label>
                         <input class="form-control" name="registrationStartDate" th:field="*{registrationStartDate}"
                                type="date"/>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('registrationStartDate')}"
@@ -96,7 +96,7 @@
 
                     <div class="form-group ">
                         <select name="status" th:field="*{status}" style="text-align: center" class="form-control">
-                            <option value="" selected hidden>Course status</option>
+                            <option value="" selected hidden>* Course status</option>
 
                             <option th:each="statusOpt : ${T(al.ikubinfo.registrationmanagement.dto.courseDtos.CourseStatus).values()}"
                                     th:text="${statusOpt.getDisplayValue()}" th:value="${statusOpt}"></option>

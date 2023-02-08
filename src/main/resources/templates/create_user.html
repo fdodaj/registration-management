@@ -49,7 +49,7 @@
                 <form method="POST" th:action="@{/users}" th:object="${user}">
 
                     <div class="form-group">
-                        <input class="form-control" name="name" placeholder="First name" th:field="*{firstName}"
+                        <input class="form-control" name="name" placeholder="* First name" th:field="*{firstName}"
                                th:maxlength="35" type="text"/>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}"
                              th:errors="*{firstName}"></div>
